@@ -8,8 +8,6 @@ import sqlbd from '@/public/sql-database-sql.png'
 import tailwind from '@/public/tailwind-css-icon-2048.png'
 import typescript from '@/public/typescript-2.svg'
 
-export const AppName = 'GitGallery';
-
 export const username = 'Joe_J'
 
 export const about_me_text = "I am very enthusiastic about science and technology. My passion for technology fuels my dedication to crafting applications. My decision-making and thinking involve solving problems in a logical manner. I am constantly improving my skills by learning the best practices of architecting software while keeping scalability, maintainability, and usability of the products in mind for users and clients. Currently, I am immersed in the dynamic world of web application development, channeling my creativity and skills through Next.js in a bid to eventually innovate and provide solutions."

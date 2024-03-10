@@ -1,30 +1,40 @@
-'use client'
-import React from 'react'
+"use client";
+import React from "react";
 
-import { tech_stack_icons } from '@/utils/ui_variables'
-import Image from 'next/image'
+import { tech_stack_icons } from "@/utils/ui_variables";
+import Image from "next/image";
 
 const TechStack = () => {
   return (
-    <div className='relative lg:hidden w-full md:w-[800px] md:left-1/2 md:-translate-x-1/2 min-h-[1vh] rounded-xl mt-5'>
-      {/* <div className='absolute  bottom-0 p-2 w-full'> */}
-        <div className='glassmorphism bg w-full md:max-w-[1200px] mx-auto p-3 flex flex-col md:flex-row items-center gap-5 rounded-xl'>
-          {/* <h3 className=' border-r-2 dark:border-gray-300 border-gray-950 text-lg logo_text pr-5'>Tech Stack</h3> */}
-          <div className='flex flex-wrap  justify-center gap-5'>
-            {
-              tech_stack_icons.slice(0, 10).map((icon) =>(
-                <div key={icon.id} className='bg-white p-0.5 dark:bg-black text-xs tracking-wider rounded-xl flex-c-center border-1 text-emerald-500 border-emerald-500 '>
-                  <Image src={icon.link} height={40} width={40} alt='student_logo' className='h-full object-contain cursor-pointer  rounded-xl'/>
-                  <p className='px-2'>{icon.title}</p>
-                </div>
-              ))
-            }
+    <div className="relative w-full  md:max-w-[1300px] md:left-1/2 md:-translate-x-1/2 min-h-[10vh] sm:min-h-[23vh] rounded-xl mt-5 ">
+      <div className="h-14 w-14 p-5 flex-c-center items-center  bg-emerald-500 rounded-full cursor-pointer fixed right-2 bottom-10 md:bottom-0 z-40">
+        text
+      </div>
+
+      {/* Stack */}
+      <div className="md:absolute w-full  bottom-0 p-2">
+        <div className=" w-full mx-auto p-3 flex flex-col md:flex-row items-center justify-center gap-5 rounded-xl">
+          <div className="md:flex grid grid-cols-2 sm:grid-cols-3 rounded-lg shadow-lg bg-white dark:bg-black w-full  p-5 flex-wrap justify-center gap-5 ">
+            {tech_stack_icons.slice(0, 10).map((icon) => (
+              <div
+                key={icon.id}
+                className="bg-white p-1 dark:bg-black text-xs tracking-wider rounded-xl flex items-center border-1  shadow-lg sm:w-[160px]"
+              >
+                <Image
+                  src={icon.link}
+                  height={40}
+                  width={40}
+                  alt="student_logo"
+                  className="h-full object-contain cursor-pointer  rounded-xl"
+                />
+                <p className="px-2">{icon.title}</p>
+              </div>
+            ))}
           </div>
         </div>
-      {/* </div> */}
-      
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default TechStack
+export default TechStack;

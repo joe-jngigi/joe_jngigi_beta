@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AestheticRog = () => {
+export const AestheticRog = () => {
   return (
     <div className='flex flex-row gap-2'>
         <span className='p-1.5  bg-red-500 rounded-full cursor-pointer'></span>
@@ -10,4 +10,4 @@ const AestheticRog = () => {
   )
 }
 
-export default AestheticRog
+ 
