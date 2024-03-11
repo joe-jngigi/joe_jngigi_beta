@@ -17,7 +17,7 @@ const ProfileIntro = () => {
           </span>
         </h2>
 
-        <div className=" w-full h-full relative grid md:grid-cols-2 gap-3 md:gap-5 mt-20">
+        <div className=" w-full h-full relative grid md:grid-cols-2 gap-3 md:gap-5 mt-16">
           <div className="dark:bg-black bg-white shadow-lg rounded-lg dark:text-white p-3 border dark:border-gray-300 ">
             <AestheticRog />
             <div className="  tracking-wider mt-3 font-about ">
@@ -29,8 +29,8 @@ const ProfileIntro = () => {
                 <p className="dark:text-gray-500 text-gray-300 italic">{`<span>`}</p>
                 <br />
                 <p>
-                  I&apos; am, a developer passionate about crafting intuitive
-                  software. My main Interest right now is on{" "}
+                  My name is Joseph, a developer passionate about crafting intuitive
+                  software Applications. Currently, my main focus is on{" "}
                   <span className="text-emerald-500">web development</span>. I
                   have considerable experience with languages and frameworks ie.{" "}
                   <span className=" text-emerald-500">

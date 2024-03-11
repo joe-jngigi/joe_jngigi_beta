@@ -1,5 +1,4 @@
-import { LucideHome } from 'lucide-react'
-import Link from 'next/link'
+import Link from "next/link";
 
 const PagesLinks = () => {
   return (
@@ -11,9 +10,7 @@ const PagesLinks = () => {
           href="/"
         >
           {/*  */}
-          <span className=" tracking-wide">
-            <LucideHome />
-          </span>
+          <span className=" tracking-wide">Home</span>
         </Link>
 
         <Link
@@ -36,6 +33,6 @@ const PagesLinks = () => {
       </div>
     </>
   );
-}
+};
 
-export default PagesLinks
+export default PagesLinks;

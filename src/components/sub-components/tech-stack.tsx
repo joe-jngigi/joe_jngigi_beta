@@ -7,10 +7,6 @@ import Image from "next/image";
 const TechStack = () => {
   return (
     <div className="relative w-full  md:max-w-[1300px] md:left-1/2 md:-translate-x-1/2 min-h-[10vh] sm:min-h-[23vh] rounded-xl mt-5 ">
-      <div className="h-14 w-14 p-5 flex-c-center items-center  bg-emerald-500 rounded-full cursor-pointer fixed right-2 bottom-10 md:bottom-0 z-40">
-        text
-      </div>
-
       {/* Stack */}
       <div className="md:absolute w-full  bottom-0 p-2">
         <div className=" w-full mx-auto p-3 flex flex-col md:flex-row items-center justify-center gap-5 rounded-xl">

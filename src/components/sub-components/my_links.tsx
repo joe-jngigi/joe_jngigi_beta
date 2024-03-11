@@ -1,12 +1,29 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { FaGithub, FaXTwitter } from "react-icons/fa6";
-import { ExternalLink, LinkIcon, Linkedin } from "lucide-react";
+import { Linkedin } from "lucide-react";
 
-import Link from "next/link";
+import { FiCopy } from "react-icons/fi";
+import { LuCopyCheck } from "react-icons/lu";
+import { RiMessage3Line } from "react-icons/ri";
+
+import { toast } from "sonner";
 import { AestheticRog } from "@/components/sub-components/aesthetic-rog";
-import { MdMarkEmailRead } from "react-icons/md";
+import { EmailDialog } from "./email_dialog";
+import { SiMinutemailer } from "react-icons/si";
 
 export const SocialsTexts = () => {
+  const [onCopy, setOnCopy] = useState(false);
+  const email = "josephngigi775@gmail.com";
+
+  const onClick = (email: string) => {
+    setOnCopy(true);
+    navigator.clipboard.writeText(email);
+    toast.success("Email Copied Successfuly!");
+    setTimeout(() => {
+      setOnCopy(false);
+    }, 2000);
+  };
   return (
     <div className="flex-col flex gap-5">
       <div className=" w-ful p-3 dark:bg-black bg-white shadow-lg h-full rounded-lg border dark:border-gray-300">
@@ -17,7 +34,7 @@ export const SocialsTexts = () => {
           </p>
         </div>
 
-        <div className="mt-3 text-sm rounded-lg py-3">
+        <div className="mt-3 text-xs rounded-lg py-3">
           {/* Social links */}
           <div className="flex flex-row gap-3 sm:gap-16 p-5 justify-between sm:justify-center">
             <a
@@ -50,33 +67,32 @@ export const SocialsTexts = () => {
               <Linkedin size={20} />
               <span>LinkedIn</span>
             </a>
-           
-            <a
-              title="Well, this is email"
-              className=" flex-c-center gap-1 flex-col"
-              href="mailto:josephngigi775@gmail.com"
-              target="_blank"
-            >
-              <MdMarkEmailRead size={20} />
-              <span>G-Mail</span>
-            </a>
           </div>
 
           {/*  */}
-          <div className=" text-emerald-500 flex-c-center gap-3 text-base tracking-wider text-center flex flex-row">
-            <Link
-              className="variant_btn w-[160px] flex flex-row items-center justify-center"
-              href={"#"}
-            >
-              View CV <ExternalLink size={15} className="ml-3" />
-            </Link>
-            <Link
-              className="variant_btn w-[160px] flex flex-row items-center justify-center"
-              href={"#"}
-            >
-              My Work <ExternalLink size={15} className="ml-3" />
-            </Link>
-            
+          <div className="w-full duration-300 transition-all">
+            <div className="text-sm p-2 flex-c-center items-center">
+              <RiMessage3Line />
+              <p>{email}</p>
+            </div>
+
+            {/* Buttons */}
+            <div className="rounded-md p-2 flex-c-center flex-row gap-3 sm:gap-5 ">
+              <EmailDialog asChild>
+                <button className="flex flex-row items-center justify-center rounded-full bg-emerald-500/20 text-emerald-500 py-2 px-2 sm:px-8 font-[500] text-xs cursor-pointer">
+                  <span className="mr-2 ">DM Me</span>
+                  <SiMinutemailer />
+                </button>
+              </EmailDialog>
+
+              <button
+                onClick={() => onClick(email)}
+                className="flex flex-row items-center justify-center rounded-full bg-emerald-500/20 text-emerald-500 py-2 px-2 sm:px-8 font-[500] text-xs"
+              >
+                <span className="mr-2">Copy Email</span>
+                {onCopy ? <LuCopyCheck /> : <FiCopy />}
+              </button>
+            </div>
           </div>
         </div>
       </div>

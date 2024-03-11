@@ -6,7 +6,7 @@ import Link from 'next/link'
 import axios from 'axios'
 
 import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
+import {toast} from 'sonner';
 import { signIn } from 'next-auth/react';
 
 
