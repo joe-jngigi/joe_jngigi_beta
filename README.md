@@ -4,18 +4,30 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Code Snippets
 
- ```TSX
- <p className="date">
-    {new Date(`${blogPost.datePublished}`).toLocaleDateString(
-      'en-us',
-      {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-      }
-    )}
+```TSX
+<p className="date">
+   {new Date(`${blogPost.datePublished}`).toLocaleDateString(
+     'en-us',
+     {
+       year: 'numeric',
+       month: 'short',
+       day: 'numeric',
+     }
+   )}
 </p>
 ```
+
+#
+
+"A weaver of dreams at the loom of the mind" is a metaphorical expression describing someone who is skilled at creating imaginative and fantastical ideas or visions within their own mind.
+
+Here's a breakdown of the metaphor:
+
+- "A weaver of dreams": This part suggests that the person has the ability to construct or create dreams, which can be interpreted as aspirations, fantasies, or creative ideas.
+
+- "At the loom of the mind": This part likens the mind to a loom, a device used for weaving fabric. It implies that the mind is the tool or instrument through which these dreams are crafted, woven together from the threads of imagination and thought.
+
+Together, the expression conveys the idea of someone who is adept at constructing intricate and captivating mental images or ideas, much like a skilled weaver creates beautiful fabrics on a loom.
 
 ## Random Modal Component Code
 
@@ -28,7 +40,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
       </button>
     </div>
     <div className='absolute top-0 bg-blend-luminosity bg-black  bg-opacity-90  w-[70%]  h-[100vh] p-2 md:p-5 text-white'>
-      Yeap   
+      Yeap
     </div>
 </div>
 ```
@@ -79,24 +91,24 @@ const marvelMovies = [
 
 ```json
 {
-  '0': 'B',
-  '1': 'l',
-  '2': 'a',
-  '3': 'c',
-  '4': 'k',
-  '5': ' ',
-  '6': 'W',
-  '7': 'i',
-  '8': 'd',
-  '9': 'o',
-  '10': 'w',
-  '11': ' ',
-  '12': '(',
-  '13': '2',
-  '14': '0',
-  '15': '2',
-  '16': '1',
-  '17': ')'
+  "0": "B",
+  "1": "l",
+  "2": "a",
+  "3": "c",
+  "4": "k",
+  "5": " ",
+  "6": "W",
+  "7": "i",
+  "8": "d",
+  "9": "o",
+  "10": "w",
+  "11": " ",
+  "12": "(",
+  "13": "2",
+  "14": "0",
+  "15": "2",
+  "16": "1",
+  "17": ")"
 }
 ```
 
@@ -146,12 +158,12 @@ If you `console.log({...eachData})` you get the following
 When you use the spread operator with `{...eachData}`, you're telling JavaScript to treat the string as an iterable and spread its characters into separate properties in an object. Also we note that in `TS`, for any data we describe, it is given an `any` type, so we can describe the data as shown in this section of the code
 
 ```tsx
-FETCHED_DATA.map((eachData: {id: number, title: string, body:string}) =>(
-  <Postcard key= {eachData.id} {...eachData} />
-))
+FETCHED_DATA.map((eachData: { id: number; title: string; body: string }) => (
+  <Postcard key={eachData.id} {...eachData} />
+));
 ```
 
->**NB** This type declaration ensures that when you use the `eachData` object in your code, it should adhere to this specific structure with the defined data types. For example, it prevents you from assigning a non-number value to the id property or a non-string value to the title property.
+> **NB** This type declaration ensures that when you use the `eachData` object in your code, it should adhere to this specific structure with the defined data types. For example, it prevents you from assigning a non-number value to the id property or a non-string value to the title property.
 
 check out the code structure in [Learning Typescript](https://github.com/joe-jngigi/next_learn_dev/blob/next/app/typescript/page.tsx)
 
@@ -182,12 +194,13 @@ setUser({
 
 In Typescript, you will note that name has a Lint.</br>
 
-***Error***</br>
+**_Error_**</br>
 Argument of type `{ name: string; sessionId: number; }` is not assignable to parameter of type `SetStateAction<null>`. Object literal may only specify known properties, and `name` does not exist in type `(prevState: null) => null`.
 
 > Linting, is the process of analyzing your code to find potential issues, coding style violations, and other problematic patterns. You can identify this using **ESLint**, which is a popular open-source linting tool for JavaScript and TypeScript.
 
 In simple terms, you are giving name and sessionId, but you specified that it can be null. To prevent the error, we will use generics
+
 > Generics in TypeScript are a powerful feature that allow you to write functions, classes, and types that can work with a variety of data types while maintaining type safety. They allow you to maintain type safety while still dealing with flexible types.
 
 ```TS
@@ -289,7 +302,8 @@ To create context, you want to start by importing `createContext`
 
 **Big Question**</br>
 Does a form capture the data from the inputs automatically?
->> Absolutely Yes, a form captures data from the input fields automatically when it's submitted. However, in the provided code, there are a few modifications needed to correctly capture and handle the form data. Remember in this code, I am using typescript, so I will need to be able to handle data types for the data entered by the user
+
+> > Absolutely Yes, a form captures data from the input fields automatically when it's submitted. However, in the provided code, there are a few modifications needed to correctly capture and handle the form data. Remember in this code, I am using typescript, so I will need to be able to handle data types for the data entered by the user
 
 I really don't require this piece of code, but I learnt it anyway
 
@@ -366,7 +380,7 @@ By passing the form element to `FormData`, you're essentially capturing all the 
 A context is a mechanism that allows components to share data without the need to pass props explicitly through every level of the component tree. It provides a way to manage and share state or other values across different components, even if they are not directly related in the component hierarchy. In simple terms it can be used to share data accross the application. Using context, you can create a context provider component that wraps a portion of your component tree. This provider makes the specified data or functions available to any component.
 
 > How can one create a context?
-We start by first creating a context like shown below. and since I am using typescript, I will define a data structure initially like shown. Ypu note that we first import create context like shown bellow,
+> We start by first creating a context like shown below. and since I am using typescript, I will define a data structure initially like shown. Ypu note that we first import create context like shown bellow,
 
 ```TS
 import { createContext } from 'react';
@@ -390,7 +404,7 @@ export const AppContext = createContext<AuthContextType>(initialAuthStatus);
 What is `initialAuthStatus`?</br>
 It is called a **default value**, and is required to pe passed in so that when you have forgotten to provide context, that is it is used when there is no provider. That means that everything falls back to default value. Let me break down what is happening here.
 
-`createContext` is a built in react function used to provide context. `AuthContextType` is used in as the generics and it is used to define a the default data type of the context. `initialAuthStatus`  This can be anything, and it used to define a **default value** as shown. I will using a simpler example to see how we can use the context. Suppose we want to change the theme of our application to be maybe `dark mode` or `light mode`. You notice that when we pass in the value `light`, it will have a lint *Argument of type 'string' is not assignable to parameter of type 'ThemeTypes'.*
+`createContext` is a built in react function used to provide context. `AuthContextType` is used in as the generics and it is used to define a the default data type of the context. `initialAuthStatus` This can be anything, and it used to define a **default value** as shown. I will using a simpler example to see how we can use the context. Suppose we want to change the theme of our application to be maybe `dark mode` or `light mode`. You notice that when we pass in the value `light`, it will have a lint _Argument of type 'string' is not assignable to parameter of type 'ThemeTypes'._
 
 `export const ThemeContext = createContext<ThemeTypes>('light')`
 
@@ -454,7 +468,7 @@ export const ThemeContext = createContext<ThemeTypes>(defaultThemeValue)
 export const ThemeContextProvider:FC<ThemeTypes> = () => {
 
   return  <ThemeContext></ThemeContext>
-  
+
 }
 ```
 
@@ -702,7 +716,7 @@ export const options: NextAuthOptions = {
         CredentialsProvider({
           // The name to display on the sign in form (e.g. 'Sign in with...')
           name: 'Credentials',
-          
+
           credentials: {
             username: {  },
             password: {  }
@@ -711,16 +725,16 @@ export const options: NextAuthOptions = {
             username: { label: "Username", type: "text", placeholder: "jsmith" },
             password: { label: "Password", type: "password" }
           },
-          
+
           async authorize(credentials, req) {
-            
+
             const res = await fetch("/your/endpoint", {
               method: 'POST',
               body: JSON.stringify(credentials),
               headers: { "Content-Type": "application/json" }
             })
             const user = await res.json()
-      
+
             // If no error and we have user data, return it
             if (res.ok && user) {
               return user
@@ -799,8 +813,8 @@ CredentialsProvider({
       return
 
       } catch (error) {
-        console.log(error);       
-      }         
+        console.log(error);
+      }
     }
   })
 ```
@@ -891,4 +905,3 @@ import myCustomName from './yourModule';
 Default exports are convenient when you have a single main entity to export from a module. It simplifies the import syntax because you can choose any name for the imported entity.
 
 ## MDX Files
-

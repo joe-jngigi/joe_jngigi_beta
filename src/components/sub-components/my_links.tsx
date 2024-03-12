@@ -5,7 +5,6 @@ import { Linkedin } from "lucide-react";
 
 import { FiCopy } from "react-icons/fi";
 import { LuCopyCheck } from "react-icons/lu";
-import { RiMessage3Line } from "react-icons/ri";
 
 import { toast } from "sonner";
 import { AestheticRog } from "@/components/sub-components/aesthetic-rog";
@@ -26,7 +25,7 @@ export const SocialsTexts = () => {
   };
   return (
     <div className="flex-col flex gap-5">
-      <div className=" w-ful p-3 dark:bg-black bg-white shadow-lg h-full rounded-lg border dark:border-gray-300">
+      <div className="dark:bg-primary-dark-bg bg-white rounded-lg dark:text-white p-5 dark:shadow-emerald-950 dark:shadow-lg drop-shadow-lg border dark:border-none h-full">
         <div className="flex items-center">
           <AestheticRog />
           <p className=" text-lg logo_text text-center  w-full ">
@@ -72,7 +71,6 @@ export const SocialsTexts = () => {
           {/*  */}
           <div className="w-full duration-300 transition-all">
             <div className="text-sm p-2 flex-c-center items-center">
-              <RiMessage3Line />
               <p>{email}</p>
             </div>
 

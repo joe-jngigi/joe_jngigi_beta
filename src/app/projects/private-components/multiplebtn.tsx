@@ -27,7 +27,7 @@ const BackBtn: React.FC<BTNPROPS> = ({
       <button
         onClick={() => setCloseMenu((prev) => !prev)}
         className={cn(
-          "block sm:hidden h-12 w-12 border-2 border-emerald-500 bg-emerald-500 rounded-full fixed bottom-10 right-2  flex-c-center",
+          "block sm:hidden h-12 w-12 border-2 dark:bg-black bg-white shadow-lg drop-shadow-lg rounded-full fixed bottom-10 right-2  flex-c-center",
           className_btn_menu
         )}
       >

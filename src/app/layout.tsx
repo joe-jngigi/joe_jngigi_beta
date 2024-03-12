@@ -14,7 +14,7 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
   return (
     <AuthSessionProvider>
       <html className='dark:bg-dark-hero !scroll-smooth' lang="en">
-        <body className= 'sm:max-w-[1800px] mx-auto md:p-0 h-screen '>
+        <body className= 'sm:max-w-[1800px] mx-auto md:p-0 h-screen duration-300 transition-all'>
             
             {/* Navbar */}
             <SpeedInsights />
