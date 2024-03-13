@@ -13,7 +13,7 @@ const Panel = ({ className }: { className: string }) => {
         className
       )}
     >
-      <div className="flex-between cursor-pointer mt-2 p-5 dark:shadow-emerald-950 drop-shadow-lg shadow-md dark:border-none dark:bg-primary-dark-bg  bg-white rounded-xl flex-row items-center">
+      <div className="flex-between cursor-pointer mt-2 p-3 dark:shadow-emerald-950 drop-shadow-lg shadow-md dark:border-none dark:bg-primary-dark-bg  bg-white rounded-xl flex-row items-center">
         <h2 className="text-xl font-semibold">Projects</h2>
         <span>
           <ListTodo size={32} />

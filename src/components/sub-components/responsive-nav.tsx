@@ -14,7 +14,7 @@ const ResponsiveNav = () => {
   const [notificationDropdown, setNotificationDropdown] = useState(false);
   return (
     <>
-      <div className="flex justify-between items-center cursor-pointer gap-6 dark:bg-primary-dark-bg border lg:border-none dark:border-none p-1 rounded-full dark:shadow-emerald-500 dark:shadow-sm">
+      <div className="flex justify-between items-center  gap-6 dark:bg-primary-dark-bg border lg:border-none dark:border-none p-1 rounded-full dark:shadow-emerald-500 dark:shadow-sm">
         {/* Desktop Navigation */}
         <div className="p-2 flex-c-center h-10 w-10 sm:w-auto sm:h-auto items-center bg-emerald-500/20 text-emerald-500 rounded-full cursor-pointer">
           <SiGoogleassistant size={30} className="" />
@@ -27,13 +27,13 @@ const ResponsiveNav = () => {
 
             // document.body.style.overflow = 'unset'
           }}
-          className="pr-3 sm:hidden"
+          className="pr-3 sm:hidden "
         >
           <CgMenuRight size={20} />
         </button>
 
         {/* Avatar */}
-        <div className="sm:flex hidden text-black">
+        <div className="sm:flex hidden text-black cursor-pointer">
           <Avatar>
             <AvatarImage src="#" />
             <AvatarFallback>

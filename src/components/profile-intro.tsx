@@ -14,7 +14,7 @@ const ProfileIntro = () => {
           </span>
         </h2>
 
-        <div className=" w-full h-full relative grid md:grid-cols-2 gap-16 md:gap-5 mt-12">
+        <div className=" w-full h-full grid md:grid-cols-2 gap-16 md:gap-5 mt-12">
           <div className="dark:bg-primary-dark-bg bg-white rounded-lg dark:text-white p-5 dark:shadow-emerald-950 dark:shadow-lg drop-shadow-lg border dark:border-none">
             <AestheticRog />
             <div className="  tracking-wider mt-5 font-about ">

@@ -1,5 +1,5 @@
 import connectDB from "@/lib/mongodb";
-import User from "@/model/user";
+import User from "@/model/user_schemas";
 import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
@@ -13,7 +13,7 @@ export const POST = async (req: Request) => {
     if (collectionCount === 0) {
       console.log("Database empty, creating collection...");
       await db.createCollection("users", { validationLevel: "strict" });
-      
+
       console.log("Collection created successfully!");
     }
 
@@ -29,15 +29,13 @@ export const POST = async (req: Request) => {
       email: userExist?.user_email || null,
       username: userExist?.username || null,
       _id: userExist?._id || null,
-
-    }
+    };
 
     return NextResponse.json({
       u_mail,
       message: userExist ? "User found" : "User not found",
       status: 200,
     });
-
   } catch (error) {
     console.log("User Exist Error/api/check-user", error);
     return NextResponse.json({
