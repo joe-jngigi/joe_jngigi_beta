@@ -27,13 +27,13 @@ const ResponsiveNav = () => {
 
             // document.body.style.overflow = 'unset'
           }}
-          className="pr-3 sm:hidden "
+          className="pr-3 md:hidden "
         >
           <CgMenuRight size={20} />
         </button>
 
         {/* Avatar */}
-        <div className="sm:flex hidden text-black cursor-pointer">
+        <div className="md:flex hidden text-black cursor-pointer">
           <Avatar>
             <AvatarImage src="#" />
             <AvatarFallback>
