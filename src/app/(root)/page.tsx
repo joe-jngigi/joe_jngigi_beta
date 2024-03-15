@@ -14,9 +14,11 @@ export default function Home() {
         {/* <TechStack /> */}
         <div className="w-full flex-c-center absolute bottom-0 left-1/2 -translate-x-1/2 gap-3 text-base tracking-wider text-center ">
           <span>
-            <Link
-              className="flex flex-row items-center justify-center rounded-full bg-emerald-500/20 text-emerald-500 py-2 px-2 sm:px-8 font-[500] text-sm"
-              href={"#"}
+            <Link 
+              className="flex flex-row items-center justify-center rounded-full bg-emerald-500/20 text-emerald-500 py-2 px-2 sm:px-8 font-[500] text-sm" 
+              href={
+                "https://docs.google.com/document/d/1j4ZvGG4xQ9ZRiobTiFqXHLZV7b73tt-i/edit?usp=sharing&ouid=118297919948625736584&rtpof=true&sd=true"
+              } target="_blank"
             >
               View CV <ExternalLink size={15} className="ml-3 hidde md:block" />
             </Link>
@@ -24,7 +26,7 @@ export default function Home() {
           <span>
             <Link
               className="flex flex-row items-center justify-center rounded-full bg-emerald-500/20 text-emerald-500 py-2 px-2 sm:px-8 font-[500] text-sm"
-              href={"#"}
+              href= "/projects"
             >
               My Work <ExternalLink size={15} className="ml-3 hidde md:block" />
             </Link>

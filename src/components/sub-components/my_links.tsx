@@ -43,7 +43,6 @@ export const SocialsTexts = () => {
               target="_blank"
             >
               <FaGithub size={20} />
-
               <span>GitHub</span>
             </a>
 
