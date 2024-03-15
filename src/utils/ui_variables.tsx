@@ -10,7 +10,6 @@ import typescript from "@/public/typescript-2.svg";
 
 import dashboard from "@/public/screens/dashboard.png";
 
-
 export const username = "Joe_J";
 
 export const about_me_text =
@@ -70,59 +69,12 @@ export const app_modules = [
 
 export const project_details = [
   {
-    iconcategories: "",
-    name: "Authentication",
+    badge: "Desktop Only",
+    name: "Next V5 - Authentication",
     project_link: "https://next-auth-ts-v5.vercel.app",
     source_code: "https://github.com/joe-jngigi/next_auth_V5",
-    description: "This is a project",
-    image: dashboard,
-  },
-  {
-    categories: "",
-    name: "Authentication",
-    project_link: "https://next-auth-ts-v5.vercel.app",
-    source_code: "https://github.com/joe-jngigi/next_auth_V5",
-    description: "This is a project",
-    image: dashboard,
-  },
-  {
-    categories: "",
-    name: "Authentication",
-    project_link: "https://next-auth-ts-v5.vercel.app",
-    source_code: "https://github.com/joe-jngigi/next_auth_V5",
-    description: "This is a project",
-    image: dashboard,
-  },
-  {
-    categories: "",
-    name: "Authentication",
-    project_link: "https://next-auth-ts-v5.vercel.app",
-    source_code: "https://github.com/joe-jngigi/next_auth_V5",
-    description: "This is a project",
-    image: dashboard,
-  },
-  {
-    categories: "",
-    name: "Authentication",
-    project_link: "https://next-auth-ts-v5.vercel.app",
-    source_code: "https://github.com/joe-jngigi/next_auth_V5",
-    description: "This is a project",
-    image: dashboard,
-  },
-  {
-    categories: "",
-    name: "Authentication",
-    project_link: "https://next-auth-ts-v5.vercel.app",
-    source_code: "https://github.com/joe-jngigi/next_auth_V5",
-    description: "This is a project",
-    image: dashboard,
-  },
-  {
-    categories: "",
-    name: "Authentication",
-    project_link: "https://next-auth-ts-v5.vercel.app",
-    source_code: "https://github.com/joe-jngigi/next_auth_V5",
-    description: "This is a project",
+    description:
+      "On this project, I have implemented nextAuth V5. It has features of multiple users, confrimation blocks for authentication, and user previleges",
     image: dashboard,
   },
 ];

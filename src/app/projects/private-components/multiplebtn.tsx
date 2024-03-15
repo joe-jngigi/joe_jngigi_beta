@@ -23,11 +23,11 @@ const BackBtn: React.FC<BTNPROPS> = ({
   console.log("closeMenu: ", closeMenu);
 
   return (
-    <>
+    <div>
       <button
         onClick={() => setCloseMenu((prev) => !prev)}
         className={cn(
-          "block sm:hidden h-12 w-12 border-2 dark:bg-black bg-white shadow-lg drop-shadow-lg rounded-full fixed bottom-10 right-2  flex-c-center",
+          "block sm:hidden h-12 w-12 border-1 border-emerald-500/20 bg-emerald-500/20 shadow-lg drop-shadow-lg rounded-full fixed bottom-10 right-2  flex-c-center",
           className_btn_menu
         )}
       >
@@ -39,7 +39,7 @@ const BackBtn: React.FC<BTNPROPS> = ({
           className={
             closeMenu &&
             cn(
-              "absolute min-h-[100px] bottom-24 right-3  sm:hidden flex gap-2 flex-col",
+              "fixed min-h-[100px]  bottom-24 right-3  sm:hidden flex gap-2 flex-col b ",
               className_exp
             )
           }
@@ -77,7 +77,7 @@ const BackBtn: React.FC<BTNPROPS> = ({
       >
         Back
       </button>
-    </>
+    </div>
   );
 };
 

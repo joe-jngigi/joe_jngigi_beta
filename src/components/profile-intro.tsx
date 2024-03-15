@@ -17,12 +17,12 @@ const ProfileIntro = () => {
         <div className=" w-full h-full grid md:grid-cols-2 gap-16 md:gap-5 mt-12">
           <div className="dark:bg-primary-dark-bg bg-white rounded-lg dark:text-white p-5 dark:shadow-emerald-950 dark:shadow-lg drop-shadow-lg border dark:border-none">
             <AestheticRog />
-            <div className="  tracking-wider mt-5 font-about ">
-              <p className="pb-2 text-base font-bold italic">
+            <div className="tracking-wider mt-5 font-about ">
+              <p className="pb-2 text-sm font-bold italic">
                 &quot; ...A weaver of dreams at the loom of the mind &quot;
               </p>{" "}
               <br />
-              <div className="text-sm tracking-widest">
+              <div className="text-xs tracking-widest">
                 <p className="dark:text-gray-500 text-gray-300 italic">{`<span>`}</p>
                 <br />
                 <p>
