@@ -11,17 +11,17 @@ if (!MONGO_URI) {
 const connectDB = async () => {
   if (IS_CONNECTED) {
     console.log('Already connected.');
-    return mongoose.connection; // Return the connection object
+    return mongoose.connection;
   }
 
   try {
     await mongoose.connect(MONGO_URI);
     IS_CONNECTED = true;
     console.log('Connection Established');
-    return mongoose.connection; // Return the connection object
+    return mongoose.connection;
   } catch (error) {
     console.error('Error when establishing a connection:', error);
-    throw error; // Rethrow the error to be caught in the calling function
+    throw error;
   }
 };
 

@@ -7,7 +7,7 @@ import { FiCopy } from "react-icons/fi";
 import { LuCopyCheck } from "react-icons/lu";
 
 import { toast } from "sonner";
-import { AestheticRog } from "@/components/sub-components/aesthetic-rog";
+import { AestheticRog } from "@/components/_components/aesthetic-rog";
 import { EmailDialog } from "./email_dialog";
 import { SiMinutemailer } from "react-icons/si";
 

@@ -19,12 +19,12 @@ export const EmailDialog: React.FC<TLayoutProp> = ({ asChild, children }) => {
       <DialogTrigger asChild={asChild}>{children}</DialogTrigger>
 
       {/* Body */}
-      <DialogContent className="bg-white mr-3 dark:bg-black border-none dark:shadow-[0_0_8px_rgb(16,184,128)] ">
+      <DialogContent className="bg-white mr-3 dark:bg-black border-none dark:shadow-[0_0_8px_rgb(16,184,128)] w-auto">
         {/* Title */}
         <DialogHeader>
-          <DialogTitle className="text-center">Send me a Message</DialogTitle>
-          <DialogDescription>
-            Reach me out for Hire or for any collaboration. Also you can ask me
+          <DialogTitle className="text-center">Let&apos;s Talk</DialogTitle>
+          <DialogDescription className="text-xs md:text-sm pt-3">
+            Hello 👋! Reach me out for Hire or for any collaboration. Also you can ask me
             any question, I will definitely reply as soon as possible.
           </DialogDescription>
         </DialogHeader>

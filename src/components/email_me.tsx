@@ -15,10 +15,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { emailMeSchema } from "@/model/zod_schemas";
+import { emailMeSchema } from "@/model_schemas/zod_schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SiMinutemailer } from "react-icons/si";
-import { sendEmailToDBAction } from "../../server_actions/send_email";
+import { sendEmailToDBAction } from "@/server_actions/send_email";
 import { toast } from "sonner";
 
 export const EmailMe = () => {
@@ -32,15 +32,19 @@ export const EmailMe = () => {
     },
   });
 
-  const onSubmitEmail = async (values: zod.infer<typeof emailMeSchema>) => {
-    // startTransition(() => {
-    //   sendEmailToDBAction(values).then(() => {
-    //     toast("Successful transfer")
-    //   })
-    // })
-    console.log(values);
-    
-    toast("Successful transfer");
+  const onSubmitEmail = (values: zod.infer<typeof emailMeSchema>) => {
+    startTransition(() => {
+      console.log(values);
+      sendEmailToDBAction(values).then((data) => {
+        if (data) {
+          if (data.success) {
+            toast(data.success);
+            form.reset();
+            return;
+          }
+        }
+      });
+    });
   };
 
   return (

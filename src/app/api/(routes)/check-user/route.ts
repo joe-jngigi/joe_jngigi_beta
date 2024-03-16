@@ -1,5 +1,5 @@
 import connectDB from "@/lib/mongodb";
-import User from "@/model/user_schemas";
+import User from "@/model_schemas/user_schemas";
 import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
