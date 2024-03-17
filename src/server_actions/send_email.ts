@@ -12,6 +12,8 @@ import {
   getCollections,
   getUserById,
   getUserByEmail,
+  updateUserById,
+  updateUserByEmail,
 } from "@/db_queries/users_queries";
 
 export const sendEmailToDBAction = async (
@@ -24,18 +26,17 @@ export const sendEmailToDBAction = async (
   // const listUserDoc = await getCollections();
   // console.log(listUserDoc);
 
-  const users = [
-    "65f6f9c435d8aa67400d7b58",
-    "65f6f9b935d8aa67400d7b56",
-    "65f6f9ae35d8aa67400d7b54",
-    "65f6f9ae35d8aa67400d7b54",
-    "65f6f9a135d8aa67400d7b52",
-  ];
-
-  const listUserDoc = await getUserDocument();
+  const userdata = {
+    username: "Jowie Ngigi",
+  };
+  const listUserDoc = await updateUserByEmail(
+    "www.jowiejoe@gmail.com",
+    userdata
+  );
+  
+  // const listUserDoc = await getUserDocument();
   console.log(listUserDoc);
 
-  // await deleteSelectedUsers(users);
   // database.createCollection("myCollection");
 
   // database.createCollection("Email")

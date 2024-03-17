@@ -60,6 +60,7 @@ export const getUserByEmail = async (email: string) => {
   }
 };
 
+// ============================DELETE================================================
 /**
  * This functions find a user by ID and deletes the user
  *
@@ -126,7 +127,6 @@ export const deleteAllUsers = async () => {
 export const deleteSelectedUsers = async (userIds: string[]) => {
   try {
     const deleteSelected = await User.deleteMany({ _id: { $in: userIds } });
-    
     return deleteSelected;
   } catch (error) {
     console.log("deleteSelectedUsers", error);
@@ -134,8 +134,51 @@ export const deleteSelectedUsers = async (userIds: string[]) => {
   }
 };
 
-// export const findUsersById
+// ====================UPDATE===========================================
 
+type updateData = {
+  [key: string]: any;
+};
+
+/**
+ * This function updates the user in terms of ID
+ *
+ * @param userID is a specfic selected user ID
+ * @param update_data Update Data is just the data. This on is dynamic on the type of data it gets
+ * @returns {updatedById}
+ */
+export const updateUserById = async (
+  userID: string,
+  update_data: updateData
+) => {
+  try {
+    const updatedById = await User.findByIdAndUpdate(userID, update_data, {
+      new: true,
+    });
+    return updatedById;
+  } catch (error) {
+    console.log("updateUserById", error);
+    return { status: 500, error: "Internal Server Error" };
+  }
+};
+
+export const updateUserByEmail = async (
+  user_email: string,
+  update_data: updateData
+) => {
+  try {
+    const updateByEmail = await User.findOneAndUpdate(
+      { user_email },
+      update_data,
+      { new: true, runValidators: true, timestamps: false }
+    );
+
+    return updateByEmail;
+  } catch (error) {
+    console.log("updateUserByEmail", error);
+    return { status: 500, error: "Internal Server Error" };
+  }
+};
 /**
  * getCollections()
  *
@@ -148,4 +191,6 @@ export const deleteSelectedUsers = async (userIds: string[]) => {
  * deleteAllUsers()
  * deleteSelectedUsers()
  *
+ * updateUserById()
+ * updateUserByEmail()
  */

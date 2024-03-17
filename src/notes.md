@@ -50,3 +50,29 @@ database
 ```
 
 Either of these approaches will properly retrieve the collection names from the database.
+
+## Future TODOS:
+
+If you're asking whether there are any queries you might consider implementing in your MongoDB API, here are a few suggestions based on common use cases:
+
+1. **Search Users by Name or Partial Name**: Allow users to search for other users by their name, either exact match or partial match.
+
+2. **Filter Users by Criteria**: Implement functionality to filter users based on various criteria such as age, gender, location, etc.
+
+3. **Pagination**: If you expect many users, implement pagination to fetch users in smaller, manageable chunks rather than all at once.
+
+4. **Sorting**: Allow users to specify sorting criteria (e.g., by name, age, registration date) for the returned user data.
+
+5. **Count Users**: Provide functionality to count the total number of users or the number of users that match certain criteria.
+
+6. **Update User Profile Picture**: Allow users to update their profile picture and store it in the database.
+
+7. **Change Password**: Implement functionality for users to change their passwords securely.
+
+8. **Email Verification**: If you have user registration, implement email verification to ensure the validity of email addresses provided by users.
+
+9. **User Activity Logs**: Log user activity such as login/logout timestamps, profile updates, etc., for auditing and security purposes.
+
+10. **User Analytics**: Collect and analyze user data to gain insights into user behavior, preferences, etc.
+
+These are just a few examples of queries and functionalities you might consider implementing in your MongoDB API based on the requirements of your application.
