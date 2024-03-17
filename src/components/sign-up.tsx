@@ -19,17 +19,17 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
-      const USER_EXIST = await axios.post("/api/check-user", { userEmail });
+      // const USER_EXIST = await axios.post("/api/check-user", { userEmail });
 
-      console.log(USER_EXIST.data.u_mail);
+      // console.log(USER_EXIST.data.u_mail);
 
-      if (!!USER_EXIST.data.u_mail) {
-        toast.error("User already Exists");
-        (e.target as HTMLFormElement).reset();
-        router.refresh();
-        router.replace("/api/auth/sign-in");
-        return;
-      }
+      // if (!!USER_EXIST.data.u_mail) {
+      //   toast.error("User already Exists");
+      //   (e.target as HTMLFormElement).reset();
+      //   router.refresh();
+      //   router.replace("/api/auth/sign-in");
+      //   return;
+      // }
 
       console.log("cleint", userEmail, userPassword, userName);
 

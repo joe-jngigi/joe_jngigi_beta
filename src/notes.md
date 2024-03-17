@@ -1,5 +1,7 @@
 # NoSQL Databases
 
+Check this [getting Started with MongoDB](https://www.freecodecamp.org/news/learn-mongodb-a4ce205e7739/)
+
 Unlike relational databases that rely on rigid tables with rows and columns, NoSQL databases like MongoDB offer a more flexible structure. They don't require queries to make queries from a database. Data in these databases are organized in terms of Collections and Documents.
 
 ## Collections
@@ -22,3 +24,29 @@ In MongoDB, there are two ways to create collections. There are technically two 
 
 This is the most common approach and doesn't require explicit code for collection creation. Mongoose automatically creates a collection the first time you insert a document that doesn't correspond to an existing collection.
 
+I tried calling the retrieval queries without using `await`, but I go strange return. Here is how to verify that.
+
+The reason you're seeing a Promise object with the pending status is because `listCollections()` returns a promise, and by not using `await`, you're not waiting for that promise to resolve. To properly handle the result, you should either use `await` or `.then()` to wait for the promise to resolve:
+
+Using `await`:
+
+```javascript
+const collectionNames = await database.listCollections().toArray();
+console.log(collectionNames);
+```
+
+Using `.then()`:
+
+```javascript
+database
+  .listCollections()
+  .toArray()
+  .then((collectionNames) => {
+    console.log(collectionNames);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+```
+
+Either of these approaches will properly retrieve the collection names from the database.

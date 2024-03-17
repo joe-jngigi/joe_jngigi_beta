@@ -1,12 +1,7 @@
-import { TLayoutProp } from '@/types/types'
-import React, { FC } from 'react'
+import React from "react";
 
-const Layout: FC<TLayoutProp> = ({children}) => {
-  return (
-    <div className='bg-red-500 t-app'>
-      {children}
-    </div>
-  )
-}
+const Layout = ({ children }: { children: React.ReactNode }) => {
+  return <div className="bg-red-500 t-app">{children}</div>;
+};
 
-export default Layout
+export default Layout;

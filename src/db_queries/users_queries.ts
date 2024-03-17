@@ -1,0 +1,151 @@
+import connectDB from "@/lib/mongodb";
+import User from "@/model_schemas/user_schemas";
+
+/**
+ * This function is used to retrieve all the collections available in the DB
+ * @function getCollections() {@returns {collectionNames}}
+ *
+ */
+export const getCollections = async () => {
+  try {
+    const database = await connectDB();
+    const collectionNames = await database.listCollections();
+    return collectionNames;
+  } catch (error) {
+    console.log("getCollections", error);
+    return { status: 500, error: "Internal Server Error" };
+  }
+};
+
+/**
+ * This function gets the users Documents and displays
+ * @returns {user} These are all the users in that particular **Document**
+ */
+export const getUserDocument = async () => {
+  try {
+    const user = await User.find();
+    return user;
+  } catch (error) {
+    console.log("getCollectionUserDocument", error);
+    return { status: 500, error: "Internal Server Error" };
+  }
+};
+
+/**
+ * This function gets only one user by ID
+ * @param userId is the ID of the particular user
+ * @returns onUser
+ */
+export const getUserById = async (userId: string) => {
+  try {
+    const oneUser = await User.findById(userId);
+    return oneUser;
+  } catch (error) {
+    console.log("getUserById", error);
+    return { status: 500, error: "Internal Server Error" };
+  }
+};
+
+/**
+ * This function returns userByEmail; Where you can use the email or any other field in the document to query the data.
+ * @returns userByEmail
+ */
+export const getUserByEmail = async (email: string) => {
+  try {
+    const userByEmail = await User.findOne({ user_email: email });
+    return userByEmail;
+  } catch (error) {
+    console.log("getUserByPreferredCriteria", error);
+    return { status: 500, error: "Internal Server Error" };
+  }
+};
+
+/**
+ * This functions find a user by ID and deletes the user
+ *
+ * @param userId is the id of the user you are deleting
+ * @returns success or error message
+ */
+export const deleteUserById = async (userId: string) => {
+  try {
+    const deleteUser = await User.findByIdAndDelete(userId);
+    if (deleteUser) {
+      return { success: "User Deleted Successfully" };
+    } else {
+      return { error: "User Does not Exist" };
+    }
+  } catch (error) {
+    console.log("deleteUserById", error);
+    return { status: 500, error: "Internal Server Error" };
+  }
+};
+
+/**
+ * This function returns a query to delete a user using an email from the database
+ * @param email
+ * @returns null after delete
+ */
+export const deleteUserByEmail = async (email: string) => {
+  try {
+    const deleteByEmail = await User.findOneAndDelete({ user_email: email });
+    if (deleteByEmail) {
+      return { success: "User Deleted Successfully" };
+    } else {
+      return { error: "User Does not exist" };
+    }
+  } catch (error) {
+    console.log("deleteUserByEmail", error);
+    return { status: 500, error: "Internal Server Error" };
+  }
+};
+
+/**
+ *
+ * This returns null, after all the users have been deleted from the database
+ * @returns {null} null
+ */
+export const deleteAllUsers = async () => {
+  try {
+    const deleteUsers = await User.deleteMany({});
+    return deleteUsers;
+  } catch (error) {
+    console.log("deleteAllUsers", error);
+    return { status: 500, error: "Internal Server Error" };
+  }
+};
+
+/**
+ *
+ * The function deletes on only selcted users, by their ID.
+ * The IDs recieved are Arrays
+ *
+ * @type {string[]}
+ * @param userIds is an array of users selected
+ * @returns null after delete
+ */
+export const deleteSelectedUsers = async (userIds: string[]) => {
+  try {
+    const deleteSelected = await User.deleteMany({ _id: { $in: userIds } });
+    
+    return deleteSelected;
+  } catch (error) {
+    console.log("deleteSelectedUsers", error);
+    return { error: "Internal Server Error" };
+  }
+};
+
+// export const findUsersById
+
+/**
+ * getCollections()
+ *
+ * getUserById()
+ * getUserByEmail()
+ * getUserDocument()
+ *
+ * deleteUserById()
+ * deleteUserByEmail()
+ * deleteAllUsers()
+ * deleteSelectedUsers()
+ *
+ */

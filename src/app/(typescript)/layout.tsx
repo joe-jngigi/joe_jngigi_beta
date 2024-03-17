@@ -1,9 +1,8 @@
-import { TLayoutProp } from '@/types/types'
 
-import React, { FC } from 'react'
+import React from 'react'
 import BackButton from './components.ts/ts.nav'
 
-const Layout: FC<TLayoutProp> = ({children}) => {
+const Layout = ({children}:{children: React.ReactNode}) => {
     
   return (
     <div className='h-screen flex flex-row sm:max-w-[1800px] mx-auto  sm:px-3 md:px-0'>
