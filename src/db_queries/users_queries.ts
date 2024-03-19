@@ -162,6 +162,14 @@ export const updateUserById = async (
   }
 };
 
+
+/**
+ * This functions update the user as an email
+ * @param user_email is the email of the user
+ * @param update_data This is the data as an object
+ * 
+ * @returns the document updated
+ */
 export const updateUserByEmail = async (
   user_email: string,
   update_data: updateData
