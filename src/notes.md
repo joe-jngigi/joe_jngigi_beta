@@ -16,6 +16,45 @@ They are the fundamental data units within a collection, similar to entries in a
 
 Mongoose is actually considered an ODM (Object Data Modeling) library, but it shares some similarities with an ORM (Object-Relational Mapper). Mongoose provides an ODM layer that makes working with MongoDB more convenient and avoids writing raw JavaScript code to interact with the database. It offers schema definition, data validation, and potentially object relationship management. It deals with documents (JSON-like structures) instead of relational tables.
 
+**How to create a database using the mongoose client**
+
+At the time we are connecting to the database using the mongoose client, we specify the name of the database in the environment variable, and for this case, I am using **app**. This below shows how we connect to a database. If there is no database with the name **app**, then after the connection is established, it will be created.
+
+```env
+MONGODB_URI = 'mongodb+srv://joe_jngigi:<**randow passoword**>@cluster0.aei4t8z.mongodb.net/app'
+```
+
+````TS
+import mongoose from 'mongoose';
+
+const MONGO_URI = process.env.MONGODB_URI as string;
+
+let IS_CONNECTED = false;
+
+if (!MONGO_URI) {
+  throw new Error('Please define the MONGO_URI environment variable');
+}
+
+const connectDB = async () => {
+  if (IS_CONNECTED) {
+    console.log('Already connected.');
+    return mongoose.connection;
+  }
+
+  try {
+    await mongoose.connect(MONGO_URI);
+    IS_CONNECTED = true;
+    console.log('Connection Established');
+    return mongoose.connection;
+  } catch (error) {
+    console.error('Error when establishing a connection:', error);
+    throw error;
+  }
+};
+
+export default connectDB;
+```
+
 ## Collections
 
 In MongoDB, there are two ways to create collections. There are technically two main ways to create collections in MongoDB using Mongoose:
@@ -24,14 +63,22 @@ In MongoDB, there are two ways to create collections. There are technically two 
 
 This is the most common approach and doesn't require explicit code for collection creation. Mongoose automatically creates a collection the first time you insert a document that doesn't correspond to an existing collection.
 
-I tried calling the retrieval queries without using `await`, but I go strange return. Here is how to verify that.
+I tried calling the retrieval queries without using `await`, but I got a promise strange return. Here is how to verify that.
 
-The reason you're seeing a Promise object with the pending status is because `listCollections()` returns a promise, and by not using `await`, you're not waiting for that promise to resolve. To properly handle the result, you should either use `await` or `.then()` to wait for the promise to resolve:
+```TS
+const database = await connectDB();
+
+const collectionNames =  database.listCollections();
+console.log(collectionNames);
+````
+
+This below is the right way to do it. The reason for getting a Promise object with the pending status is because `listCollections()` returns a promise, and by not using `await`, you're not waiting for that promise to resolve. To properly handle the result, you should either use `await` or `.then()` to wait for the promise to resolve:
 
 Using `await`:
 
-```javascript
-const collectionNames = await database.listCollections().toArray();
+```TS
+
+const collectionNames = await database.listCollections();
 console.log(collectionNames);
 ```
 
@@ -76,3 +123,93 @@ If you're asking whether there are any queries you might consider implementing i
 10. **User Analytics**: Collect and analyze user data to gain insights into user behavior, preferences, etc.
 
 These are just a few examples of queries and functionalities you might consider implementing in your MongoDB API based on the requirements of your application.
+
+**Here's how you can modify the code to store the validated values in the database using Mongoose:**
+
+1.  **Import the Email Model:**
+
+```javascript
+import Email from "@/models/Email"; // Assuming your model is in this location
+```
+
+2.  **Create a New Email Document:**
+
+```javascript
+export const sendEmailToDBAction = async (
+  values: zod.infer<typeof emailMeSchema>
+) => {
+  // ... (existing validation logic)
+
+  const newEmail = new Email({
+    email,
+    name,
+    message: mail, // Assuming "mail" contains the message
+  });
+
+  try {
+    await newEmail.save(); // Save the new email to the database
+    return { success: "Email Sent Successfully" };
+  } catch (error) {
+    console.error("Error saving email:", error);
+    return { error: "An error occurred while saving the email." };
+  }
+};
+```
+
+**Explanation:**
+
+- The `new Email({ ... })` creates a new instance of the `Email` model with the validated data.
+- The `await newEmail.save()` method sends a request to MongoDB to save the new email document in the "Emails" collection (or whatever you named it in your model).
+- The `try...catch` block handles potential errors during the save operation and returns appropriate responses.
+
+**Key Points:**
+
+- **Connection Establishment:** As discussed earlier, make sure the database connection is established either at startup or within the server action using `await connectDB();`.
+- **Validation:** The code already uses Zod for validation, which is commendable.
+- **Error Handling:** Ensure proper error handling throughout the process, not just during saving.
+- **Additional Considerations:**
+  - Consider defining custom error messages for specific validation errors or database errors.
+  - Implement logging for debugging and auditing purposes.
+  - Explore using Mongoose middleware for pre-save or post-save operations if needed.
+
+You are correct, in this scenario you don't necessarily need to use `Email.create` to store the data in your MongoDB database. Here's a breakdown of the two approaches:
+
+**1. Using `newEmail.save()`:**
+
+- This is the approach used in the previous example.
+- You create a new instance of the `Email` model with the validated data using `new Email({ ... })`.
+- You then call `await newEmail.save()` to save the document to the database.
+- This is a common and straightforward way to insert a single document.
+
+**2. Using `Email.create()`:**
+
+- `Email.create()` is another method provided by Mongoose for creating documents.
+- It accepts an array of objects representing the documents to be created.
+- You could potentially use it like this:
+
+```javascript
+const newEmail = {
+  email,
+  name,
+  message: mail,
+};
+
+try {
+  await Email.create([newEmail]); // Array with the new email object
+  return { success: "Email Sent Successfully" };
+} catch (error) {
+  // ... error handling
+}
+```
+
+**Choosing the Right Approach:**
+
+- In your case, since you're dealing with a single email, using `newEmail.save()` is perfectly suitable. It's simpler and more efficient for this scenario.
+- `Email.create()` becomes more beneficial when you need to insert multiple documents at once. It can potentially improve performance for bulk inserts compared to calling `save()` on each document individually.
+
+**Additional Notes:**
+
+- Both `save()` and `create()` achieve the same goal of persisting data in the database.
+- `save()` is more versatile as it can also be used to update existing documents, while `create()` is specifically for creating new ones.
+
+I hope this clarifies the use of `save()` vs. `create()` in Mongoose!

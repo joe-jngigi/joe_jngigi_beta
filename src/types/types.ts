@@ -57,7 +57,6 @@ export type userType = {
 //     sessionId: number,
 //     name: string
 // } | null
-
 export type productsProps = {
   99?: string;
   product_id?: number | string;
@@ -76,4 +75,15 @@ export type AuthContextType = {
   isAuthenticated: boolean;
   login: () => void;
   logout: () => void;
+};
+
+/**
+ * This type means that it takes a key object name with string @default string and the values have a dynamic type
+ * 
+ * @type {string | boolean | number}
+ *
+ * This type definition is useful when you have an object where the keys are dynamic and you want to allow multiple types of values for those keys.
+ */
+export type TUpdateData = {
+  [key: string]: string | boolean | number;
 };

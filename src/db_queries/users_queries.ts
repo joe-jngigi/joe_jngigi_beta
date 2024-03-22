@@ -1,21 +1,5 @@
-import connectDB from "@/lib/mongodb";
 import User from "@/model_schemas/user_schemas";
-
-/**
- * This function is used to retrieve all the collections available in the DB
- * @function getCollections() {@returns {collectionNames}}
- *
- */
-export const getCollections = async () => {
-  try {
-    const database = await connectDB();
-    const collectionNames = await database.listCollections();
-    return collectionNames;
-  } catch (error) {
-    console.log("getCollections", error);
-    return { status: 500, error: "Internal Server Error" };
-  }
-};
+import { TUpdateData } from "@/types/types";
 
 /**
  * This function gets the users Documents and displays
@@ -117,7 +101,7 @@ export const deleteAllUsers = async () => {
 
 /**
  *
- * The function deletes on only selcted users, by their ID.
+ * The function deletes on only the selected users, by their ID.
  * The IDs recieved are Arrays
  *
  * @type {string[]}
@@ -136,12 +120,10 @@ export const deleteSelectedUsers = async (userIds: string[]) => {
 
 // ====================UPDATE===========================================
 
-type updateData = {
-  [key: string]: any;
-};
-
 /**
- * This function updates the user in terms of ID
+ * This function updates the user in terms of ID, this is in the data in the object
+ *
+ *
  *
  * @param userID is a specfic selected user ID
  * @param update_data Update Data is just the data. This on is dynamic on the type of data it gets
@@ -149,7 +131,7 @@ type updateData = {
  */
 export const updateUserById = async (
   userID: string,
-  update_data: updateData
+  update_data: TUpdateData
 ) => {
   try {
     const updatedById = await User.findByIdAndUpdate(userID, update_data, {
@@ -162,17 +144,16 @@ export const updateUserById = async (
   }
 };
 
-
 /**
  * This functions update the user as an email
  * @param user_email is the email of the user
  * @param update_data This is the data as an object
- * 
+ *
  * @returns the document updated
  */
 export const updateUserByEmail = async (
   user_email: string,
-  update_data: updateData
+  update_data: TUpdateData
 ) => {
   try {
     const updateByEmail = await User.findOneAndUpdate(
@@ -188,7 +169,6 @@ export const updateUserByEmail = async (
   }
 };
 /**
- * getCollections()
  *
  * getUserById()
  * getUserByEmail()

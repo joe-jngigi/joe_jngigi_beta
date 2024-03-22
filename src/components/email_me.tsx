@@ -18,7 +18,7 @@ import {
 import { emailMeSchema } from "@/model_schemas/zod_schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SiMinutemailer } from "react-icons/si";
-import { sendEmailToDBAction } from "@/server_actions/send_email";
+import { sendEmailToDBAction } from "@/server_actions/email_actions";
 import { toast } from "sonner";
 
 export const EmailMe = () => {
@@ -29,22 +29,32 @@ export const EmailMe = () => {
     defaultValues: {
       email: "",
       mail: "",
+      name: "",
     },
   });
 
-  const onSubmitEmail = (values: zod.infer<typeof emailMeSchema>) => {
-    startTransition(() => {
-      console.log(values);
-      sendEmailToDBAction(values).then((data) => {
-        if (data) {
-          if (data.success) {
-            toast(data.success);
-            form.reset();
-            return;
+  const onSubmitEmail = async (values: zod.infer<typeof emailMeSchema>) => {
+    try {
+      startTransition(() => {
+        console.log(values);
+        sendEmailToDBAction(values).then((data) => {
+          if (data) {
+            if (data.success) {
+              toast.success(data.success);
+              form.reset();
+              return;
+            }
+            if (data.error) {
+              toast.error(data.error);
+              form.reset();
+              return;
+            }
           }
-        }
+        });
       });
-    });
+    } catch (error) {
+      toast.error("Something Went Wrong: x001 Server?__");
+    }
   };
 
   return (
@@ -74,6 +84,28 @@ export const EmailMe = () => {
             )}
           />
 
+          {/* User Name */}
+          <FormField
+            control={form.control}
+            name="name"
+            disabled={isPending}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input
+                    className="shadow-md drop-shadow-lg dark:shadow-emerald-900 dark:border-none"
+                    placeholder="Joseph Ngigi"
+                    {...field}
+                    disabled={isPending}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Message */}
           <FormField
             control={form.control}
             name="mail"
