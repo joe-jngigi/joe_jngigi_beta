@@ -1,7 +1,7 @@
 import React from "react";
 import { Resend } from "resend";
 
-import { EmailTemplate } from "@/components/email_template";
+import { EmailTemplate } from "@/components/_components/email_template";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 

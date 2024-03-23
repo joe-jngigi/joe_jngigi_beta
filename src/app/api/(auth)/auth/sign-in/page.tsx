@@ -1,24 +1,23 @@
-import React from 'react'
-import { getServerSession } from 'next-auth'
-import { redirect } from 'next/navigation'
+import React from "react";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
-import SignIn from '@/components/sign-in'
+import SignIn from "@/components/auth/sign-in";
 
 const Spage = async () => {
-
-  const session = await getServerSession()
+  const session = await getServerSession();
 
   if (session) {
-    redirect('/main')
+    redirect("/main");
   }
-  
+
   return (
-    <main className='pt-20 min-h-screen bg-white dark:bg-black'>
-      <section className=' w-full '>
-        <SignIn/>
+    <main className="pt-20 min-h-screen bg-white dark:bg-black">
+      <section className=" w-full ">
+        <SignIn />
       </section>
     </main>
-  )
-}
+  );
+};
 
-export default Spage
+export default Spage;

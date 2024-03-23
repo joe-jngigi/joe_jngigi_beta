@@ -313,7 +313,7 @@ body {
 }
 
 .logo_text {
-  @apply font-satoshi font-semibold tracking-wide;
+  @apply font-semibold tracking-wide;
 }
 
 .orange_gradient {

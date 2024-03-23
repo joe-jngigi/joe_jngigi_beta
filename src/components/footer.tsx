@@ -4,7 +4,7 @@ import { FaGithubAlt } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <div className="sm:max-w-[1800px] sm:bg-transparent bg-black text-sm fixed_position z-40 bottom-0 rounded-sm  mt-1 mx-auto p-1.5 text-black dark:text-white">
+    <div className="sm:max-w-[1800px]  text-sm fixed_position z-40 bottom-0 rounded-sm  mt-1 mx-auto p-1.5 text-black dark:text-white">
       <div className="flex-between flex-row items-center">
         <div className="sm:flex gap-3 hidden font-semibold">
           <a

@@ -14,7 +14,7 @@ const ResponsiveNav = () => {
   const [notificationDropdown, setNotificationDropdown] = useState(false);
   return (
     <>
-      <div className="flex justify-between items-center gap-6 dark:bg-primary-dark-bg border  dark:border-none p-1 rounded-full dark:shadow-emerald-500 dark:shadow-sm shadow-lg drop-shadow-lg">
+      <div className="flex justify-between items-center gap-6 dark:bg-primary-dark-bg border p-1 rounded-full dark:shadow-emerald-500 dark:shadow-sm shadow-lg drop-shadow-lg">
         {/* Desktop Navigation */}
         <div className="p-2 flex-c-center h-10 w-10 sm:w-auto sm:h-auto items-center bg-emerald-500/20 text-black dark:text-emerald-500 rounded-full cursor-pointer">
           <SiGoogleassistant size={30} />

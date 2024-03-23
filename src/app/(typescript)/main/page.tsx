@@ -1,31 +1,29 @@
-import React from 'react'
+import React from "react";
 
-import { FormEvent, EventsParent, HeaderCard } from '@/app/(typescript)/index'
+import { FormEvent, EventsParent, HeaderCard } from "@/app/(typescript)/index";
 
-import AppHeader from '@/components/appHeader'
+import AppHeader from "@/components/_components/appHeader";
 
 const ReactEvents = () => {
   // console.log(data);
-  
-  return (
-    <main className='t-app overflow-x-hidden '>
 
+  return (
+    <main className="t-app overflow-x-hidden ">
       <>
-        <AppHeader title = 'Dashboard' />
+        <AppHeader title="Dashboard" />
       </>
 
-      <section className='pb-2 pl-2 flex gap-3 overflow-x-auto scroll-container ease-out transition-all duration-1000'>
-        <HeaderCard/>
-        
+      <section className="pb-2 pl-2 flex gap-3 overflow-x-auto scroll-container ease-out transition-all duration-1000">
+        <HeaderCard />
       </section>
 
-      <section className='rounded-2xl mt-3  dark:bg-black  md:min-h-[70vh] overflow-hidden'>
-        <EventsParent >
+      <section className="rounded-2xl mt-3  dark:bg-black  md:min-h-[70vh] overflow-hidden">
+        <EventsParent>
           <FormEvent />
         </EventsParent>
       </section>
     </main>
-  )
-}
+  );
+};
 
-export default ReactEvents
+export default ReactEvents;
