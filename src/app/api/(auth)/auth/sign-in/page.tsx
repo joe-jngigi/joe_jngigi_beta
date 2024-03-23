@@ -13,7 +13,7 @@ const Spage = async () => {
   }
   
   return (
-    <main className='pt-20 min-h-screen'>
+    <main className='pt-20 min-h-screen bg-white dark:bg-black'>
       <section className=' w-full '>
         <SignIn/>
       </section>

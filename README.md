@@ -17,8 +17,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 </p>
 ```
 
-#
-
 "A weaver of dreams at the loom of the mind" is a metaphorical expression describing someone who is skilled at creating imaginative and fantastical ideas or visions within their own mind.
 
 Here's a breakdown of the metaphor:

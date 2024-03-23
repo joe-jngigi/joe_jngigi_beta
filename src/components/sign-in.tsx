@@ -75,28 +75,12 @@ const SignUp = () => {
   }
 
   return (
-    <div className=' w-full p-3 pt-32 flex justify-center items-center '>
-      <div className=' shadow-xl border-1 dark:border-none bg-opacity-50 backdrop-blur-md rounded-2xl p-2 w-full md:max-w-[700px] flex items-center justify-center flex-col'>
-
-          <h1 className='text-xl font-bold mb-5'>Sign In</h1>
-          
-          <form onSubmit={handleSubmit} className='flex flex-col gap-2 w-full md:w-[500px]'>
- 
-            <input required className='search_input' type="email" placeholder='User Email' name='user_email' onChange={(e) => setUserEmail(e.target.value)}/>
-            <input required className='search_input' type="password" placeholder='Password' name='user_password' onChange={(e) => setUserPassword(e.target.value)}/>
-            
-            <span className='pt-5'><button type='submit' className='black_btn float-right'>Sign In</button></span>
-          </form>
-          {/* {userEmail}
-          {userPassword} */}
-
-          <span className='w-full mt-5 text-14 flex flex-col sm:flex-row items-center justify-between px-4 gap-2'>Yoooh! Lets sign you up 😶‍🌫️🫡
-            <Link className='underline uppercase text-base font-semibold tracking-wider' href= '/api/auth/sign-up'>Sign Up</Link>
-          </span>
-
+    <div className=" w-full p-3 pt-32 flex justify-center items-center">
+      <div className=" h-96 shadow-xl border-1 dark:border-none bg text-black bg-opacity-50 backdrop-blur-md  rounded-2xl p-2 w-full md:max-w-[700px] flex items-center justify-center flex-col">
+        <h1 className="text-xl font-bold">This Page is under Renovation, Will be Back Soon</h1>
       </div>
     </div>
-  )
+  );
 }
 
 export default SignUp

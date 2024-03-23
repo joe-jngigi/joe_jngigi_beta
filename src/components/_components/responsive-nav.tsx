@@ -14,9 +14,9 @@ const ResponsiveNav = () => {
   const [notificationDropdown, setNotificationDropdown] = useState(false);
   return (
     <>
-      <div className="flex justify-between items-center gap-6 dark:bg-primary-dark-bg border  dark:border-none p-1 rounded-full dark:shadow-emerald-500 dark:shadow-sm">
+      <div className="flex justify-between items-center gap-6 dark:bg-primary-dark-bg border  dark:border-none p-1 rounded-full dark:shadow-emerald-500 dark:shadow-sm shadow-lg drop-shadow-lg">
         {/* Desktop Navigation */}
-        <div className="p-2 flex-c-center h-10 w-10 sm:w-auto sm:h-auto items-center bg-emerald-500/20 text-emerald-500 rounded-full cursor-pointer">
+        <div className="p-2 flex-c-center h-10 w-10 sm:w-auto sm:h-auto items-center bg-emerald-500/20 text-black dark:text-emerald-500 rounded-full cursor-pointer">
           <SiGoogleassistant size={30} />
           <span className="hidden sm:block ml-1">Assistant</span>
         </div>
@@ -33,7 +33,7 @@ const ResponsiveNav = () => {
         </button>
 
         {/* Avatar */}
-        <div className="md:flex hidden text-black cursor-pointer">
+        <div className="md:flex hidden text-black dark:text-white cursor-pointer">
           <Avatar>
             <AvatarImage src="#" />
             <AvatarFallback>

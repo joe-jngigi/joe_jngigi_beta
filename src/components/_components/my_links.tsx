@@ -76,7 +76,7 @@ export const SocialsTexts = () => {
             {/* Buttons */}
             <div className="rounded-md p-2 flex-c-center flex-row gap-3 sm:gap-5 ">
               <EmailDialog asChild>
-                <button className="flex flex-row items-center justify-center rounded-full bg-emerald-500/20 text-emerald-500 py-2 px-2 sm:px-8 font-[500] text-xs cursor-pointer">
+                <button className="flex flex-row items-center justify-center rounded-full bg-emerald-500/20 dark:text-emerald-500 py-4 px-2 sm:px-8 font-[500] text-xs cursor-pointer">
                   <span className="mr-2 ">DM Me</span>
                   <SiMinutemailer />
                 </button>
@@ -84,7 +84,7 @@ export const SocialsTexts = () => {
 
               <button
                 onClick={() => onClick(email)}
-                className="flex flex-row items-center justify-center rounded-full bg-emerald-500/20 text-emerald-500 py-2 px-2 sm:px-8 font-[500] text-xs"
+                className="flex flex-row items-center justify-center rounded-full bg-emerald-500/20 dark:text-emerald-500 py-4 px-2 sm:px-8 font-[500] text-xs"
               >
                 <span className="mr-2">Copy Email</span>
                 {onCopy ? <LuCopyCheck /> : <FiCopy />}

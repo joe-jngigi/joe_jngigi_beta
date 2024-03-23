@@ -1,18 +1,26 @@
 import React from "react";
 import { AestheticRog, SocialsTexts } from ".";
+import { SiGoogleassistant } from "react-icons/si";
 
 const ProfileIntro = () => {
   return (
-    <section className="pt-20 max-w-[1300px] mx-auto transition-all duration-300">
+    <section className="pt-20 max-w-[1300px] mx-auto transition-all duration-300 ">
       <div className="flex flex-col p-2 xl:p-5 items-center justify-between md:min-h-[60vh] min-h-[57vh] transition-all duration-300">
-        <h2 className="  head_text text-center sm:pt-10 transition-all duration-300">
-          <span className="animate_gradient text transition-all duration-300">
-            Hello, Welcomè to my TechSpace
-          </span>
-          <span className="hover:animate-bounce transform transition-all duration-300 ">
-            😇
-          </span>
-        </h2>
+        <div className="h-[300px] sm:h-auto flex-c-center flex-col gap-10 ">
+          <h2 className="head_text text-center sm:pt-10 transition-all duration-300">
+            <span className="dark:bg-gradient-radial-text bg-clip-text dark:text-transparent transition-all duration-300">
+              Hello, Welcomè to my TechSpace
+            </span>
+            <span className="hover:animate-bounce transform transition-all duration-300 ">
+              😇
+            </span>
+          </h2>
+
+          <p className="text-center text-xs dark:text-gray-200 text-gray-700 md:text-sm flex flex-row items-center gap-2">
+            Chat with my Assistant, ask more about me!{" "}
+            <SiGoogleassistant size={17} className="text-emerald-500" />
+          </p>
+        </div>
 
         <div className=" w-full h-full grid md:grid-cols-2 gap-16 md:gap-5 mt-12">
           <div className="dark:bg-primary-dark-bg bg-white rounded-lg dark:text-white p-5 dark:shadow-emerald-950 dark:shadow-lg drop-shadow-lg border dark:border-none">
@@ -22,8 +30,8 @@ const ProfileIntro = () => {
                 &quot; ...A weaver of dreams at the loom of the mind &quot;
               </p>{" "}
               <br />
-              <div className="text-xs tracking-widest">
-                <p className="dark:text-gray-500 text-gray-300 italic">{`<span>`}</p>
+              <div className="text-xs md:text-sm tracking-widest">
+                <p className="dark:text-gray-600 text-gray-300 italic">{`<span>`}</p>
                 <br />
                 <p>
                   My name is Joseph. I am a developer passionate about crafting
