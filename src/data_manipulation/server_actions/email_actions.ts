@@ -2,9 +2,9 @@
 
 import * as zod from "zod";
 import connectDB from "@/lib/mongodb";
-import { emailMeSchema } from "@/model_schemas/zod_schemas";
+import { emailMeSchema } from "@/data_manipulation/model_schemas/zod_schemas";
 
-import Email from "@/model_schemas/email_me_schema";
+import Email from "@/data_manipulation/model_schemas/email_me_schema";
 import { sendMeDm } from "@/lib/mail";
 
 export const sendEmailToDBAction = async (

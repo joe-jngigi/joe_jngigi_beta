@@ -12,7 +12,7 @@ const ThemeToggle = () => {
   console.log("theme", theme);
 
   return (
-    <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="flex flex-row bg-emerald-500/20 items-center gap-4 p-0.5 rounded-full">
+    <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="flex flex-row border items-center p-0.5 rounded-full">
       <CiLight
         size={24}
         className="transition-all rotate-90 scale-100 dark:rotate-0 dark:scale-0"

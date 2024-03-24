@@ -1,5 +1,5 @@
-import User from "@/model_schemas/user_schemas";
-import { TUpdateData } from "@/types/types";
+import User from "@/data_manipulation/model_schemas/user_schemas";
+import { TUpdateData } from "@/data_manipulation/types/types";
 
 /**
  * This function gets the users Documents and displays

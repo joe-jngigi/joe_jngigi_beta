@@ -15,10 +15,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { emailMeSchema } from "@/model_schemas/zod_schemas";
+import { emailMeSchema } from "@/data_manipulation/model_schemas/zod_schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SiMinutemailer } from "react-icons/si";
-import { sendEmailToDBAction } from "@/server_actions/email_actions";
+import { sendEmailToDBAction } from "@/data_manipulation/server_actions/email_actions";
 import { toast } from "sonner";
 
 export const EmailMe = () => {

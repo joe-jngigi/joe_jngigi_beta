@@ -1,5 +1,5 @@
 import connectDB from "@/lib/mongodb";
-import User from "@/model_schemas/user_schemas";
+import User from "@/data_manipulation/model_schemas/user_schemas";
 
 import bcrypt from "bcryptjs";
 

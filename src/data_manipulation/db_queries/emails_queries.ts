@@ -1,5 +1,5 @@
-import Email from "@/model_schemas/email_me_schema";
-import { TUpdateData } from "@/types/types";
+import Email from "@/data_manipulation/model_schemas/email_me_schema";
+import { TUpdateData } from "@/data_manipulation/types/types";
 
 /**
  * This function queries and returns all the emailsDocuments/entries
@@ -167,12 +167,12 @@ export const updateEmailsByEmail = async (
  * getEmailDocuments()
  * getEmailById()
  * getEmailByEmail()
- * 
+ *
  * deleteEmailByEmailId()
  * deleteEmailByEmail()
  * deleteAllEmails()
  * deleteSelectedEmails()
- * 
+ *
  * updateEmailById()
  * updateEmailsByEmail()
  */

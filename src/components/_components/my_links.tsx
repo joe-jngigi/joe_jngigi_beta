@@ -8,7 +8,7 @@ import { LuCopyCheck } from "react-icons/lu";
 
 import { toast } from "sonner";
 import { AestheticRog } from "@/components/_components/aesthetic-rog";
-import { EmailDialog } from "./email_dialog";
+import { EmailDialog } from "../ui_children/email_dialog";
 import { SiMinutemailer } from "react-icons/si";
 
 export const SocialsTexts = () => {
@@ -76,19 +76,19 @@ export const SocialsTexts = () => {
             {/* Buttons */}
             <div className="rounded-md p-2 flex-c-center flex-row gap-3 sm:gap-5 ">
               <EmailDialog asChild>
-                <button className="flex flex-row items-center justify-center rounded-full bg-emerald-500/20 dark:text-emerald-500 py-4 px-2 sm:px-8 font-[500] text-xs cursor-pointer">
-                  <span className="mr-2 ">DM Me</span>
+                <button className="flex flex-col items-center justify-center rounded-full bg-emerald-500/20 dark:text-emerald-500 p-1.5 sm:p-4 sm:px-8  h-[56px] w-[56px] sm:h-auto sm:w-auto font-[500] text-xs cursor-pointer">
+                  <span>DM Me</span>
                   <SiMinutemailer />
                 </button>
               </EmailDialog>
 
-              <button
+              {/* <button
                 onClick={() => onClick(email)}
                 className="flex flex-row items-center justify-center rounded-full bg-emerald-500/20 dark:text-emerald-500 py-4 px-2 sm:px-8 font-[500] text-xs"
               >
                 <span className="mr-2">Copy Email</span>
                 {onCopy ? <LuCopyCheck /> : <FiCopy />}
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

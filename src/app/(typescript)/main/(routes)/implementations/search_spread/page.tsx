@@ -1,6 +1,6 @@
 import Postcard from "@/app/(typescript)/components.ts/postcard";
 
-import { PostProps } from "@/types/types";
+import { PostProps } from "@/data_manipulation/types/types";
 import React from "react";
 
 import AppHeader from "@/components/_components/appHeader";

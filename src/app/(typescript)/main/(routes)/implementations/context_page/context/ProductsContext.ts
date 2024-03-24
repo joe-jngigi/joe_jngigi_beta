@@ -1,22 +1,24 @@
-import { productsProps, AuthContextType } from '@/types/types'
-import { createContext } from "react"
+import {
+  productsProps,
+  AuthContextType,
+} from "@/data_manipulation/types/types";
+import { createContext } from "react";
 
 type TProductContext = {
-    TProducts: productsProps[],
-    TAddProduct: (product: productsProps) => void
-}
+  TProducts: productsProps[];
+  TAddProduct: (product: productsProps) => void;
+};
 
 export const productContext = createContext<TProductContext>({
-    TProducts: [],
-    TAddProduct(product) {},
-})
+  TProducts: [],
+  TAddProduct(product) {},
+});
 
-
-// So remember something important, when you create a type, it is 
+// So remember something important, when you create a type, it is
 const initialAuthStatus: AuthContextType = {
-    isAuthenticated: false,
-    login: () => {},
-    logout: () => {},
-}
+  isAuthenticated: false,
+  login: () => {},
+  logout: () => {},
+};
 
 // export const AppContext = createContext<AuthContextType>(initialAuthStatus)

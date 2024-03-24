@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
-import { SideMenuContextType } from "@/types/types";
+import { SideMenuContextType } from "@/data_manipulation/types/types";
 import { createContext } from "react";
 
+export const defaultValues: SideMenuContextType = {
+  toggleSideMenu: false,
+  settoggleSideMenu: () => {},
 
-export const defaultValues: SideMenuContextType ={
-    toggleSideMenu: false,
-    settoggleSideMenu: () => {},
+  notificationDropdown: false,
+  setNotificationDropdown: () => {},
 
-    notificationDropdown: false,
-    setNotificationDropdown: () => {},
-    
-    toggleMenu: false,
-    setToggleMenu: () =>{},
-    collapsePanel: false,
-    setcollapsePanel: () =>{},
-}
-export const SideMenuContext = createContext<SideMenuContextType>(defaultValues)
+  toggleMenu: false,
+  setToggleMenu: () => {},
+  collapsePanel: false,
+  setcollapsePanel: () => {},
+};
+export const SideMenuContext =
+  createContext<SideMenuContextType>(defaultValues);

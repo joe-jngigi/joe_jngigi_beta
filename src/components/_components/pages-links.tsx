@@ -6,7 +6,7 @@ const PagesLinks = () => {
       <div className="hidden md:flex flex-row gap-2 items-center justify-center text-sm font-medium">
         <Link
           title="Main Page / Home / Joe_J"
-          className=" p-2 rounded-2xl sm:flex flex-col items-center justify-center transition-all duration-700 hover:text-emerald-500"
+          className=" p-2 rounded-2xl sm:flex flex-col items-center justify-center transition-all duration-500 hover:text-emerald-500"
           href="/"
         >
           {/*  */}
