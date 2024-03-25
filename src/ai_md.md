@@ -35,3 +35,56 @@ We also will be using the [**Vercel AI SDK**](https://sdk.vercel.ai/docs). The V
 ```BASH
 npm install ai
 ```
+
+## Chat Implementation
+
+In the implementation, I first implemented the client side rendering, and I am using the `ai` library from the Vercel. **`ai`** provides the **`useChat`** hook for the implementation of the chat. Simply, this provides different functions we can use to handle the **chats and messages** as it handles the API calls, simply allowing us to just put a skeleton over it to allow users to query from the API.
+
+From [The Vercel AI SDK](https://sdk.vercel.ai/docs/api-reference/use-chat), we can check out this:
+
+> **`useChat`** is a utility to allow you to easily create a conversational user interface for your chatbot application. It enables the streaming of chat messages from your AI provider, manages the state for chat input, and updates the UI automatically as new messages are received. After submitting a message, the `useChat` hook will automatically append a user message to the chat history and trigger an API call to the configured endpoint.
+
+From the messages from `useChat()`, we can destructure it, it has the following types, so we can simply have the Props Message from `useChat`, from which we can extract the **content** and **role**
+
+```TSX
+import React from "react";
+
+import { Message, useChat } from "ai/react";
+
+interface messageProps {
+  messages: Message
+}
+
+export const ChatBox = () => {
+  const { messages,} = useChat();
+  return (
+    <div className="overflow-y-auto h-full">
+      {messages.map((message) => (
+        <MessageBox messages={message} />
+      ))}
+    </div>
+  );
+};
+
+const MessageBox: React.FC<messageProps> = ({ messages: { role, content } }) => {
+  const isAImessage = role === "assistant"
+  return <div>Role: {role} Message { content}</div>;
+};
+
+```
+
+```TS
+interface Message {
+    id: string;
+    tool_call_id?: string;
+    createdAt?: Date;
+    content: string;
+    ui?: string | JSX.Element | JSX.Element[] | null | undefined;
+    role: 'system' | 'user' | 'assistant' | 'function' | 'data' | 'tool';
+    name?: string;
+    function_call?: string | FunctionCall;
+    data?: JSONValue;
+    tool_calls?: string | ToolCall[];
+    annotations?: JSONValue[] | undefined;
+}
+```

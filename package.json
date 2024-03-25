@@ -46,7 +46,7 @@
     "langchain": "^0.1.28",
     "lucide-react": "^0.362.0",
     "mongoose": "^8.2.3",
-    "next": "^14.2.0-canary.40",
+    "next": "^14.2.0-canary.42",
     "next-auth": "^4.24.5",
     "next-themes": "^0.3.0",
     "openai": "^4.29.2",

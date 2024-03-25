@@ -3,36 +3,36 @@ import React from "react";
 
 import {
   Drawer,
+  DrawerPortal,
+  DrawerOverlay,
+  DrawerTrigger,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
+  DrawerFooter,
   DrawerTitle,
-  DrawerTrigger,
+  DrawerDescription,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { TLayoutProp } from "@/data_manipulation/types/types";
+import { ChatBox } from "../chat_box";
 
 export const ChatDialogue: React.FC<TLayoutProp> = ({ children, asChild }) => {
   return (
     <Drawer>
       <DrawerTrigger asChild={asChild}>{children}</DrawerTrigger>
-      <DrawerContent className="bg-transparent border-none h-[570px] sm:h-[650px] p-2 flex-c-center ">
-        <div className="md:w-[600px] w-full h-full rounded-lg dark:bg-primary-dark-bg text-black bg-white dark:text-white  mt-3">
+      <DrawerContent className="border-none outline-none h-[600px] sm:h-[700px] p-1 flex-c-center bg-white/20 dark:bg-transparent ">
+        <div className="md:w-[600px] w-full h-full rounded-lg dark:bg-primary-dark-bg text-black bg-white dark:text-white  mt-3 select-text">
+          {/* Header */}
           <DrawerHeader>
             <DrawerTitle>Assitant</DrawerTitle>
             <DrawerDescription>This action cannot be undone.</DrawerDescription>
           </DrawerHeader>
-          <div>children</div>
-          <DrawerFooter>
-            <Button>Submit</Button>
-            <DrawerClose>
-              <Button variant="outline" asChild>
-                Cancel
-              </Button>
-            </DrawerClose>
-          </DrawerFooter>
+
+          {/* Body */}
+          <div className="p-4 pb-0 h-[450px]">
+            <ChatBox />
+          </div>
         </div>
       </DrawerContent>
     </Drawer>

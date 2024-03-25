@@ -21,7 +21,7 @@ export const MenuDropdown: React.FC<TLayoutProp> = ({ children, asChild }) => {
       >
         <DropdownMenuLabel>Settings</DropdownMenuLabel>
         <DropdownMenuSeparator className="mb-3" />
-        <div className="flex justify-between items-center drop-shadow-md hover:dark:bg-main-dark-bg hover:bg-slate-100 rounded-sm px-2 py-1.5 transition-all duration-300">
+        <div className="flex justify-between items-center hover:dark:bg-main-dark-bg hover:bg-slate-100 rounded-sm px-2 py-1.5 transition-all duration-300">
           Theme <ThemeToggle />
         </div>
       </DropdownMenuContent>
