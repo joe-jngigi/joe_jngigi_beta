@@ -21,7 +21,7 @@ export const ChatDialogue: React.FC<TLayoutProp> = ({ children, asChild }) => {
   return (
     <Drawer>
       <DrawerTrigger asChild={asChild}>{children}</DrawerTrigger>
-      <DrawerContent className="border-none outline-none h-[600px] sm:h-[700px] p-1 flex-c-center bg-white/20 dark:bg-transparent ">
+      <DrawerContent className="border-none outline-none h-[700px] sm:h-[800px] p-1 flex-c-center bg-white/20 dark:bg-transparent">
         <div className="md:w-[600px] w-full h-full rounded-lg dark:bg-primary-dark-bg text-black bg-white dark:text-white  mt-3 select-text">
           {/* Header */}
           <DrawerHeader>
@@ -30,7 +30,7 @@ export const ChatDialogue: React.FC<TLayoutProp> = ({ children, asChild }) => {
           </DrawerHeader>
 
           {/* Body */}
-          <div className="p-4 pb-0 h-[450px]">
+          <div className="p-1 pb-0 h-[480px] sm:h-[580px]">
             <ChatBox />
           </div>
         </div>

@@ -18,7 +18,7 @@ npm install @langchain/openai openai --force
 
 ## Getting Started
 
-The other tools used in this project for the chat include the **react-markdown**, which will be used for formatting the chats used in the project. DataStax Astra DB Serverless is a cloud-based NoSQL database service that offers several advantages for your project, especially if it involves storing and managing data efficiently. Checkout the setup for [DataStax Astra DB Serverless](https://docs.datastax.com/en/astra/astra-db-vector/integrations/langchain-js.html)
+The other tools used in this project for the chat include the **react-markdown**, which will be used for formatting the chats used in the project. DataStax Astra DB Serverless is a cloud-based NoSQL database service that offers several advantages for your project, especially if it involves storing and managing data efficiently. Checkout the setup for [DataStax Astra DB Serverless](https://docs.datastax.com/en/astra/astra-db-vector/integrations/langchain-js.html).
 
 ```BASH
 npm install @datastax/astra-db-ts@latest
@@ -44,7 +44,27 @@ From [The Vercel AI SDK](https://sdk.vercel.ai/docs/api-reference/use-chat), we 
 
 > **`useChat`** is a utility to allow you to easily create a conversational user interface for your chatbot application. It enables the streaming of chat messages from your AI provider, manages the state for chat input, and updates the UI automatically as new messages are received. After submitting a message, the `useChat` hook will automatically append a user message to the chat history and trigger an API call to the configured endpoint.
 
-From the messages from `useChat()`, we can destructure it, it has the following types, so we can simply have the Props Message from `useChat`, from which we can extract the **content** and **role**
+From the messages from `useChat()`, we can destructure it, where we have different functions we can use to create the chat panel. One collection in the object is **messages**
+
+`**messages**` is returned as collection. The **messages** are array with objects of type `Message`. This means we can extract each message individually message as an object using the `map()` function, which will list all the object individually.
+
+```TS
+interface Message {
+  id: string;
+  tool_call_id?: string;
+  createdAt?: Date;
+  content: string;
+  ui?: string | JSX.Element | JSX.Element[] | null | undefined;
+  role: 'system' | 'user' | 'assistant' | 'function' | 'data' | 'tool';
+  name?: string;
+  function_call?: string | FunctionCall;
+  data?: JSONValue;
+  tool_calls?: string | ToolCall[];
+  annotations?: JSONValue[] | undefined;
+}
+```
+
+When we get each individual **message object**, we can now manipulate the **message**, like shown; in this example, we can render each message conditionally, according to the **role** of each **message** This is the implementation of the client side messages.
 
 ```TSX
 import React from "react";
@@ -68,23 +88,25 @@ export const ChatBox = () => {
 
 const MessageBox: React.FC<messageProps> = ({ messages: { role, content } }) => {
   const isAImessage = role === "assistant"
-  return <div>Role: {role} Message { content}</div>;
+  return(
+    <div className={cn("mb-4 flex p-2 rounded-lg")}>
+      {isAImessage ? (
+        <SiGoogleassistant size={17} className="text-emerald-500 flex-none mr-2" />
+      ) : (
+        <FaUserMd />
+      )}
+      {isAImessage ? <>Assistant {content}</> : <>User {content}</>}
+    </div>
+  )
 };
 
 ```
 
-```TS
-interface Message {
-    id: string;
-    tool_call_id?: string;
-    createdAt?: Date;
-    content: string;
-    ui?: string | JSX.Element | JSX.Element[] | null | undefined;
-    role: 'system' | 'user' | 'assistant' | 'function' | 'data' | 'tool';
-    name?: string;
-    function_call?: string | FunctionCall;
-    data?: JSONValue;
-    tool_calls?: string | ToolCall[];
-    annotations?: JSONValue[] | undefined;
-}
-```
+From the messages, we can now extract, **content** and **role**. We will use **role** to render each message conditionally. The `content` variable is not being mixed up because it is being rendered conditionally based on the value of `isAImessage`. 
+
+- `{isAImessage ? ... : ...}` is a conditional (ternary) operator. It checks if `isAImessage` is true or false.
+- If `isAImessage` is true (meaning the message is from the assistant), it renders the content preceded by the word "Assistant".
+- If `isAImessage` is false (meaning the message is from the user), it renders the content preceded by the word "User".
+
+> So, regardless of whether `isAImessage` is true or false, the `content` variable is being displayed appropriately with the corresponding label ("Assistant" or "User"). This ensures that the content is not mixed up because it's always preceded by an indicator of who sent the message.
+
