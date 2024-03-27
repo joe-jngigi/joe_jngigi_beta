@@ -13,7 +13,6 @@ import {
   DrawerTitle,
   DrawerDescription,
 } from "@/components/ui/drawer";
-import { Button } from "@/components/ui/button";
 import { TLayoutProp } from "@/data_manipulation/types/types";
 import { ChatBox } from "../chat_box";
 
@@ -30,7 +29,7 @@ export const ChatDialogue: React.FC<TLayoutProp> = ({ children, asChild }) => {
           </DrawerHeader>
 
           {/* Body */}
-          <div className="p-1 pb-0 h-[480px] sm:h-[580px]">
+          <div className="p-1 pb-0 h-[470px] sm:h-[570px]">
             <ChatBox />
           </div>
         </div>

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@datastax/astra-db-ts": "^0.1.4",
+    "@google/generative-ai": "^0.3.1",
     "@hookform/resolvers": "^3.3.4",
     "@langchain/core": "^0.1.49",
     "@langchain/google-genai": "^0.0.10",
@@ -46,11 +47,12 @@
     "langchain": "^0.1.28",
     "lucide-react": "^0.362.0",
     "mongoose": "^8.2.3",
-    "next": "^14.2.0-canary.43",
+    "next": "^14.2.0-canary.44",
     "next-auth": "^4.24.5",
     "next-themes": "^0.3.0",
     "openai": "^4.29.2",
     "postcss": "^8.4.35",
+    "prompt-sync": "^4.2.0",
     "radix-ui": "^1.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -70,6 +72,6 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.10"
+    "@tailwindcss/typography": "^0.5.11"
   }
 }
