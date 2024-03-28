@@ -194,7 +194,7 @@ Gemini Messages Lorem ipsum dolor sit amet consectetur adipisicing elit.Velit la
 
           {/* Text */}
           <Textarea
-            ref={inputRef}
+            // ref={inputRef}
             onChange={handleInputChange}
             value={input}
             placeholder="Hello There, I am excited, lets talk!"

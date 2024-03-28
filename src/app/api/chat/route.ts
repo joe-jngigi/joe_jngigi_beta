@@ -1,80 +1,71 @@
 import {
   GoogleGenerativeAI,
-  HarmCategory,
-  HarmBlockThreshold,
   GenerateContentRequest,
 } from "@google/generative-ai";
-import { ChatCompletionMessageParam } from "ai/prompts";
-import { GoogleGenerativeAIStream, Message, StreamingTextResponse } from "ai";
+
+import {
+  GoogleGenerativeAIStream,
+  LangChainStream,
+  Message,
+  StreamingTextResponse,
+} from "ai";
+
+import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
+import { ChatPromptTemplate } from "@langchain/core/prompts";
 
 export const runtime = "edge";
+const { handlers, stream } = LangChainStream();
 
-// convert messages from the Vercel AI SDK Format to the format
-// that is expected by the Google GenAI SDK
-const buildGoogleGeminiGenAI = (
-  messages: Message[]
-): GenerateContentRequest => ({
-  contents: messages
-    .filter(
-      (message) => message.role === "user" || message.role === "assistant"
-    )
-    .map((message) => ({
-      role: message.role === "user" ? "user" : "model",
-      parts: [
-        { text: message.content },
-        {
-          text: "You are my personal assistant, and your name is zephyr",
-        },
-      ],
-    })),
-});
+const time = new Date().getTime().toString()
+console.log(time);
 
 export const POST = async (req: Request) => {
   try {
+    /**
+     * Retrieve messages from the Request the user
+     *
+     * The messages are arrays, with type message
+     *
+     * @type {Message}
+     */
     const { messages } = await req.json();
 
-    const genAI = new GoogleGenerativeAI(
-      process.env.GOOGLE_GEMINI_API as string
-    );
-    console.log(genAI);
-    console.log(buildGoogleGeminiGenAI);
-    const model_access = await genAI
-      .getGenerativeModel({ model: "gemini-pro" })
-      .generateContentStream(buildGoogleGeminiGenAI(messages));
+    /**
+     * Accessing the model using langchain
+     */
+    const genAI = new ChatGoogleGenerativeAI({
+      apiKey: process.env.GOOGLE_GEMINI_API as string,
+      streaming: true,
+      modelName: "gemini-pro",
+      callbacks: [handlers],
+    });
 
-    const gemini_stream = GoogleGenerativeAIStream(model_access);
+    /**
+     * Look at the list of messages (`messages`).
+     *
+     * messages @type ->{Message}
+     *
+     * Find the most recent message in the list (the last one because arrays start counting at 0).
+     * Extract the text content (`content`) from that message and store it in the `currentMessage` variable.
+     */
+    const currentMessage = messages[messages.length - 1].content;
 
-    return new StreamingTextResponse(gemini_stream);
+    /**
+     * ["user", "{input}"] => Input is a special langchain interpolation input
+     */
+    const prompts = ChatPromptTemplate.fromMessages([
+      ["system", "You are a personal assistant, and your name is zephyr"],
+      ["user", "{input}"],
+    ]);
+
+    const chain = prompts.pipe(genAI)
+    chain.invoke({
+      input: currentMessage
+    })
+
+    return new StreamingTextResponse(stream);
   } catch (error) {
     console.log(error);
     return Response.json({ error: "Iternal Server Error" }, { status: 500 });
   }
 };
-
-// Later Usage
-
-const generationConfig = {
-  temperature: 0.9,
-  topK: 1,
-  topP: 1,
-  maxOutputTokens: 2048,
-};
-
-const safetySettings = [
-  {
-    category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-  },
-  {
-    category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-  },
-  {
-    category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-  },
-  {
-    category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-  },
-];

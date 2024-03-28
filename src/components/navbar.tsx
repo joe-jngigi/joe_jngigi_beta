@@ -1,11 +1,18 @@
+"use client";
+
 import ResponsiveNav from "@/components/_components/responsive-nav";
 import PagesLinks from "@/components/_components/pages-links";
-import ThemeToggle from "@/components/_components/theme_toggle";
+import { usePathname } from "next/navigation";
 
-const Navbar = async () => {
+const Navbar = () => {
+  const path = usePathname()
+  console.log(path);
+  
   return (
-    <nav className="z-50 font-poppins text-sm px-3 py-0.5 fixed lg:top-5 top-0 mx-auto left-1/2 transform -translate-x-1/2 w-full xl:w-[1200px]  h-[64px] backdrop-filter backdrop-blur-lg bg-opacity-50 bg-blend-color-dodge">
-      <div className="flex-between  dark:px-3 h-full rounded-full text-black dark:text-white">
+    <nav
+      className={`${ path == "/"? "left-1/2 transform -translate-x-1/2 w-full xl:w-[1200px]" : "w-full"} z-50 font-poppins text-sm px-3 py-0.5 fixed lg:top-5 top-0 mx-auto h-[64px] backdrop-filter backdrop-blur-lg bg-opacity-50 bg-blend-color-dodge `}
+    >
+      <div className="flex-between h-full rounded-full text-black dark:text-white">
         {/* logo */}
         <h1
           title="This is just text, I don't want to make a logo"

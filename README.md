@@ -1,5 +1,7 @@
 # NextJS Development
 
+[Pipet! Important](https://ai.google.dev/examples/pipet-code-agent)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Code Snippets
@@ -45,9 +47,9 @@ Together, the expression conveys the idea of someone who is adept at constructin
 
 ## Getting Started
 
-The `layout` entrypoint for the nextjs components is the main entry point of our application and all the components are wrapped within it as its `children`. As a result, any code that is written will be displayed on every route page that you get to create; like a `</ Header>` and a `</ Navbar>`. This means that the component accepts a children prop.
+The `layout` entry point for the nextjs components is the main entry point of our application and all the components are wrapped within it as its `children`. As a result, any code that is written will be displayed on every route page that you get to create; like a `</ Header>` and a `</ Navbar>`. This means that the component accepts a children prop.
 
-In NextJs we have the built in pages that handle the different layouts. The can include: </br>
+In NextJs we have the built-in pages that handle the different layouts. The can include: </br>
 
 > - layout.tsx ( *js, *jsx)
 > - page.tsx ( *js, *jsx)
@@ -59,7 +61,7 @@ Anytime you write this, next framework will recognize this page according to wha
 
 ## Highlight: The spread operator
 
-The spread operator `(...)` in JavaScript is used to "spread" the contents of an iterable (like an array or an object) into another array or object. Let's break down how this works using your marvelMovies array:
+The spread operator `(...)` in JavaScript is used to "spread" the contents of an iterable (like an array or an object) into another array or object. Let's break down how this works using your `marvelMovies` array:
 
 ```JS
 const marvelMovies = [

@@ -4,8 +4,10 @@ import { NewLoader } from "@/components/_components/new_loader";
 import { ExternalLink } from "lucide-react";
 
 import Link from "next/link";
+import { generateEmbeddings } from "../../../scripts/generate";
 
 export default function Home() {
+  generateEmbeddings();
   return (
     <main className="font-poppins bg-white dark:bg-black text-black dark:text-white mb-10 pb-20 md:p-0 min-h-[96vh] px-1 duration-300 transition-all">
       <>
