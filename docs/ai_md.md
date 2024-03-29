@@ -388,4 +388,8 @@ The TypeScript script defines a function `generateEmbeddings()` that orchestrate
 
 # <p style = "color: cyan; font-size: 36px; ">Vector Database</p>
 
+Vector databases are a special type of database designed to store and manage information in a way that's particularly useful for artificial intelligence (AI) and machine learning applications. Unlike tradition databases that organize data in rows and tables, **Vector databases store data points as mathematical structures called vectors**. These vectors are essentially fixed-length lists of numbers that represent some underlying information. Vectors can have many dimensions, ranging from a few to even thousands, depending on the complexity of the data they represent. This allows them to capture rich and nuanced information about things like text, images, audio, or video. A key strength of vector databases is their ability to perform similarity searches. Instead of looking for exact matches, they can find data points in the database that are most similar to a given query vector.
 
+**What do we do after process the files?**
+
+We need to store these in a vector database, and we will be using Astra Database. Astra itself isn't a vector database, but rather a cloud-based NoSQL database platform by DataStax that offers vector search capabilities built on Apache Cassandra. Instead, it has **Vector Search** which is an extension or feature within Astra DB that allows you to store and perform similarity searches on vector embeddings. So, you can leverage Astra's core functionalities for data management and utilize the vector search capabilities for specific AI applications.

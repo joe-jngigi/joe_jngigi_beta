@@ -3,7 +3,7 @@ import { Resend } from "resend";
 
 import { EmailTemplate } from "@/components/_components/email_template";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY as string);
 
 export const sendMeDm = async (name: string, email: string, mail: string) => {
   await resend.emails.send({

@@ -10,7 +10,7 @@ const Navbar = () => {
   
   return (
     <nav
-      className={`${ path == "/"? "left-1/2 transform -translate-x-1/2 w-full xl:w-[1200px]" : "w-full"} z-50 font-poppins text-sm px-3 py-0.5 fixed lg:top-5 top-0 mx-auto h-[64px] backdrop-filter backdrop-blur-lg bg-opacity-50 bg-blend-color-dodge `}
+      className={`${ path == "/"? "left-1/2 transform -translate-x-1/2 w-full xl:w-[1200px]" : "w-full"} duration-700 transition-all ease-in-out z-50 font-poppins text-sm p-4 fixed top-0 mx-auto backdrop-filter backdrop-blur-lg bg-opacity-50`}
     >
       <div className="flex-between h-full rounded-full text-black dark:text-white">
         {/* logo */}
