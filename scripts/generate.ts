@@ -1,39 +1,99 @@
 import { DirectoryLoader } from "langchain/document_loaders/fs/directory";
-import { GithubRepoLoader } from "langchain/document_loaders/web/github";
-
 import { TextLoader } from "langchain/document_loaders/fs/text";
 import { JSONLoader } from "langchain/document_loaders/fs/json";
 
-export const generateEmbeddings = async () => {
-  // const loader = new DirectoryLoader("../", {
-  //   ".txt": (path) => new TextLoader(path),
-  //   ".ts": (path) => new TextLoader(path),
-  //   ".tsx": (path) => new TextLoader(path),
-  //   ".md": (path) => new TextLoader(path),
-  //   ".json": (path) => new JSONLoader(path, "/texts"),
+import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
+import { DocumentInterface } from "@langchain/core/documents";
 
-  // });
-
-  // // The pages need to be filtered
-  // const docs = await loader.load()
-  // console.log(docs);
-
-  const loader = new GithubRepoLoader(
-    "https://github.com/joe-jngigi/joe_jngigi-Beta",
+async function generateEmbeddings() {
+  const html_loader = new DirectoryLoader(
+    "src/",
     {
-      branch: "next",
-      recursive: true,
-      processSubmodules: true,
-      unknown: "warn",
-    }
+      ".tsx": (path) => new TextLoader(path),
+    },
+    true
+  );
+  const typescript_loader = new DirectoryLoader(
+    "src/",
+    {
+      ".ts": (path) => new TextLoader(path),
+    },
+    true
+  );
+  const rootmd_loader = new DirectoryLoader(
+    "docs/",
+    {
+      ".md": (path) => new TextLoader(path),
+    },
+    true
   );
 
-  const docs = [];
-  for await (const doc of loader.loadAsStream()) {
-    docs.push(doc);
-  }
+  // The pages need to be filtered
+  const html_docs = await html_loader.load();
+  const ts_docs = await typescript_loader.load();
+  const rootmd_docs = await rootmd_loader.load();
 
-  console.log({ docs });
-};
+  const final_html = html_docs.map((doc): DocumentInterface => {
+    const url =
+      doc.metadata.source
+        .replace(/\\/g, "/") //Replace backward slashes with forward
+        .split("/src")[1]
+        .split("/page.", "/layout.")[0] || "/";
+
+    const pageContentTrimmed = doc.pageContent
+      // .replace(/^import.*$/gm, "") // Remove all import statements
+      .replace(/ className=(["']).*?\1| className={.*?}/g, "") // Remove all className props
+      .replace(/^\s*[\r]/gm, "") // remove empty lines
+      .trim();
+
+    return {
+      pageContent: pageContentTrimmed,
+      metadata: { url },
+    };
+  });
+
+  const final_typescript = ts_docs.map((doc): DocumentInterface => {
+    const url = doc.metadata.source
+      .replace(/\\/g, "/") //Replace backward slashes with forward
+      .split("/src")[1];
+
+    const pageContentTrimmed = doc.pageContent
+      .replace(/^\s*[\r]/gm, "") // remove empty lines
+      .trim();
+
+    return {
+      pageContent: pageContentTrimmed,
+      metadata: { url },
+    };
+  });
+
+  const final_rootmd = rootmd_docs.map((doc): DocumentInterface => {
+    const url = doc.metadata.source
+      .replace(/\\/g, "/") //Replace backward slashes with forward
+      .split("/")[1];
+    // .split("/page.")[0] || "/";
+
+    const pageContentTrimmed = doc.pageContent
+      .replace(/^\s*[\r]/gm, "") // remove empty lines
+      .trim();
+
+    return {
+      pageContent: pageContentTrimmed,
+      metadata: { url },
+    };
+  });
+
+  // We need to split the documents generated
+  const html_splitter = RecursiveCharacterTextSplitter.fromLanguage("html");
+  const md_splitter = RecursiveCharacterTextSplitter.fromLanguage("markdown");
+  const ts_splitter = RecursiveCharacterTextSplitter.fromLanguage("markdown");
+
+  const split_html = await html_splitter.splitDocuments(final_html);
+  const split_rootmd = await md_splitter.splitDocuments(final_rootmd);
+  const split_ts = await ts_splitter.splitDocuments(final_typescript);
+
+  console.log();
+  
+}
 
 generateEmbeddings();

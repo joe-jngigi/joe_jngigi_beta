@@ -1,14 +1,4 @@
-import {
-  GoogleGenerativeAI,
-  GenerateContentRequest,
-} from "@google/generative-ai";
-
-import {
-  GoogleGenerativeAIStream,
-  LangChainStream,
-  Message,
-  StreamingTextResponse,
-} from "ai";
+import { LangChainStream, Message, StreamingTextResponse } from "ai";
 
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
@@ -16,7 +6,7 @@ import { ChatPromptTemplate } from "@langchain/core/prompts";
 export const runtime = "edge";
 const { handlers, stream } = LangChainStream();
 
-const time = new Date().getTime().toString()
+const time = new Date().getTime().toString();
 console.log(time);
 
 export const POST = async (req: Request) => {
@@ -58,10 +48,10 @@ export const POST = async (req: Request) => {
       ["user", "{input}"],
     ]);
 
-    const chain = prompts.pipe(genAI)
+    const chain = prompts.pipe(genAI);
     chain.invoke({
-      input: currentMessage
-    })
+      input: currentMessage,
+    });
 
     return new StreamingTextResponse(stream);
   } catch (error) {

@@ -1,6 +1,6 @@
 # <p style = "color: cyan; font-size: 36px; ">AI integration in My next.js App</p>
 
-I needed to first find out how I can work with the **Google AI** or the **OpenAI**. I also needed to use **Langchain** as I wanted to make a more customized assistant for my project. **Langchain** simplifies LLM application development by providing the tools to manage data access, guide the LLM with well-crafted prompts, and leverage retrieved information for accurate and informative responses. It's like giving developers a recipe book for building effective LLM applications. This is the installation script of the langchain and the Google AI module. On this project I install **langchain**, **google-genai**, **dotenv** and **`ai`**, `ai` is from Vercel, for the Vercel AI SDK. For this blog, I will only connect to the Generative AI.
+I needed to first find out how I can work with the **Google AI** or the **OpenAI**. I also needed to use **Langchain** as I wanted to make a more customized assistant for my project. **Langchain** simplifies LLM application development by providing the tools to manage **private or customized data access**, guide the LLM with well-crafted prompts, and leverage retrieved information for accurate and informative responses. It's like giving developers a recipe book for building effective LLM applications. This is the installation script of the langchain and the Google AI module. On this project I install **langchain**, **google-genai**, **dotenv** and **`ai`**, `ai` is from Vercel, for the Vercel AI SDK. For this blog, I will only connect to the Generative AI.
 
 ```BASH
 npm install -S langchain @langchain/google-genai ai dotenv --force
@@ -108,7 +108,7 @@ From the messages, we can now extract, **content** and **role**. We will use **r
 
 # <p style = "color: cyan; font-size: 36px; ">Integrating with Gemini</p>
 
-We have noted that I am using **Vercel AI SDK** and **useChat()**. useChat enables **streaming**, In this context of useChat, streaming refers to the continuous flow of chat messages from your AI provider. Imagine it like a live feed of messages being sent one after another, instead of receiving them all at once in a big chunk. **useChat** connects with the `api/chat/route.ts` route, where we have implemented the **Google Gemini API** key.
+We have noted that I am using **Vercel AI SDK** and **useChat()**. useChat enables **streaming**. In the context of useChat, streaming refers to the continuous flow of chat messages from your AI provider. Imagine it like a live feed of messages being sent one after another, instead of receiving them all at once in a big chunk. **useChat** connects with the `api/chat/route.ts` route, where we have implemented the **Google Gemini API** key.
 
 In the API route, we implement the [**GoogleGenerativeAIStream**](https://sdk.vercel.ai/docs/api-reference/providers/google-generative-ai-stream). The GoogleGenerativeAIStream function is a utility that transforms the output from Google's Generative AI SDK into a **ReadableStream**. It uses **AIStream** under the hood, applying a specific parser for the Google's response data structure.
 
@@ -124,7 +124,7 @@ From here, we can now implement a post API, which will be used to connect with G
 [{ "role": "user", "content": "what is generative-ai" }]
 ```
 
-```TS
+````TS
 
 /**
  * convert messages from the Vercel AI SDK Format to the format
@@ -179,15 +179,73 @@ export const POST = async (req: Request) => {
     return Response.json({ error: "Iternal Server Error" }, { status: 500 });
   }
 };
-```
+````
 
 # <p style = "color: cyan; font-size: 36px; ">Langchain</p>
 
-Langchain tackles simplifying LLM application development in a few key ways, let's delve into the "how" behind each
+**Establishing connection using langchain**
+
+From the previous section we have noted how to establish a connection **Gemini**, this can be the same case for establishing the connection to **OpenAI**. You can access Google's `gemini` and `gemini-vision` models, as well as other generative models in LangChain through ChatGoogleGenerativeAI class in the `@langchain/google-genai` integration package. By using **ChatGoogleGenerativeAI**, we now replace **GoogleGenerativeAI**, so we can now pass different settings and the API key to langchain to establish the connection. To set up **langchain for Google AI**, we can check out the following [**ChatGoogleGenerativeAI**](https://js.langchain.com/docs/integrations/chat/google_generativeai), here we can see how to configure langchain into our NodeJS project
+
+```TS
+import { LangChainStream, Message, StreamingTextResponse } from "ai";
+
+import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
+import { ChatPromptTemplate } from "@langchain/core/prompts";
+
+export const runtime = "edge";
+const { handlers, stream } = LangChainStream();
+
+const time = new Date().getTime().toString();
+console.log(time);
+
+export const POST = async (req: Request) => {
+  try {
+   
+    const { messages } = await req.json();
+    const genAI = new ChatGoogleGenerativeAI({
+      apiKey: process.env.GOOGLE_GEMINI_API as string,
+      streaming: true,
+      modelName: "gemini-pro",
+      callbacks: [handlers],
+    });
+
+    const currentMessage = messages[messages.length - 1].content;
+    const prompts = ChatPromptTemplate.fromMessages([
+      ["system", "You are a personal assistant, and your name is zephyr"],
+      ["user", "{input}"],
+    ]);
+
+    const chain = prompts.pipe(genAI);
+    chain.invoke({
+      input: currentMessage,
+    });
+
+    return new StreamingTextResponse(stream);
+  } catch (error) {
+    console.log(error);
+    return Response.json({ error: "Iternal Server Error" }, { status: 500 });
+  }
+};
+```
+
+**How does langchain work?**
+
+**Here's an analogy**
+
+Imagine a chef (LLM) with exceptional culinary skills but unfamiliar with a particular cuisine (your desired application). Langchain provides you with the tools to:
+
+- Give the chef a recipe book (prompts) specific to that cuisine.
+- Stock the kitchen (data access) with the necessary ingredients.
+- Offer guidance on cooking techniques (components) for that cuisine.
+
+By influencing these aspects, you can get the chef to create a dish (LLM response) that aligns with your taste (application goals) without directly teaching them new culinary skills (re-training the LLM).
+
+While Langchain doesn't directly train the LLM itself, it empowers you as the developer to mold the LLM's responses within your application by influencing what data it sees and how it interprets your prompts. In that sense, you can customize the LLM's behavior for your specific use case.
 
 **Streamlining Data Access and Prompt Engineering**
 
-Imagine a large language model (LLM) as a powerful but information-hungry machine. Langchain acts as a bridge, **allowing developers to connect the LLM to various data sources**. This could be a company knowledge base, web search results, or even previous conversation history. LLMs rely on prompts, which are essentially instructions guiding the LLM towards the desired response. Langchain offers pre-built components for tasks like data retrieval and text manipulation. These components help developers craft effective prompts for the LLM, ensuring it has the right information and structure to deliver an accurate response.
+Imagine a large language model (LLM) as a powerful but information-hungry machine. Langchain acts as a bridge, **allowing developers to connect the LLM to various data sources**. This could be a **company knowledge base**, **web search results**, or even **previous conversation history**. LLMs rely on prompts, which are essentially instructions guiding the LLM towards the desired response. Langchain offers pre-built components for tasks like **data retrieval** and **text manipulation**. These components help developers craft effective prompts for the LLM, ensuring it has the right information and structure to deliver an accurate response.
 
 **Retrieval Augmented Generation (RAG)**
 
@@ -199,9 +257,7 @@ Langchain offers a toolbox of pre-built components, each handling specific tasks
 
 **LangChain is not a trainer**
 
-Not exactly. Langchain isn't designed for directly training a large language model (LLM) from scratch in the way you might train a pet. LLMs typically require massive amounts of data and computing power for training, which Langchain doesn't provide itself.
-
-However, Langchain can be a powerful tool to **work with** an already trained LLM and influence its responses in your application. Here's how:
+Not exactly. Langchain isn't designed for directly training a large language model (LLM) from scratch in the way you might train a pet. LLMs typically require massive amounts of data and computing power for training, which Langchain doesn't provide itself. Langchain is a powerful tool to **work with** an already trained LLM and influence its responses in your application. Here's how:
 
 1. **Prompt Engineering:**
 
@@ -212,26 +268,124 @@ However, Langchain can be a powerful tool to **work with** an already trained LL
    - Langchain allows you to connect the LLM to specific data sources relevant to your application. This way, the LLM primarily bases its responses on information you've chosen, shaping the overall direction of the conversation within your application.
 
 3. **Modular Component Selection:**
-
+ 
    - Langchain provides a variety of pre-built components for various tasks. You can choose components that guide the LLM towards the type of reasoning or response generation you need within your application.
-
-While Langchain doesn't directly train the LLM itself, it empowers you to mold the LLM's responses within your application by influencing what data it sees and how it interprets your prompts. In that sense, you can customize the LLM's behavior for your specific use case.
-
-Here's an analogy: Imagine a chef (LLM) with exceptional culinary skills but unfamiliar with a particular cuisine (your desired application). Langchain provides you with the tools to:
-
-* Give the chef a recipe book (prompts) specific to that cuisine.
-* Stock the kitchen (data access) with the necessary ingredients.
-* Offer guidance on cooking techniques (components) for that cuisine.
-
-By influencing these aspects, you can get the chef to create a dish (LLM response) that aligns with your taste (application goals) without directly teaching them new culinary skills (re-training the LLM).
-
 
 ## **Implementation of the langchain in our Project**
 
 In the project, I need the AI chatbot to achieve a certain behavior. This chatbot will be used in my project to answer questions about me, and my portfolio. Langchain will provide helper classes, and for this case, we want to read the content of our pages, and for this we will [**load them into langchain**](https://js.langchain.com/docs/integrations/platforms/google).
 
-We need to set up **langchain for Google AI**, we can check out the following [**ChatGoogleGenerativeAI**](https://js.langchain.com/docs/integrations/chat/google_generativeai), here we can see how to configure our NodeJS project
-
 ## Loading Pages
 
-[Github Loaders](https://js.langchain.com/docs/integrations/document_loaders/web_loaders/github)
+I needed to load my pages and the documents to provide my personal data to the langchain, that is my external data source, so that I can get more personalized information from my data source. For this I am using [file loaders](https://js.langchain.com/docs/integrations/document_loaders/file_loaders/directory), so I can load my pages and markdowns to get more personalized answers. For this, I generate a function to extract these **files** and put their information in a **document**. This script is a crucial part of a system designed for document processing and analysis.
+
+```TS
+import { DirectoryLoader } from "langchain/document_loaders/fs/directory";
+import { TextLoader } from "langchain/document_loaders/fs/text";
+import { JSONLoader } from "langchain/document_loaders/fs/json";
+
+import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
+import { DocumentInterface } from "@langchain/core/documents";
+
+async function generateEmbeddings() {
+  const html_loader = new DirectoryLoader(
+    "src/",
+    {
+      ".tsx": (path) => new TextLoader(path),
+    },
+    true
+  );
+  const typescript_loader = new DirectoryLoader(
+    "src/",
+    {
+      ".ts": (path) => new TextLoader(path),
+    },
+    true
+  );
+  const rootmd_loader = new DirectoryLoader(
+    "docs/",
+    {
+      ".md": (path) => new TextLoader(path),
+    },
+    true
+  );
+
+  // The pages need to be filtered
+  const html_docs = await html_loader.load();
+  const ts_docs = await typescript_loader.load();
+  const rootmd_docs = await rootmd_loader.load();
+
+  const final_html = html_docs.map((doc): DocumentInterface => {
+    const url =
+      doc.metadata.source
+        .replace(/\\/g, "/") //Replace backward slashes with forward
+        .split("/src")[1]
+        .split("/page.", "/layout.")[0] || "/";
+
+    const pageContentTrimmed = doc.pageContent
+      // .replace(/^import.*$/gm, "") // Remove all import statements
+      .replace(/ className=(["']).*?\1| className={.*?}/g, "") // Remove all className props
+      .replace(/^\s*[\r]/gm, "") // remove empty lines
+      .trim();
+
+    return {
+      pageContent: pageContentTrimmed,
+      metadata: { url },
+    };
+  });
+
+  const final_typescript = ts_docs.map((doc): DocumentInterface => {
+    const url = doc.metadata.source
+      .replace(/\\/g, "/") //Replace backward slashes with forward
+      .split("/src")[1];
+
+    const pageContentTrimmed = doc.pageContent
+      .replace(/^\s*[\r]/gm, "") // remove empty lines
+      .trim();
+
+    return {
+      pageContent: pageContentTrimmed,
+      metadata: { url },
+    };
+  });
+
+  const final_rootmd = rootmd_docs.map((doc): DocumentInterface => {
+    const url = doc.metadata.source
+      .replace(/\\/g, "/") //Replace backward slashes with forward
+      .split("/")[1];
+    // .split("/page.")[0] || "/";
+
+    const pageContentTrimmed = doc.pageContent
+      .replace(/^\s*[\r]/gm, "") // remove empty lines
+      .trim();
+
+    return {
+      pageContent: pageContentTrimmed,
+      metadata: { url },
+    };
+  });
+
+  // We need to split the documents generated
+  const html_splitter = RecursiveCharacterTextSplitter.fromLanguage("html");
+  const md_splitter = RecursiveCharacterTextSplitter.fromLanguage("markdown");
+  const ts_splitter = RecursiveCharacterTextSplitter.fromLanguage("markdown");
+
+  const split_html = await html_splitter.splitDocuments(final_html);
+  const split_rootmd = await md_splitter.splitDocuments(final_rootmd);
+  const split_ts = await ts_splitter.splitDocuments(final_typescript);
+
+  console.log(split_rootmd);
+  
+}
+
+generateEmbeddings();
+
+```
+
+The TypeScript script defines a function `generateEmbeddings()` that orchestrates the loading, processing, and splitting of documents from different directories. It imports modules for loading various document types such as HTML, Markdown, and TypeScript. The script sets up **DirectoryLoader** instances to load documents from specific directories, followed by asynchronous loading of documents using these loaders. Each type of document undergoes specific processing, such as removing import statements and class names for HTML documents, and trimming empty lines for Markdown and TypeScript documents. Subsequently, the documents are split based on their type using **RecursiveCharacterTextSplitter**. So we can now easily send the document as smaller chunks to the AI model
+
+>In intend to use [GitHub Loaders](https://js.langchain.com/docs/integrations/document_loaders/web_loaders/github) to load information in the future, and I think this will be a more efficient way for me. Of course there are safer ways I want to explore so that I can learn how to load files from different sources that can be more private like private databases.
+
+# <p style = "color: cyan; font-size: 36px; ">Vector Database</p>
+
+

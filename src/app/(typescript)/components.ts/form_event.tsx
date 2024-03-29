@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { data } from "@/utils/data_file";
+import { data } from "../../../../local_data/data_file";
 import { PostProps } from "@/data_manipulation/types/types";
 
 const FormEvent = () => {
