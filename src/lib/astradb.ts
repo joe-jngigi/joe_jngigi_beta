@@ -1,4 +1,10 @@
 import { AstraDB } from "@datastax/astra-db-ts";
+import {
+  AstraDBVectorStore,
+  AstraLibArgs,
+} from "@langchain/community/vectorstores/astradb";
+import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
+
 
 // Initialize variables
 const endpoints = process.env.ASTRA_DB_ENDPOINT as string;
@@ -12,12 +18,19 @@ if (!endpoints || !application_token || !collections) {
   );
 }
 
-export const astraAonnection = async () => {
+/**
+ * Reference
+ * [Class GoogleGenerativeAIEmbeddings](https://api.js.langchain.com/classes/langchain_google_genai.GoogleGenerativeAIEmbeddings.html)
+ * @returns 
+ */
+export const getAstraVectorStore = async () => {
   // Initialize the client
-  const astraDb = new AstraDB(
-    "YOUR_TOKEN",
-    "https://ba4f1095-2c8a-4941-9544-355b865d4219-us-east1.apps.astra.datastax.com"
+  return AstraDBVectorStore.fromExistingIndex(
+    new GoogleGenerativeAIEmbeddings({
+      modelName: "embedding-001",
+      
+    })
   );
 };
 
-astraAonnection().catch(console.error);
+getAstraVectorStore().catch(console.error);

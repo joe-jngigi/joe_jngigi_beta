@@ -6,7 +6,7 @@ import { ChatPromptTemplate } from "@langchain/core/prompts";
 export const runtime = "edge";
 const { handlers, stream } = LangChainStream();
 
-const time = new Date().getTime().toString();
+const time = new Date(new Date().getTime());
 console.log(time);
 
 export const POST = async (req: Request) => {
@@ -26,7 +26,10 @@ export const POST = async (req: Request) => {
     const genAI = new ChatGoogleGenerativeAI({
       apiKey: process.env.GOOGLE_GEMINI_API as string,
       streaming: true,
+      temperature: 0.7,
       modelName: "gemini-pro",
+      topK: 40,
+      topP: 1,
       callbacks: [handlers],
     });
 

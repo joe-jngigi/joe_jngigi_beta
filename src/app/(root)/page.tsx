@@ -1,5 +1,5 @@
 // import Image from 'next/image'
-import { ProfileIntro } from "@/components";
+import { ProfileIntro } from "@/components/index";
 // import { NewLoader } from "@/components/_components/new_loader";
 import { ExternalLink } from "lucide-react";
 
