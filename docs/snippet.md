@@ -1,4 +1,4 @@
-# <p style = "color: cyan; font-size: 36px; "></p>
+# <p style = "color: cyan; font-size: 36px; ">Algorithm</p>
 
 ```TS
 const currentMessage = messages[messages.length - 1].content;
@@ -22,4 +22,86 @@ This line of code is like saying:
 * Find the most recent message in the list (the last one because arrays start counting at 0).
 * Extract the text content (`content`) from that message and store it in the `currentMessage` variable.
 
-I hope this explanation clarifies the code!
+# <p style = "color: cyan; font-size: 36px; ">Algorithm | NextJS Development</p>
+
+This project is an implementation of Gemini to connect and implement a chatbot using the Google APIs
+
+```TS
+import {
+  GoogleGenerativeAI,
+  GenerateContentRequest,
+} from "@google/generative-ai";
+
+import { GoogleGenerativeAIStream, Message, StreamingTextResponse } from "ai";
+
+export const runtime = "edge";
+
+// convert messages from the Vercel AI SDK Format to the format
+// that is expected by the Google GenAI SDK
+const buildGoogleGeminiGenAI = (
+  messages: Message[]
+): GenerateContentRequest => ({
+  contents: messages
+    .filter(
+      (message) => message.role === "user" || message.role === "assistant"
+    )
+    .map((message) => ({
+      role: message.role === "user" ? "user" : "model",
+      parts: [
+        { text: message.content },
+        {
+          text: "You are my personal assistant, and your name is zephyr",
+        },
+      ],
+    })),
+});
+
+export const POST = async (req: Request) => {
+  try {
+    const { messages } = await req.json();
+
+    const genAI = new GoogleGenerativeAI(
+      process.env.GOOGLE_GEMINI_API as string
+    );
+
+    const model_access = await genAI
+      .getGenerativeModel({ model: "gemini-pro" })
+      .generateContentStream(buildGoogleGeminiGenAI(messages));
+
+    const gemini_stream = GoogleGenerativeAIStream(model_access);
+
+    return new StreamingTextResponse(gemini_stream);
+  } catch (error) {
+    console.log(error);
+    return Response.json({ error: "Iternal Server Error" }, { status: 500 });
+  }
+};
+
+// Later Usage
+
+// const generationConfig = {
+//   temperature: 0.9,
+//   topK: 1,
+//   topP: 1,
+//   maxOutputTokens: 2048,
+// };
+
+// const safetySettings = [
+//   {
+//     category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+//     threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+//   },
+//   {
+//     category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+//     threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+//   },
+//   {
+//     category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+//     threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+//   },
+//   {
+//     category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+//     threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+//   },
+// ];
+```

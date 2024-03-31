@@ -1,11 +1,18 @@
 import { DirectoryLoader } from "langchain/document_loaders/fs/directory";
 import { TextLoader } from "langchain/document_loaders/fs/text";
-import { JSONLoader } from "langchain/document_loaders/fs/json";
 
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { DocumentInterface } from "@langchain/core/documents";
+import {
+  getEmbeddingsCollection,
+  getGeminiAstraVectorStore,
+} from "../src/lib/astradb";
 
 async function generateEmbeddings() {
+  const vectorStore = await getGeminiAstraVectorStore();
+
+  (await getEmbeddingsCollection()).deleteMany({});
+
   const html_loader = new DirectoryLoader(
     "src/",
     {
@@ -92,8 +99,11 @@ async function generateEmbeddings() {
   const split_rootmd = await md_splitter.splitDocuments(final_rootmd);
   const split_ts = await ts_splitter.splitDocuments(final_typescript);
 
-  console.log();
-  
+  console.log(split_ts);
+
+  await vectorStore.addDocuments(split_html);
+  // await vectorStore.addDocuments(split_ts);
+  // await vectorStore.addDocuments(split_html);
 }
 
 generateEmbeddings();
