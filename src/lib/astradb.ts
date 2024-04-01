@@ -18,12 +18,11 @@ import { OpenAIEmbeddings } from "@langchain/openai";
 const endpoint = process.env.ASTRA_DB_ENDPOINT as string;
 const token = process.env.ASTRA_DB_APPLICATION_TOKEN as string;
 const collection = process.env.ASTRA_DB_COLLECTION as string;
-const google_api = process.env.GOOGLE_GEMINI_API as string;
+const openai_api = process.env.OPEN_AI_GPT_KEY as string;
 
 console.log("endpoint", endpoint);
 console.log("token", token);
 console.log("collection", collection);
-console.log("collection", google_api);
 console.log(
   "========================================================================================="
 );
@@ -43,15 +42,18 @@ if (!endpoint || !token || !collection) {
 export const getGeminiAstraVectorStore = async () => {
   // Initialize the client
   return AstraDBVectorStore.fromExistingIndex(
-    new GoogleGenerativeAIEmbeddings({ modelName: "multimodalembedding@001" }),
+    new GoogleGenerativeAIEmbeddings({
+      modelName: "textembedding-gecko",
+    }),
     {
       collection,
+
       endpoint,
       token,
-      maxRetries: 2,
+      maxRetries: 1,
       collectionOptions: {
         vector: {
-          dimension: 1408,
+          dimension: 768,
           metric: "cosine",
         },
       },
@@ -67,6 +69,7 @@ export const getOpenaiAstraVectorStore = async () => {
   // Initialize the client
   return AstraDBVectorStore.fromExistingIndex(
     new OpenAIEmbeddings({
+      openAIApiKey: openai_api,
       modelName: "text-embedding-3-small",
     }),
 
@@ -77,7 +80,7 @@ export const getOpenaiAstraVectorStore = async () => {
       maxRetries: 2,
       collectionOptions: {
         vector: {
-          dimension: 1500,
+          dimension: 1536,
           metric: "cosine",
         },
       },

@@ -1,15 +1,15 @@
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
+// Configure dotenv before other imports
+import { DocumentInterface } from "@langchain/core/documents";
+import { Redis } from "@upstash/redis";
 import { DirectoryLoader } from "langchain/document_loaders/fs/directory";
 import { TextLoader } from "langchain/document_loaders/fs/text";
-
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
-import { DocumentInterface } from "@langchain/core/documents";
-import {
-  getEmbeddingsCollection,
-  getGeminiAstraVectorStore,
-} from "../src/lib/astradb";
+import { getEmbeddingsCollection, getGeminiAstraVectorStore, getOpenaiAstraVectorStore } from "../src/lib/astradb";
 
 async function generateEmbeddings() {
-  const vectorStore = await getGeminiAstraVectorStore();
+  const vectorStore = await getOpenaiAstraVectorStore();
 
   (await getEmbeddingsCollection()).deleteMany({});
 
