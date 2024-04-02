@@ -1,6 +1,6 @@
 # <p style = "color: cyan; font-size: 36px; ">AI integration in My next.js App</p>
 
-I needed to first find out how I can work with the **Google AI** or the **OpenAI**. I also needed to use **Langchain** as I wanted to make a more customized assistant for my project. **Langchain** simplifies LLM application development by providing the tools to manage **private or customized data access**, guide the LLM with well-crafted prompts, and leverage retrieved information for accurate and informative responses. It's like giving developers a recipe book for building effective LLM applications. This is the installation script of the langchain and the Google AI module. On this project I install **langchain**, **google-genai**, **dotenv** and **`ai`**, `ai` is from Vercel, for the Vercel AI SDK. For this blog, I will only connect to the Generative AI.
+I needed to first find out how I can work with the **Google AI** or the **OpenAI**. I also needed to use **Langchain** as I wanted to make a more customized assistant for my project. **Langchain** simplifies LLM application development by providing the tools to manage **private or customized data access**, guide the LLM with well-crafted prompts, and leverage retrieved information for accurate and informative responses. It's like giving developers a recipe book for building effective LLM applications. This is the installation script of the langchain and the Google AI module. On this project I install **langchain**, **google-genai**, **dotenv** and **`ai`**, `ai` is from Vercel, for the Vercel AI SDK. For this blog, I will only connect to the Generative AI and langchain. I used Gemini to and tried to send data to astradb, but it failed. **Gemini** has no clear documentation in langchain of March 202, so I chose to continue with **OpenAI**, because it is better and with a clear langchain documentation. Remember you have to pay for the OpenAI APIs.
 
 ```BASH
 npm install -S langchain @langchain/google-genai ai dotenv --force
@@ -118,7 +118,7 @@ We also need to install **generative-ai**
 npm i @google/generative-ai prompt-sync --force
 ```
 
-From here, we can now implement a post API, which will be used to connect with Google, so we can send the returned data. useChat returns **messages**, which has **role** and **content**. We then initialized the API key from Google and the model to be used from which we can then pass the messages to the **GoogleGenerativeAIStream**. This will return a new instance of **StreamingTextResponse**. This will process and return readable data.
+From here, we can now implement a post API, which will be used to connect with Google, so we can send the returned data. useChat returns **messages**, which has **role** and **content**. We then initialized the API key and the model to be used from which we can then pass the messages to the **GoogleGenerativeAIStream** for Gemini and for OpenAI we have **ChatOpenAI**. This will return a new instance of **StreamingTextResponse**. This will process and return readable data.
 
 ```json
 [{ "role": "user", "content": "what is generative-ai" }]
@@ -288,6 +288,9 @@ import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { DocumentInterface } from "@langchain/core/documents";
 
 async function generateEmbeddings() {
+
+  const vectorStore = await getOpenaiAstraVectorStore();
+
   const html_loader = new DirectoryLoader(
     "src/",
     {
@@ -374,6 +377,10 @@ async function generateEmbeddings() {
   const split_rootmd = await md_splitter.splitDocuments(final_rootmd);
   const split_ts = await ts_splitter.splitDocuments(final_typescript);
 
+  const new_docs = [...split_html, ...split_rootmd, ...split_ts]
+
+  await vectorStore.addDocuments(newdocs);
+
   console.log(split_rootmd);
   
 }
@@ -382,9 +389,9 @@ generateEmbeddings();
 
 ```
 
-The TypeScript script defines a function `generateEmbeddings()` that orchestrates the loading, processing, and splitting of documents from different directories. It imports modules for loading various document types such as HTML, Markdown, and TypeScript. The script sets up **DirectoryLoader** instances to load documents from specific directories, followed by asynchronous loading of documents using these loaders. Each type of document undergoes specific processing, such as removing import statements and class names for HTML documents, and trimming empty lines for Markdown and TypeScript documents. Subsequently, the documents are split based on their type using **RecursiveCharacterTextSplitter**. So we can now easily send the document as smaller chunks to the AI model
+The TypeScript script defines a function `generateEmbeddings()` that orchestrates the loading, processing, and splitting of documents from different directories. It imports modules for loading various document types such as HTML, Markdown, and TypeScript. The script sets up **DirectoryLoader** instances to load documents from specific directories, followed by asynchronous loading of documents using these loaders. Each type of document undergoes specific processing, such as removing import statements and class names for HTML documents, and trimming empty lines for Markdown and TypeScript documents. Subsequently, the documents are split based on their type using **RecursiveCharacterTextSplitter**. So we can now easily send the document as smaller chunks to the AI model.
 
->In intend to use [GitHub Loaders](https://js.langchain.com/docs/integrations/document_loaders/web_loaders/github) to load information in the future, and I think this will be a more efficient way for me. Of course there are safer ways I want to explore so that I can learn how to load files from different sources that can be more private like private databases.
+>In intend to use [GitHub Loaders](https://js.langchain.com/docs/integrations/document_loaders/web_loaders/github) to load information in the future, and I think this will be a more efficient way to use when you need your own data. Of course there are safer ways, one can explore other ways to load files from different sources that can be more private like private databases.
 
 # <p style = "color: cyan; font-size: 36px; ">Vector Database</p>
 
@@ -393,3 +400,40 @@ Vector databases are a special type of database designed to store and manage inf
 **What do we do after process the files?**
 
 We need to store these in a vector database, and we will be using Astra Database. Astra itself isn't a vector database, but rather a cloud-based NoSQL database platform by DataStax that offers vector search capabilities built on Apache Cassandra. Instead, it has **Vector Search** which is an extension or feature within Astra DB that allows you to store and perform similarity searches on vector embeddings. So, you can leverage Astra's core functionalities for data management and utilize the vector search capabilities for specific AI applications.
+
+## Connecting to Astra DB
+
+For open AI, this is how we connect to the astradb so that we can save our generated data to the database. **OpenAIEmbeddings** is a class for generating embeddings using the OpenAI API. It extends the Embeddings class and implements **OpenAIEmbeddingsParams**. It has an embedding method `(embedDocuments)` to generate embeddings for an array of documents. Splits the documents into batches and makes requests to the OpenAI API to generate embeddings. This will return promise that resolves to a **2D array** of embeddings for each document.
+
+In Langchain, embeddings refer to a numerical representation of textual data. This basically means converting text into a series of numbers that capture the meaning and relationships within the text.
+
+Langchain uses a special class called **Embeddings** to interact with different embedding models. Embeddings allow Langchain to process text data in a way that machine learning algorithms can understand. This is because machines can't directly work with raw text, but they can perform calculations and comparisons on vectors (which embeddings are).
+
+`await vectorStore.addDocuments(newdocs);`
+
+We can now initialize this in our script generating file, which will send the data to the database.
+
+```TS
+export const getOpenaiAstraVectorStore = async () => {
+  // Initialize the client
+  return AstraDBVectorStore.fromExistingIndex(
+    new OpenAIEmbeddings({
+      openAIApiKey: openai_api,
+      modelName: "text-embedding-3-small",
+    }),
+
+    {
+      collection,
+      endpoint,
+      token,
+      maxRetries: 2,
+      collectionOptions: {
+        vector: {
+          dimension: 1536,
+          metric: "cosine",
+        },
+      },
+    }
+  );
+};
+```

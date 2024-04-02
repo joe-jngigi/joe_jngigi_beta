@@ -1,16 +1,23 @@
 import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 // Configure dotenv before other imports
+
 import { DocumentInterface } from "@langchain/core/documents";
 import { Redis } from "@upstash/redis";
 import { DirectoryLoader } from "langchain/document_loaders/fs/directory";
 import { TextLoader } from "langchain/document_loaders/fs/text";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
-import { getEmbeddingsCollection, getGeminiAstraVectorStore, getOpenaiAstraVectorStore } from "../src/lib/astradb";
+import {
+  getEmbeddingsCollection,
+  getOpenaiAstraVectorStore,
+} from "../src/lib/astradb";
 
 async function generateEmbeddings() {
+
+  // initialize the vectorddatabase
   const vectorStore = await getOpenaiAstraVectorStore();
 
+  // We need to delete the documents so we can always have the updated information
   (await getEmbeddingsCollection()).deleteMany({});
 
   const html_loader = new DirectoryLoader(
@@ -99,11 +106,10 @@ async function generateEmbeddings() {
   const split_rootmd = await md_splitter.splitDocuments(final_rootmd);
   const split_ts = await ts_splitter.splitDocuments(final_typescript);
 
-  console.log(split_ts);
+  const newdocs = [...split_rootmd, ...split_html, ...split_ts];
+  console.log(newdocs);
 
-  await vectorStore.addDocuments(split_html);
-  // await vectorStore.addDocuments(split_ts);
-  // await vectorStore.addDocuments(split_html);
+  await vectorStore.addDocuments(newdocs);
 }
 
 generateEmbeddings();

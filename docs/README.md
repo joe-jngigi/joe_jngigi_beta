@@ -19,16 +19,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 </p>
 ```
 
-"A weaver of dreams at the loom of the mind" is a metaphorical expression describing someone who is skilled at creating imaginative and fantastical ideas or visions within their own mind.
-
-Here's a breakdown of the metaphor:
-
-- "A weaver of dreams": This part suggests that the person has the ability to construct or create dreams, which can be interpreted as aspirations, fantasies, or creative ideas.
-
-- "At the loom of the mind": This part likens the mind to a loom, a device used for weaving fabric. It implies that the mind is the tool or instrument through which these dreams are crafted, woven together from the threads of imagination and thought.
-
-Together, the expression conveys the idea of someone who is adept at constructing intricate and captivating mental images or ideas, much like a skilled weaver creates beautiful fabrics on a loom.
-
 ## Random Modal Component Code
 
 ```TSX
@@ -155,7 +145,7 @@ If you `console.log({...eachData})` you get the following
 
 > ### Take away
 
-When you use the spread operator with `{...eachData}`, you're telling JavaScript to treat the string as an iterable and spread its characters into separate properties in an object. Also we note that in `TS`, for any data we describe, it is given an `any` type, so we can describe the data as shown in this section of the code
+When you use the spread operator with `{...eachData}`, you're telling JavaScript to treat the string as an iterable and spread its characters into separate properties in an object. Also, we note that in `TS`, for any data we describe, it is given `any` type, so we can describe the data as shown in this section of the code
 
 ```tsx
 FETCHED_DATA.map((eachData: { id: number; title: string; body: string }) => (
@@ -163,13 +153,13 @@ FETCHED_DATA.map((eachData: { id: number; title: string; body: string }) => (
 ));
 ```
 
-> **NB** This type declaration ensures that when you use the `eachData` object in your code, it should adhere to this specific structure with the defined data types. For example, it prevents you from assigning a non-number value to the id property or a non-string value to the title property.
+> **NB** This type declaration ensures that when you use the `eachData` object in your code, it should adhere to this specific structure with the defined data types. For example, it prevents you from assigning a non-number value to the `id` property or a non-string value to the title property.
 
-check out the code structure in [Learning Typescript](https://github.com/joe-jngigi/next_learn_dev/blob/next/app/typescript/page.tsx)
+Check out the code structure in [Learning Typescript](https://github.com/joe-jngigi/next_learn_dev/blob/next/app/typescript/page.tsx)
 
 ## Mouse event
 
-You note that when you are handling the button and you want to perform an event, it will need to have a mouse event paramater passed in to do the `e.preventDefault`. If you hover on the `onClick` event used it the button, it will show the data type required for the button.
+You note that when you are handling the button, and you want to perform an event, it will need to have a mouse event parameter passed in to do the `e.preventDefault`. If you hover on the `onClick` event used it the button, it will show the data type required for the button.
 
 ```TS
 const handleClick = (e: React.MouseEvent<HTMLButtonElement>) =>{
@@ -199,7 +189,7 @@ Argument of type `{ name: string; sessionId: number; }` is not assignable to par
 
 > Linting, is the process of analyzing your code to find potential issues, coding style violations, and other problematic patterns. You can identify this using **ESLint**, which is a popular open-source linting tool for JavaScript and TypeScript.
 
-In simple terms, you are giving name and sessionId, but you specified that it can be null. To prevent the error, we will use generics
+In simple terms, you are giving name and `sessionId`, but you specified that it can be null. To prevent the error, we will use generics
 
 > Generics in TypeScript are a powerful feature that allow you to write functions, classes, and types that can work with a variety of data types while maintaining type safety. They allow you to maintain type safety while still dealing with flexible types.
 
@@ -263,7 +253,7 @@ export default App;
 
 ```
 
-In the above piece of code, you note that `ListProps` is a type defined and it has generics. In the prop, `items` receives this array `persons` and then `renderItem` receives a function as a JSX element
+In the above piece of code, you note that `ListProps` is a type defined, and it has generics. In the prop, `items` receives this array `persons` and then `renderItem` receives a function as a JSX element
 
 ```TS
 const persons: Person[] = [
@@ -277,7 +267,7 @@ renderItem={(person) => <div>{person.name} - {person.age}</div>}
 
 > ### Take away #2
 
-If you omit `(null)` and just write `useState<userType | null>()`, TypeScript will still understand that the initial state value is null, as useState automatically infers the initial state value based on the type you provide in the generic parameter. However, including `(null)` can improve code readability and make the intent more obvious.
+If you omit `(null)` and just write `useState<userType | null>()`, TypeScript will still understand that the initial state value is null, as `useState` automatically infers the initial state value based on the type you provide in the generic parameter. However, including `(null)` can improve code readability and make the intent more obvious.
 
 In a nutshell, generics allow you to define placeholders for types that will be specified when the code is used. This helps you write more flexible and reusable code that doesn't sacrifice type checking.
 
@@ -290,7 +280,7 @@ const stringValue: string = identity("Hello, TypeScript!");
 const numberValue: number = identity(42);
 ```
 
-Check out the code at[State with NextJS](https://github.com/joe-jngigi/next_learn_dev/blob/next/app/typescript/react_states/input.tsx)
+Check out the code at [State with NextJS](https://github.com/joe-jngigi/next_learn_dev/blob/next/app/typescript/react_states/input.tsx)
 
 ## Context API
 
@@ -305,7 +295,7 @@ Does a form capture the data from the inputs automatically?
 
 > > Absolutely Yes, a form captures data from the input fields automatically when it's submitted. However, in the provided code, there are a few modifications needed to correctly capture and handle the form data. Remember in this code, I am using typescript, so I will need to be able to handle data types for the data entered by the user
 
-I really don't require this piece of code, but I learnt it anyway
+I really don't require this piece of code, but I learned it anyway
 
 ```TS
 const formData = new FormData(e.currentTarget)
@@ -337,7 +327,7 @@ So basically this is how the form is supposed to be created
 </form>
 ```
 
-Take note of the `type` and the `name` of the input. The `type` will describe the data that will be entered in the `input`, and then the `name`, will be resposible for the `key` for the data to be collected from the inputs. In order to collect the data, you will need to define a function to handle the form submission and capture the data from the input fields. You can note that on the `<form onSubmit={handleSubmit}>{....}</form>` we have defined a function callled `handleSubmit`.
+Take note of the `type` and the `name` of the input. The `type` will describe the data that will be entered in the `input`, and then the `name`, will be responsible for the `key` for the data to be collected from the inputs. In order to collect the data, you will need to define a function to handle the form submission and capture the data from the input fields. You can note that on the `<form onSubmit={handleSubmit}>{....}</form>` we have defined a function called `handleSubmit`.
 
 This is the code for responsible for capturing the data from the input fields
 
@@ -369,18 +359,18 @@ So we have `const formData = new FormData(e.currentTarget)`
 
 The `FormData` object is a built-in JavaScript object that is used to capture form data and send it as part of an HTTP request, typically in the context of AJAX requests or form submissions.
 
-So `new FormData(e.currentTarget)` creates a new instance of the FormData object and initializes it with the data from the form element `(e.currentTarget)`. This property of the event object refers to the DOM element that the event handler is currently attached to. In this case, it refers to the form element `<form>` that is being submitted.
+So `new FormData(e.currentTarget)` creates a new instance of the `FormData` object and initializes it with the data from the form element `(e.currentTarget)`. This property of the event object refers to the DOM element that the event handler is currently attached to. In this case, it refers to the form element `<form>` that is being submitted.
 
 I could basically use this piece of code to get individual data of an input `console.log(formData.get('product_name'));`
 
-By passing the form element to `FormData`, you're essentially capturing all the input values, including text inputs, file inputs, checkboxes, and other form elements, as well as their associated names and values. This data is then stored in the formData object.
+By passing the form element to `FormData`, you're essentially capturing all the input values, including text inputs, file inputs, checkboxes, and other form elements, as well as their associated names and values. This data is then stored in the `formData` object.
 
 > ### Creating Context
 
-A context is a mechanism that allows components to share data without the need to pass props explicitly through every level of the component tree. It provides a way to manage and share state or other values across different components, even if they are not directly related in the component hierarchy. In simple terms it can be used to share data accross the application. Using context, you can create a context provider component that wraps a portion of your component tree. This provider makes the specified data or functions available to any component.
+A context is a mechanism that allows components to share data without the need to pass props explicitly through every level of the component tree. It provides a way to manage and share state or other values across different components, even if they are not directly related in the component hierarchy. In simple terms it can be used to share data across the application. Using context, you can create a context provider component that wraps a portion of your component tree. This provider makes the specified data or functions available to any component.
 
 > How can one create a context?
-> We start by first creating a context like shown below. and since I am using typescript, I will define a data structure initially like shown. Ypu note that we first import create context like shown bellow,
+> We start by first creating a context like shown below. And since I am using typescript, I will define a data structure initially like shown. You note that we first import create context like shown bellow,
 
 ```TS
 import { createContext } from 'react';
@@ -402,13 +392,13 @@ export const AppContext = createContext<AuthContextType>(initialAuthStatus);
 ```
 
 What is `initialAuthStatus`?</br>
-It is called a **default value**, and is required to pe passed in so that when you have forgotten to provide context, that is it is used when there is no provider. That means that everything falls back to default value. Let me break down what is happening here.
+It is called a **default value**, and is required to be passed in so that when you have forgotten to provide context, that it is used when there is no provider. That means that everything falls back to default value. Let me break down what is happening here.
 
-`createContext` is a built in react function used to provide context. `AuthContextType` is used in as the generics and it is used to define a the default data type of the context. `initialAuthStatus` This can be anything, and it used to define a **default value** as shown. I will using a simpler example to see how we can use the context. Suppose we want to change the theme of our application to be maybe `dark mode` or `light mode`. You notice that when we pass in the value `light`, it will have a lint _Argument of type 'string' is not assignable to parameter of type 'ThemeTypes'._
+`createContext` is a built-in react function used to provide context. `AuthContextType` is used in as the generics, and it is used to define the default data type of the context. `initialAuthStatus` This can be anything, and it used to define a **default value** as shown. I will be using a simpler example to see how we can use the context. Suppose we want to change the theme of our application to be maybe `dark mode` or `light mode`. You notice that when we pass in the value `light`, it will have a lint _Argument of type '`string`' is not assignable to parameter of type '`ThemeTypes`'._
 
 `export const ThemeContext = createContext<ThemeTypes>('light')`
 
-Since `ThemeTypes` is describing a datatype, same case we will create an variable, with the same structure, that is why we pass it in as an object. An example is shown on how the data type works.
+Since `ThemeTypes` is describing a datatype, same case we will create a variable, with the same structure, that is why we pass it in as an object. An example is shown on how the data type works.
 
 ```TS
 // An example is shown on how the data type works.
@@ -430,7 +420,7 @@ export const ThemeContext = createContext<ThemeTypes>({
 })
 ```
 
-Now we can import the exported `ThemeContext` to be available to our components. This happens to the `main/parent` component that carries all the other components. On importing, the ThemeContext will have three properties; provider, consumer and displayname. `Consumer` is for components that consume those contexts; those that get the value of the provided context. `Provider` Provides the value to the components it wraps around. Provider takes all properties a component can take. like `value`, `key` and `children`. Children are passed in implicitly
+Now we can import the exported `ThemeContext` to be available to our components. This happens to the `main/parent` component that carries all the other components. On importing, the `ThemeContext` will have three properties; provider, consumer and display name. `Consumer` is for components that consume those contexts; those that get the value of the provided context. `Provider` Provides the value to the components it wraps around. Provider takes all properties a component can take like `value`, `key` and `children`. Children are passed in implicitly
 
 ```TSX
 import React from 'react'
@@ -450,7 +440,7 @@ const ProductsLayout = ({children}: {children: React.ReactNode}) => {
 }
 ```
 
-So far, we realize that the state mutation is happening in the layout file (This is basically the component holding the children components). We would want to have context change in maybe a specific child component. What do I mean, If I have a `</newProduct>` component and want to mutate a state inside that, I will have to wrap it in `<ThemeContext.Provider>`.
+So far, we realize that the state mutation is happening in the layout file (This is basically the component holding the children components). We would want to have context change in maybe a specific child component. What do I mean, If I have a `</newProduct>` component and want to mutate a state inside that, I will have to wrap it in `<ThemeContext.Provider>`
 
 So what we do is that we can define a custom component in the context provider file
 
@@ -472,7 +462,7 @@ export const ThemeContextProvider:FC<ThemeTypes> = () => {
 }
 ```
 
-`TProducts`: An array of productsProps type. It's intended to store an array of products, each represented by a productsProps object. So this means that TProducts will have the following structure.
+`TProducts`: An array of `productsProps` type. It's intended to store an array of products, each represented by a `productsProps` object. So this means that `TProducts` will have the following structure.
 
 ```JSON
 Const TProducts = [
@@ -494,14 +484,14 @@ Const TProducts = [
   },]
 ```
 
-`TAddProduct`: A function that takes a single argument of type productsProps and returns void. This function is intended to add a new product to the array stored in `TProducts`.
+`TAddProduct`: A function that takes a single argument of type `productsProps` and returns void. This function is intended to add a new product to the array stored in `TProducts`.
 
 > ### Take away 3
 
 **Can I safely say a type/interface is used to describe a data structure of what is intended?**</br>
 Yes, that's a very accurate description of the purpose of types and interfaces in programming, particularly in languages like TypeScript. Both types and interfaces are used to define the structure and shape of data. They help ensure that data adheres to a specific structure and type.
 
-In TypeScript, using the syntax `'light' | 'dark'` as the type of a property indicates that the property can only take one of those two specific string values. This enforces type safety and helps prevent unintended values from being assigned to the property.
+In TypeScript, using the syntax `'light' | 'dark'` as the type of property indicates that the property can only take one of those two specific string values. This enforces type safety and helps prevent unintended values from being assigned to the property.
 
 ## Pagination in React
 
@@ -509,11 +499,11 @@ In this code, I am making a pagination, and as provided in the code, we will hav
 
 `const lastIndex = CurrentPage * recordsPerPage`, on this piece of code, it is going to indicate, the last number for of the current count of data. Simply that means that if we have the first page with 25 records, so last index will hold `number 25` and if we have the second records page, it will have `lastIndex => 2 * 25 = 50`
 
-`const firstIndex = lastIndex - recordsPerPage` on this it means that the value for the firstIndex is the first number on a new page. So this is; I have 25 records per page, so the new number will be `firstIndex => 50 - 25 = 25`
+`const firstIndex = lastIndex - recordsPerPage` on this it means that the value for the `firstIndex` is the first number on a new page. So this is; I have 25 records per page, so the new number will be `firstIndex => 50 - 25 = 25`
 
 ## Function components in TS
 
-The use of FC after MyFunctionalComponent is a type annotation in TypeScript. It explicitly specifies that MyFunctionalComponent is a functional component and gives it the type FC, which is typically imported from the React library. FC stands for `Functional Component` and it's a predefined type in TypeScript that helps you define the prop types for functional components. It ensures typesafety.
+The use of FC after `MyFunctionalComponent` is a type annotation in TypeScript. It explicitly specifies that `MyFunctionalComponent` is a functional component and gives it the type FC, which is typically imported from the React library. FC stands for `Functional Component`, and it's a predefined type in TypeScript that helps you define the prop types for functional components. It ensures type safety.
 
 ```TSX
 import React, { FC } from 'react';
@@ -533,7 +523,7 @@ const MyFunctionalComponent: FC<MyComponentProps> = (props) => {
 };
 ```
 
-In this updated code, MyComponentProps is an interface that defines the prop types for MyFunctionalComponent, and `FC<MyComponentProps>` specifies that this functional component expects props conforming to those types. This adds a layer of type safety and helps communicate the expected props to anyone working with the component.
+In this updated code, `MyComponentProps` is an interface that defines the prop types for `MyFunctionalComponent`, and `FC<MyComponentProps>` specifies that this functional component expects props conforming to those types. This adds a layer of type safety and helps communicate the expected props to anyone working with the component.
 
 ```TSX
 const App = () => {
@@ -543,7 +533,7 @@ const App = () => {
   );
 ```
 
-When you attempt to pass an additional prop `extraProp` to the component, TypeScript will raise a type error because extraProp is not part of the expected prop types defined in `MyComponentProps`.
+When you attempt to pass an additional prop `extraProp` to the component, TypeScript will raise a type error because `extraProp` is not part of the expected prop types defined in `MyComponentProps`.
 
 ```TSX
 import React from 'react';
@@ -597,20 +587,20 @@ export const POST = async (req: Request) => {
 
 ```
 
-- The function is marked as `async`, indicating that it will perform **`asynchronous operations`** .
-- The function takes a single parameter `req`, which is assumed to be an `Express.js` Request object.
+- The function is marked as `async`, indicating that it will perform **`asynchronous operations`**.
+- The function takes a single parameter `req`, which is assumed to be `Express.js` Request object.
 - This line is using await to asynchronously wait for the JSON body of the incoming `HTTP request (req)` to be parsed. `req.json()` is a method provided by Express.js to parse the JSON body of a request.
 
 ### Take away 4
 
-Also, on this note, I wanted to check whether the email existed, so that the user can not create an account using the same email again. This, to my surprise, implemented the `POST` method and not the `GET` method. The choice between using a GET request and a POST request depends on the nature of the operation and the conventions of RESTful API design. In this case it meant that for the POST, The I could effect the changes, and secondly, I only wanted the email not to be cached.
+Also, on this note, I wanted to check whether the email existed, so that the user can not create an account using the same email again. This, to my surprise, implemented the `POST` method and not the `GET` method. The choice between using a GET request and a POST request depends on the nature of the operation and the conventions of RESTful API design. In this case it meant that for the POST, Then I could affect the changes, and secondly, I only wanted the email not to be cached.
 
 > GET: It is considered idempotent, meaning that making the same request multiple times should have the same effect as making it once. GET requests are typically used for retrieving information and should not have side effects on the server.
 > POST: It is not necessarily idempotent, and it is often used for operations that can cause a change in the server's state. In your case, it looks like the API is checking for the existence of a user based on their email, which could be considered a non-idempotent operation.
 
 ### Take away 5
 
-This is how we create APIS in JS. Note we have to install exrpess
+This is how we create APIs in JS. Note we have to install express
 
 ```TS
 
@@ -636,7 +626,7 @@ Asynchronous operations in programming refer to tasks that don't necessarily exe
 
 ## Connecting to Database
 
-I am using `Mongodb Atlas`. We use this `npm` package. Remember this is a no SQL database. There are a various way to connect to a MongoDB database, I am familiar with using `MongoDB Driver` and `Mongoose Client`. Mongoose is better because it is robust. Below, I will provide the code used for connection to the mongoDB using `Mongoose`
+I am using `Mongodb Atlas`. We use this `npm` package. Remember this is a no SQL database. There are a various way to connect to a MongoDB database, I am familiar with using `MongoDB Driver` and `Mongoose Client`. Mongoose is better because it is robust. Below, I will provide the code used for connection to the `mongoDB` using `Mongoose`
 
 ```bash
 npm isntall mongoose
@@ -678,13 +668,13 @@ The first line imports the Mongoose library, which is an ODM `(Object Data Model
 
 The `mongoose.connect`: This is a method provided by the Mongoose library to connect to a MongoDB database. It establishes a connection between a Node.js application and the specified MongoDB database through the `MONGO_URI`. It's worth noting that this line is typically called when the application starts or when it needs to connect to the MongoDB database. Once the connection is established, it can be reused throughout the application's lifecycle, and you don't need to establish a new connection every time you interact with the database.
 
-The line `export default connectDB;` exports the connectDB function, allowing other parts of the application to use it to establish a connection to the MongoDB database.
+The line `export default connectDB;` exports the `connectDB` function, allowing other parts of the application to use it to establish a connection to the MongoDB database.
 
 ## Next Auth
 
 NextAuth.js. NextAuth.js is a popular authentication library for Next.js applications. It simplifies the implementation of authentication by providing a set of pre-built authentication providers, such as OAuth, JWT, email/password, and more.
 
-In this application, we have a custom signIn/signOut page, and in that note, we have already set up the database connection and made sure we can sign up. In this phase, we need to have what we call the protection of pages, which is crutial to maybe protect important data. By this, we are using `next-auth` as the provider, where we start by setting up the authentication. For this we create an API provided by next-auth, thorugh the path `api/auth/[...nextuth]`
+In this application, we have a custom `signIn/signOut` page, and in that note, we have already set up the database connection and made sure we can sign up. In this phase, we need to have what we call the protection of pages, which is crucial to maybe protect important data. By this, we are using `next-auth` as the provider, where we start by setting up the authentication. For this we create an API provided by next-auth, through the path `api/auth/[...nextuth]`
 
 ```TS
 import NextAuth from "next-auth"
@@ -696,15 +686,15 @@ const handler = NextAuth(options)
 export { handler as GET, handler as POST }
 ```
 
-This code snippet is responsible for initializing the NextAuth authentication library and exporting the handler for the /api/auth route. This allows the application to handle authentication requests for both GET and POST methods.
+This code snippet is responsible for initializing the `NextAuth` authentication library and exporting the handler for the `/api/auth` route. This allows the application to handle authentication requests for both GET and POST methods.
 
-The spread operator `(...)` is used in the `api/auth/[...nextuth]` route to create a catch-all route. This means that any request that starts with /api/auth will be handled by the NextAuth handler, regardless of the rest of the path. This is useful for handling authentication requests that come from different parts of the application.
+The spread operator `(...)` is used in the `api/auth/[...nextuth]` route to create a catch-all route. This means that any request that starts with `/api/auth` will be handled by the NextAuth handler, regardless of the rest of the path. This is useful for handling authentication requests that come from different parts of the application.
 
-For example, if the application has a sign-in page at /auth/signin, then the api/auth/[...nextuth] route will handle the request to that page. This means that the application does not need to create a separate route for the sign-in page.
+For example, if the application has a sign-in page at `/auth/signin`, then the `api/auth/[...nextuth]` route will handle the request to that page. This means that the application does not need to create a separate route for the sign-in page.
 
 ### Options
 
-We have an import of the options, which provides an array of different providers. We setup an object, and in this case, we have added it in a separate file where we have an array of providers like, `Github`, `Google` and `Credetials`. Credentials are where we have a custom database you are fetching the user from.
+We have an import of the options, which provides an array of different providers. We set up an object, and in this case, we have added it in a separate file where we have an array of providers like, `Github`, `Google` and `Credetials`. Credentials are where we have a custom database you are fetching the user from.
 
 ```TS
 import { NextAuthOptions } from "next-auth";
@@ -747,7 +737,7 @@ export const options: NextAuthOptions = {
 }
 ```
 
-The credentials are used to generate a suitable form on the sign-in page. You can specify whatever fields you are expecting to be submitted. domain, username, password, 2FA token, etc. You can pass any HTML attribute to the `<input>` tag through the object. On the `authorize` function, You need to provide your own logic here that takes the credentials. You should note that this below is usually some random string.
+The credentials are used to generate a suitable form on the sign-in page. You can specify whatever fields you are expecting to be submitted. Domain, username, password, 2FA token, etc. You can pass any HTML attribute to the `<input>` tag through the object. On the `authorize` function, You need to provide your own logic here that takes the credentials. You should note that this below is usually some random string.
 
 You might note that we have an object, `credentials` with data objects `username` and a `password`. When we are creating a custom login, we will have to leave these objects empty. Leaving them with the input variables means that it is going to generate a login form for us.
 
@@ -829,10 +819,10 @@ When trying to get the session for this project, I noticed that I could not get 
 
 The `authorize` function should return either a `user` object, which indicates the credentials are valid, or `null` if the credentials are not valid. If you return an object, it will be persisted to the `JWT` and the user will be signed in. If you return null, an error will be displayed advising the user to check their details.
 
-If you want to display the user’s name and picture when they log in using `NextAuth.js`, you can achieve this by customizing the session callback to include the necessary information. Here’s a general approach on how to do it:
+When you want to display the user’s name and picture when they log in using `NextAuth.js`, you can achieve this by customizing the session callback to include the necessary information. Here’s a general approach on how to do it:
 
 1. Modify the authorize function in your `[...nextauth].js` configuration file to return the user object with the desired fields, such as `name` and `image1`.
-2. Use the callbacks to customize the JWT and session tokens. Specifically, you can use the jwt callback to add any additional user data to the JWT, and the session callback to add this data to the session `object1`.
+2. Use the callbacks to customize the JWT and session tokens. Specifically, you can use the `jwt` callback to add any additional user data to the JWT, and the session callback to add this data to the session `object1`.
 
 Note that this is an example of how you might configure your callbacks, which are added to the options directory
 
@@ -862,7 +852,7 @@ In JavaScript and TypeScript, there are two primary ways to export functionality
 
 > **Named Exports:**
 
-With named exports, you export specific functions or variables by name. In this case, you would import the connectDB function using its name when importing in another file
+With named exports, you export specific functions or variables by name. In this case, you would import the `connectDB` function using its name when importing in another file
 
 ```TS
 export const connectDB = async () => {
