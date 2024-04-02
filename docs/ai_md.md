@@ -1,6 +1,6 @@
 # <p style = "color: cyan; font-size: 36px; ">AI integration in My next.js App</p>
 
-I needed to first find out how I can work with the **Google AI** or the **OpenAI**. I also needed to use **Langchain** as I wanted to make a more customized assistant for my project. **Langchain** simplifies LLM application development by providing the tools to manage **private or customized data access**, guide the LLM with well-crafted prompts, and leverage retrieved information for accurate and informative responses. It's like giving developers a recipe book for building effective LLM applications. This is the installation script of the langchain and the Google AI module. On this project I install **langchain**, **google-genai**, **dotenv** and **`ai`**, `ai` is from Vercel, for the Vercel AI SDK. For this blog, I will only connect to the Generative AI and langchain. I used Gemini to and tried to send data to astradb, but it failed. **Gemini** has no clear documentation in langchain of March 202, so I chose to continue with **OpenAI**, because it is better and with a clear langchain documentation. Remember you have to pay for the OpenAI APIs.
+I needed to first find out how I can work with the **Google AI** or the **OpenAI**. I also needed to use **Langchain** as I wanted to make a more customized assistant for my project. **Langchain** simplifies LLM application development by providing the tools to manage **private or customized data access**, guide the LLM with well-crafted prompts, and leverage retrieved information for accurate and informative responses. It's like giving developers a recipe book for building effective LLM applications. This is the installation script of the langchain and the Google AI module. On this project I install **langchain**, **google-genai**, **dotenv** and **`ai`**, `ai` is from Vercel, for the Vercel AI SDK. For this blog, I will only connect to the Generative AI and langchain. I used Gemini to and tried to send data to astradb, but it failed. **Gemini** has no clear documentation in langchain of March 2024, so I chose to continue with **OpenAI**, because it is better and with a clear langchain documentation. Remember you have to pay for the OpenAI APIs.
 
 ```BASH
 npm install -S langchain @langchain/google-genai ai dotenv --force
@@ -106,7 +106,7 @@ From the messages, we can now extract, **content** and **role**. We will use **r
 
 > So, regardless of whether `isAImessage` is true or false, the `content` variable is being displayed appropriately with the corresponding label ("Assistant" or "User"). This ensures that the content is not mixed up because it's always preceded by an indicator of who sent the message.
 
-# <p style = "color: cyan; font-size: 36px; ">Integrating with Gemini</p>
+# <p style = "color: cyan; font-size: 36px; ">Integrating with the Model</p>
 
 We have noted that I am using **Vercel AI SDK** and **useChat()**. useChat enables **streaming**. In the context of useChat, streaming refers to the continuous flow of chat messages from your AI provider. Imagine it like a live feed of messages being sent one after another, instead of receiving them all at once in a big chunk. **useChat** connects with the `api/chat/route.ts` route, where we have implemented the **Google Gemini API** key.
 
@@ -275,7 +275,7 @@ Not exactly. Langchain isn't designed for directly training a large language mod
 
 In the project, I need the AI chatbot to achieve a certain behavior. This chatbot will be used in my project to answer questions about me, and my portfolio. Langchain will provide helper classes, and for this case, we want to read the content of our pages, and for this we will [**load them into langchain**](https://js.langchain.com/docs/integrations/platforms/google).
 
-## Loading Pages
+## Loading Pages into the database
 
 I needed to load my pages and the documents to provide my personal data to the langchain, that is my external data source, so that I can get more personalized information from my data source. For this I am using [file loaders](https://js.langchain.com/docs/integrations/document_loaders/file_loaders/directory), so I can load my pages and markdowns to get more personalized answers. For this, I generate a function to extract these **files** and put their information in a **document**. This script is a crucial part of a system designed for document processing and analysis.
 
@@ -405,7 +405,13 @@ We need to store these in a vector database, and we will be using Astra Database
 
 For open AI, this is how we connect to the astradb so that we can save our generated data to the database. **OpenAIEmbeddings** is a class for generating embeddings using the OpenAI API. It extends the Embeddings class and implements **OpenAIEmbeddingsParams**. It has an embedding method `(embedDocuments)` to generate embeddings for an array of documents. Splits the documents into batches and makes requests to the OpenAI API to generate embeddings. This will return promise that resolves to a **2D array** of embeddings for each document.
 
-In Langchain, embeddings refer to a numerical representation of textual data. This basically means converting text into a series of numbers that capture the meaning and relationships within the text.
+The **OpenAIEmbeddings** class takes textual data (such as a paragraph or document) as input and generates embeddings (vectors) for that data using the OpenAI API. These embeddings capture semantic information about the text's meaning and context.
+
+Once the embeddings are generated by the OpenAIEmbeddings class, they can be passed to methods of the `AstraDBVectorStore` class for storage in the Astra database.
+
+In the provided code below, the `AstraDBVectorStore.fromExistingIndex()` method is used to create an instance of `AstraDBVectorStore` and connect it to an existing index in the Astra database. Once the instance is created, you can use methods like `addVectors` or `addDocuments` to save the embeddings (vectors) generated by OpenAIEmbeddings to the Astra database.
+
+>In Langchain, embeddings refer to a numerical representation of textual data. This basically means converting text into a series of numbers that capture the meaning and relationships within the text.
 
 Langchain uses a special class called **Embeddings** to interact with different embedding models. Embeddings allow Langchain to process text data in a way that machine learning algorithms can understand. This is because machines can't directly work with raw text, but they can perform calculations and comparisons on vectors (which embeddings are).
 
@@ -437,3 +443,13 @@ export const getOpenaiAstraVectorStore = async () => {
   );
 };
 ```
+
+The OpenAIEmbeddings class is designed to generate vectors (embeddings) for textual data. When we are talk about embeddings, we're referring to these numerical vectors that represent textual data in a format that can be easily processed by machine learning algorithms These embeddings can then be used for various natural language processing tasks, such as similarity calculations, classification, or clustering.
+
+## Using our Data
+
+"We have now stored our data in the database. Moving forward, we need to understand how to utilize this data effectively. Here's an overview of how the data is structured: it's stored in chunks, and each chunk contains an embedding labeled `"$vector"`. These embeddings, such as `[-0.028642498,-0.029153971,-0.019064,0.031362604,0.008538115,...]`, were generated by OpenAI and are now stored in our database. They are represented as vectors with 1536 dimensions, and they encapsulate and describe the semantic meaning of the corresponding text in the language of machine learning."
+
+![Vector Database](./images/image.png)
+
+And now, when we send a message to our chatbot, we want to find the relevant vectors in our database with a similar meaning, we pass them to our chatbot, which the reads the text in then answers the question, based on the information in the database.

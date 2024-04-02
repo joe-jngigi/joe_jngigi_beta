@@ -1,6 +1,6 @@
 ## A weaver of dreams at the loom of the mind
 
-These words inspire me, lol!. The words are from family guy, by Tom Tucker referring to Chris Griffin in season 9, episode 8 title "New Kidney in town" 00:10:00 minute
+These words inspire me, lol! They are on my first page of the website. The words are from family guy, by Tom Tucker referring to Chris Griffin in season 9, episode 8 title "New Kidney in town" 00:10:00 minute
 
 These words were from Meg Griffin though:
 

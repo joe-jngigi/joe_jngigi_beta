@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-import { registered_workers } from "../../../../local_data/data_file";
+import { registered_workers } from "../../../../data_and_snippets/data_file";
 
 const Pagination = () => {
   const [CurrentPage, setCurrentPage] = useState(1);
