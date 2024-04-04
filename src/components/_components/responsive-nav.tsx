@@ -31,11 +31,11 @@ const ResponsiveNav = () => {
         </SidePanel>
 
         {/* Avatar */}
-        <div className="md:flex hidden text-black dark:text-white cursor-pointer">
+        <div className="md:flex hidden  cursor-pointer">
           <MenuDropdown asChild>
             <Avatar>
               <AvatarImage src="#" />
-              <AvatarFallback>
+              <AvatarFallback className="p-2 bg-transparent  dark:text-white">
                 <FaUserFriends size={30} />
               </AvatarFallback>
             </Avatar>

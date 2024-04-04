@@ -1,6 +1,6 @@
 ## A weaver of dreams at the loom of the mind
 
-These words inspire me, lol! They are on my first page of the website. The words are from family guy, by Tom Tucker referring to Chris Griffin in season 9, episode 8 title "New Kidney in town" 00:10:00 minute
+These words inspire me, lol! They are on my first page of the website. It is a quote The words are from family guy, by Tom Tucker referring to Chris Griffin in season 9, episode 8 title "New Kidney in town" 00:10:00 minute
 
 These words were from Meg Griffin though:
 
@@ -15,3 +15,5 @@ Here's a breakdown of the metaphor:
 - "At the loom of the mind": This part likens the mind to a loom, a device used for weaving fabric. It implies that the mind is the tool or instrument through which these dreams are crafted, woven together from the threads of imagination and thought.
 
 Together, the expression conveys the idea of someone who is adept at constructing intricate and captivating mental images or ideas, much like a skilled weaver creates beautiful fabrics on a loom.
+
+## My CV

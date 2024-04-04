@@ -81,21 +81,23 @@ async function generateEmbeddings() {
     };
   });
 
-  const final_rootmd = rootmd_docs.map((doc): DocumentInterface => {
-    const url = doc.metadata.source
-      .replace(/\\/g, "/") //Replace backward slashes with forward
-      .split("/")[1];
-    // .split("/page.")[0] || "/";
+  const final_rootmd = rootmd_docs
+    .filter((doc) => doc.metadata.source.endsWith("aboutme.md"))
+    .map((doc): DocumentInterface => {
+      const url = doc.metadata.source
+        .replace(/\\/g, "/") //Replace backward slashes with forward
+        .split("/")[1];
+      // .split("/page.")[0] || "/";
 
-    const pageContentTrimmed = doc.pageContent
-      .replace(/^\s*[\r]/gm, "") // remove empty lines
-      .trim();
+      const pageContentTrimmed = doc.pageContent
+        .replace(/^\s*[\r]/gm, "") // remove empty lines
+        .trim();
 
-    return {
-      pageContent: pageContentTrimmed,
-      metadata: { url },
-    };
-  });
+      return {
+        pageContent: pageContentTrimmed,
+        metadata: { url },
+      };
+    });
 
   // We need to split the documents generated
   const html_splitter = RecursiveCharacterTextSplitter.fromLanguage("html");
