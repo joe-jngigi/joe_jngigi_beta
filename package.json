@@ -1,6 +1,6 @@
 {
   "name": "next_development",
-  "version": "2.25.0",
+  "version": "2.26.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -48,7 +48,7 @@
     "langchain": "^0.1.31",
     "lucide-react": "^0.362.0",
     "mongoose": "^8.2.4",
-    "next": "^14.2.0-canary.56",
+    "next": "^14.2.0-canary.58",
     "next-auth": "^4.24.5",
     "next-themes": "^0.3.0",
     "openai": "^4.32.1",

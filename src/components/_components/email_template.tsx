@@ -106,7 +106,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
             marginTop: "5px",
             borderRadius: "8px",
             padding: "5px",
-            fontFamily: "monospace",
+            fontFamily: "cursive",
             overflowY: "auto",
           }}
         >

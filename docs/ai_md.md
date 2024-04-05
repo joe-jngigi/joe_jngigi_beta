@@ -1,9 +1,10 @@
 # <p style = "color: cyan; font-size: 36px; ">AI integration in My next.js App</p>
 
-I needed to first find out how I can work with the **Google AI** or the **OpenAI**. I also needed to use **Langchain** as I wanted to make a more customized assistant for my project. **Langchain** simplifies LLM application development by providing the tools to manage **private or customized data access**, guide the LLM with well-crafted prompts, and leverage retrieved information for accurate and informative responses. It's like giving developers a recipe book for building effective LLM applications. This is the installation script of the langchain and the Google AI module. On this project I install **langchain**, **google-genai**, **dotenv** and **`ai`**, `ai` is from Vercel, for the Vercel AI SDK. For this blog, I will only connect to the Generative AI and langchain. I used Gemini to and tried to send data to astradb, but it failed. **Gemini** has no clear documentation in langchain of March 2024, so I chose to continue with **OpenAI**, because it is better and with a clear langchain documentation. Remember you have to pay for the OpenAI APIs.
+I needed to first find out how I can work with the **Google AI** or the **OpenAI**. I also needed to use **Langchain** as I wanted to make a more customized assistant for my project. **Langchain** simplifies LLM application development by providing the tools to manage **private or customized data access**, guide the LLM with well-crafted prompts, and leverage retrieved information for accurate and informative responses. It's like giving developers a recipe book for building effective LLM applications. This is the installation script of the langchain and the Google AI module. On this project I install **langchain**, **openai**, **dotenv** and **`ai`**, `ai` is from Vercel, for the Vercel AI SDK. For this blog, I will only connect to the Generative AI and langchain. I used Gemini to and tried to send data to astradb, but it failed. **Gemini** has no clear documentation in langchain of March 2024, so I chose to continue with **OpenAI**, because it is better with a clear langchain documentation. Remember you have to pay for the OpenAI APIs, $5 is enough for the implementation.
+
 
 ```BASH
-npm install -S langchain @langchain/google-genai ai dotenv --force
+npm install -S langchain ai dotenv --force
 ```
 
 Also, you can check [OpenAI](https://js.langchain.com/docs/get_started/installation), which has also been well documented. For the setup of the langchain for OpenAI, we can check out this documentation, [LangChain for Open AI](https://js.langchain.com/docs/integrations/text_embedding/openai)
@@ -17,7 +18,7 @@ npm install @langchain/openai openai --force
 The other tools used in this project for the chat include the **react-markdown**, which will be used for formatting the chats used in the project. DataStax Astra DB Serverless is a cloud-based NoSQL database service that offers several advantages for your project, especially if it involves storing and managing data efficiently. Checkout the setup for [DataStax Astra DB Serverless](https://docs.datastax.com/en/astra/astra-db-vector/integrations/langchain-js.html).
 
 ```BASH
-npm install @datastax/astra-db-ts@latest
+npm install @datastax/astra-db-ts@latest react-markdown
 ```
 
 The next pack is installing the client for interacting with **Redis**. It is a _Node.js_ client library for interacting with Redis, which is an open-source, in-memory data structure store used as a database, cache, and message broker. Redis is commonly employed in various applications to handle tasks such as caching, session management, real-time analytics, pub/sub messaging, and more.
@@ -34,9 +35,9 @@ npm install ai
 
 ## Chat Implementation
 
-In the implementation, I first implemented the client side rendering, and I am using the `ai` library from the Vercel. **`ai`** provides the **`useChat`** hook for the implementation of the chat. Simply, this provides different functions we can use to handle the **chats and messages** as it handles the API calls, simply allowing us to just put a skeleton over it to allow users to query from the API.
+In the implementation, I first implemented the client side rendering, and I am using the `ai` library from the Vercel. **`ai`** provides the **`useChat`** hook for the implementation of the chat. Simply, this provides different functions we can use to handle the **chats and messages** as it handles the API calls, simply allowing us to just put a UI over it to allow users to query from the API.
 
-From [The Vercel AI SDK](https://sdk.vercel.ai/docs/api-reference/use-chat), we can check out this:
+From [The Vercel AI SDK](https://sdk.vercel.ai/docs/api-reference/use-chat), we can note that:
 
 > **`useChat`** is a utility to allow you to easily create a conversational user interface for your chatbot application. It enables the streaming of chat messages from your AI provider, manages the state for chat input, and updates the UI automatically as new messages are received. After submitting a message, the `useChat` hook will automatically append a user message to the chat history and trigger an API call to the configured endpoint.
 
@@ -106,9 +107,9 @@ From the messages, we can now extract, **content** and **role**. We will use **r
 
 > So, regardless of whether `isAImessage` is true or false, the `content` variable is being displayed appropriately with the corresponding label ("Assistant" or "User"). This ensures that the content is not mixed up because it's always preceded by an indicator of who sent the message.
 
-# <p style = "color: cyan; font-size: 36px; ">Integrating with the Model</p>
+# <p style = "color: cyan; font-size: 36px; ">Integrating with the Gemini Model</p>
 
-We have noted that I am using **Vercel AI SDK** and **useChat()**. useChat enables **streaming**. In the context of useChat, streaming refers to the continuous flow of chat messages from your AI provider. Imagine it like a live feed of messages being sent one after another, instead of receiving them all at once in a big chunk. **useChat** connects with the `api/chat/route.ts` route, where we have implemented the **Google Gemini API** key.
+We have noted that I am using **Vercel AI SDK** and **useChat()**. useChat enables **streaming**. In the context of useChat, streaming refers to the continuous flow of chat messages from your AI provider. Imagine it like a live feed of messages being sent one after another, instead of receiving them all at once in a big chunk. **useChat** connects with the `api/chat/route.ts` route.
 
 In the API route, we implement the [**GoogleGenerativeAIStream**](https://sdk.vercel.ai/docs/api-reference/providers/google-generative-ai-stream). The GoogleGenerativeAIStream function is a utility that transforms the output from Google's Generative AI SDK into a **ReadableStream**. It uses **AIStream** under the hood, applying a specific parser for the Google's response data structure.
 
@@ -227,6 +228,85 @@ export const POST = async (req: Request) => {
     return Response.json({ error: "Iternal Server Error" }, { status: 500 });
   }
 };
+```
+
+**Establishing connection for OpenAI**
+
+```TS
+import { LangChainStream, Message, StreamingTextResponse } from "ai";
+
+import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
+import { createHistoryAwareRetriever } from "langchain/chains/history_aware_retriever";
+import { createRetrievalChain } from "langchain/chains/retrieval";
+
+import {
+  ChatPromptTemplate,
+  MessagesPlaceholder,
+} from "@langchain/core/prompts";
+import { ChatOpenAI } from "@langchain/openai";
+import { getOpenaiAstraVectorStore } from "@/lib/astradb";
+
+const time = new Date(new Date().getTime());
+console.log(time);
+
+export const POST = async (req: Request) => {
+  try {
+
+    const { messages } = await req.json();
+    const { handlers, stream } = LangChainStream();
+
+    /**
+     * We initialize a new instance by instantiating the {ChatOpenAI}.
+     * This will pass through the necessary connection variables to initialize the connection
+     */
+    const genAI = new ChatOpenAI({
+      modelName: "gpt-3.5-turbo-0125",
+      openAIApiKey: process.env.OPEN_AI_GPT_KEY,
+      streaming: true,
+      callbacks: [handlers],
+      verbose: true,
+    });
+
+    /**
+     *
+     * Find the most recent message in the list (the last one because arrays start counting at 0).
+     * Extract the text content (`content`) from that message and store it in the `currentMessage` variable.
+     */
+    const currentMessage = messages[messages.length - 1].content;
+
+    /**
+     * ["user", "{input}"] => Input is a special langchain interpolation input
+     */
+    const prompt = ChatPromptTemplate.fromMessages([
+      [
+        "system",
+        "You are a personal assistant. You can impersonate the website's owner, be lively and moderately casual"
+      ],
+      // new MessagesPlaceholder("chat_history"),
+      ["user", "{input}"],
+    ]);
+
+    /**
+     * This is resposible for taking documents and putting them into the context in the @function {ChatPromptTemplate}
+     * 
+     */
+    const prompts = ChatPromptTemplate.fromMessages([
+      ["system", "You are a personal assistant, and your name is zephyr"],
+      ["user", "{input}"],
+    ]);
+
+    const chain = prompts.pipe(genAI);
+    chain.invoke({
+      input: currentMessage,
+    });
+
+    return new StreamingTextResponse(stream);
+  } catch (error) {
+    console.log(error);
+    return Response.json({ error: "Iternal Server Error" }, { status: 500 });
+  }
+};
+
 ```
 
 **How does langchain work?**
@@ -448,8 +528,124 @@ The OpenAIEmbeddings class is designed to generate vectors (embeddings) for text
 
 ## Using our Data
 
-"We have now stored our data in the database. Moving forward, we need to understand how to utilize this data effectively. Here's an overview of how the data is structured: it's stored in chunks, and each chunk contains an embedding labeled `"$vector"`. These embeddings, such as `[-0.028642498,-0.029153971,-0.019064,0.031362604,0.008538115,...]`, were generated by OpenAI and are now stored in our database. They are represented as vectors with 1536 dimensions, and they encapsulate and describe the semantic meaning of the corresponding text in the language of machine learning."
+We have now stored our data in the database. Moving forward, we need to understand how to utilize this data effectively. Here's an overview of how the data is structured: it's stored in chunks, and each chunk contains an embedding labeled `"$vector"`. These embeddings, such as `[-0.028642498,-0.029153971,-0.019064,0.031362604,0.008538115,...]`, were generated by OpenAI and are now stored in our database. They are represented as vectors with 1536 dimensions, and they encapsulate and describe the semantic meaning of the corresponding text in the language of machine learning.
 
 ![Vector Database](./images/image.png)
 
 And now, when we send a message to our chatbot, we want to find the relevant vectors in our database with a similar meaning, we pass them to our chatbot, which the reads the text in then answers the question, based on the information in the database.
+
+**Using Langchain to query the LLM**
+
+The main reason to have langchain is so that it can process and facilitate data in the database and the user prompts. To have the chatbot answering the answers to our liking, we need to create a chain that passes a list of documents to a model. A **chain** in this case refers to a sequence of steps or actions executed in a predefined order.
+
+> `@param llm` — Language model to use for responding.
+
+> `@param prompt` - Prompt template. Must contain input variable "context", which will be used for passing in the formatted documents.
+
+We have already initialized the **model** and the **prompt**, which will be passed to **createStuffDocumentsChain** to create a `default` **combineDocsChain**.
+
+```TS
+import { LangChainStream, Message, StreamingTextResponse } from "ai";
+
+import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
+import { createHistoryAwareRetriever } from "langchain/chains/history_aware_retriever";
+import { createRetrievalChain } from "langchain/chains/retrieval";
+
+import {
+  ChatPromptTemplate,
+  MessagesPlaceholder,
+} from "@langchain/core/prompts";
+import { ChatOpenAI } from "@langchain/openai";
+import { getOpenaiAstraVectorStore } from "@/lib/astradb";
+
+const time = new Date(new Date().getTime());
+console.log(time);
+
+export const POST = async (req: Request) => {
+  try {
+
+    const { messages } = await req.json();
+    const { handlers, stream } = LangChainStream();
+
+    const genAI = new ChatOpenAI({
+      modelName: "gpt-3.5-turbo-0125",
+      openAIApiKey: process.env.OPEN_AI_GPT_KEY,
+      streaming: true,
+      callbacks: [handlers],
+      verbose: true,
+    });
+
+  
+    const currentMessage = messages[messages.length - 1].content;
+    const prompt = ChatPromptTemplate.fromMessages([
+      [
+        "system",
+        "You are a personal assistant, and for my portfolio. You can impersonate the website's owner, be lively and moderately casual" +
+          "Answer the user's questions based on the below context. " +
+          "Whenever it makes sense, provide links to pages that contain more information about the topic from the given context. " +
+          "Format your messages in markdown format.\n\n" +
+          "Context:\n{context}",
+      ],
+      // new MessagesPlaceholder("chat_history"),
+      ["user", "{input}"],
+    ]);
+
+    const combineDocsChain = await createStuffDocumentsChain({
+      llm: genAI,
+      prompt,
+    });
+
+    const retriever = (await getOpenaiAstraVectorStore()).asRetriever();
+
+    const retrieval_chain = await createRetrievalChain({
+      combineDocsChain,
+      retriever,
+    });
+
+    retrieval_chain.invoke({
+      input: currentMessage,
+    });
+
+    return new StreamingTextResponse(stream);
+  } catch (error) {
+    console.log(error);
+    return Response.json({ error: "Iternal Server Error" }, { status: 500 });
+  }
+};
+```
+
+We then need to retrieve the data from the database so that it can be processed, where we also use a `default` value of **retriever** to assign the returned retrieved data by calling the `.asRetriever()` function from our database connection. Next step will then create a `retrieval_chain`, which will receive two arguments of **combineDocsChain** and the created **retriever**; note their names, that is why we called them as default variables. We will then **invoke** the **retrieval_chain**, which for now has accepts an input value from the user.
+
+ - **combineDocsChain** - It is a `Runnable` that takes inputs and produces a string output. The inputs to this will be any original inputs to this chain, a new context key with the retrieved documents, and *chat_history* (if not present in the inputs) with a value of an array.
+
+The **retrieval_chain** will take the *user input*, and then turn it into a vector, to do a **similarity search** in the vector database, where it will find documents with information similar to the user's input request. This will the pass the documents from the user and the database to the **createStuffDocumentsChain**, which will put them in the *context of the system*
+
+The prompt *system* will have all the relevant documents and the predefined prompt, and the *user* will have the query. All the information will be sent to the GPT-Model, and it will then generate an answer. This should allow the model to answer questions about the website
+
+**Streamlining the model queries**
+
+When retrieving from the database, the default value that is returned is just the `pageContent`, but I also need to capture the `url` This I can then format it more formally. To achieve this, we pass `PromptTemplate` to the **combineDocsChain**, from which we can now format our messages
+
+```TS
+const combineDocsChain = await createStuffDocumentsChain({
+  llm: genAI,
+  prompt,
+  documentPrompt: PromptTemplate.fromTemplate(
+    "Page URL: {url}\n\nPage Content:\n{page_content}"
+  ),
+
+  documentSeparator: "\n------------------\n",
+});
+```
+
+**Chat History**
+
+In order to store the chat history, we need to distinguish the chat history for the human and the AI, so that means when we chat, once the response has been returned the API as messages, we rank them into `HumanMessage` and `AIMessage` like shown below.
+
+```TS
+const chat_history = messages.slice(0, -1).map((text: Message) => {
+  text.role === "user" ? new HumanMessage(text.content): new AIMessage(text.content)
+});
+```
+
+For the usage of the chat history, we need to turn it into a search query
