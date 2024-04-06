@@ -648,4 +648,60 @@ const chat_history = messages.slice(0, -1).map((text: Message) => {
 });
 ```
 
-For the usage of the chat history, we need to turn it into a search query
+For the usage of the chat history, we need to turn it into a search query, that we can use to find the relevant vector embeddings. We could take the whole chat history as it is, turn it into a vector and use it for our search, but this will be in exact.
+
+Suppose we were talking about something then we completely change the topic to another, so we have two completely different meanings in the same vector, but it will not be efficient.
+
+In this case when we have a new topic, so we well only care about it, then we can use OpenAI to rephrase a new query, for this we create a **rephrasePrompt**. This will take our whole *chat history*, and separates them into objects that we can put into an array
+
+```TS
+
+const rephrasePrompt = ChatPromptTemplate.fromMessages([
+  new MessagesPlaceholder("chat_history"),
+  ["user", "{input}"],
+  [
+    "user",
+    "Given the above conversation, generate a search query to look up in order to get information relevant to the current question. " +
+    "Don't leave out any relevant keywords. Only return the query and no other text.",
+  ],
+]);
+```
+This will take the chat history, and it will put it in the above **rephrasePrompt** and the model will rephrase the chat history into a search query
+
+```TS
+const historyAwareRetrieverChain = await createHistoryAwareRetriever({
+  llm: rephrasingModel,
+  retriever,
+  rephrasePrompt,
+});
+```
+
+We still want to pass the same history to the actual prompt to the OpenAI model as it will be used to generate an appropriate answer, for that reason we then initialize **MessagesPlaceholder**. 
+
+>It is a Class that represents a placeholder for messages in a chat prompt. It extends the **BaseMessagePromptTemplate**, which is an abstract class that serves as a base for creating message prompt templates. This defines how to format messages for different roles in a conversation.
+
+Now instead just passing only the **retriever** to the retrieval chain, as this fetches the documents depending on the chat history now, not just the user input.
+
+```TS
+const prompt = ChatPromptTemplate.fromMessages([
+  [
+    "system",
+    "Hello, my name is Joseph Ngigi, or you can call me Joe. " +
+    "You will be my personal assistant, and will answer the questions about me from the website and the the context below. " +
+    "I sometimes call you Zephyr " +
+    "You can impersonate the website's owner, be lively and casual" +
+    "Answer the user's questions based on the below context. " +
+    "Whenever it makes sense, provide links to pages that contain more information about the topic from the given context. " +
+    "Format your messages in markdown format.\n\n" +
+    "Context:\n{context}",
+  ],
+  new MessagesPlaceholder("chat_history"),
+  ["user", "{input}"],
+]);
+
+const retrieval_chain = await createRetrievalChain({
+  combineDocsChain,
+  retriever: historyAwareRetrieverChain,
+});
+
+```

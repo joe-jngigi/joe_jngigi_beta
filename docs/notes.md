@@ -49,4 +49,32 @@ const final_doc = docs.map((doc): DocumentInterface => {
 
 The `g` flag in each expression makes the match and replacement global, affecting all occurrences within the string. The `m` flag in the first two expressions enables multiline matching, allowing them to match patterns across multiple lines. The code consistently uses regular expressions for text manipulation tasks, demonstrating their versatility in handling patterns for cleaning and transforming text data.
 
-For `.split("/src")[1]` and `.split("/page.")[0] || "/"`, the first will remove the prefix URL paths, while the second one will re
+For `.split("/src")[1]` and `.split("/page.")[0] || "/"`, the first will remove the prefix URL paths.
+
+## Mapping In arrays
+
+```javascript
+const chathistory = messages.slice(0, -1).map((text: Message) => {
+  text.role === "user" ? new HumanMessage(text.content) : new AIMessage(text.content);
+});
+```
+
+The issue in your code seems to be related to the mapping of `chathistory` array. You are using `map()` to transform each element of the `messages` array into either a `HumanMessage` or `AIMessage`, but you're not returning anything from the mapping function.
+
+In JavaScript, when you use curly braces `{}` in an arrow function without an explicit `return` statement, the function will not implicitly return anything. Therefore, you need to add a `return` statement to return the transformed messages. Here's the corrected part of your code:
+
+```javascript
+const chathistory = messages.slice(0, -1).map((text: Message) => {
+  return text.role === "user" ? new HumanMessage(text.content) : new AIMessage(text.content);
+});
+```
+
+Or you can use implicit return by removing the curly braces:
+
+```javascript
+const chathistory = messages.slice(0, -1).map((text: Message) =>
+  text.role === "user" ? new HumanMessage(text.content) : new AIMessage(text.content)
+);
+```
+
+With either of these changes, the `chathistory` array should no longer be empty, and it should contain instances of `HumanMessage` and `AIMessage` based on the role of each message in the `messages` array.

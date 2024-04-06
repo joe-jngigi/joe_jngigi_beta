@@ -7,7 +7,8 @@ import { createHistoryAwareRetriever } from "langchain/chains/history_aware_retr
 
 import {
   ChatPromptTemplate,
-  MessagesPlaceholder, PromptTemplate
+  MessagesPlaceholder,
+  PromptTemplate,
 } from "@langchain/core/prompts";
 import { getOpenaiAstraVectorStore } from "@/lib/astradb";
 import { AIMessage, HumanMessage } from "@langchain/core/messages";
@@ -40,12 +41,24 @@ export const POST = async (req: Request) => {
       openAIApiKey: process.env.OPEN_AI_GPT_KEY,
       streaming: true,
       callbacks: [handlers],
+      cache: true,
 
       /**
        * Whether to print out response text.
        */
       verbose: true,
     });
+    const rephrasingModel = new ChatOpenAI({
+      modelName: "gpt-3.5-turbo-0125",
+      openAIApiKey: process.env.OPEN_AI_GPT_KEY,
+      verbose: true,
+      cache:true,
+    });
+
+    /**
+     * This will retrieve the documents for the astradb vectorstore
+     */
+    const retriever = (await getOpenaiAstraVectorStore()).asRetriever();
 
     /**
      * Look at the list of messages (`messages`).
@@ -62,13 +75,33 @@ export const POST = async (req: Request) => {
 
     /**
      * For the chat history, we want to make each in a format that langchain will understand
-     * 
-     * The algorithm is like
-     * 
-     * messages.slice(0, -1) will remove the last message
+     * Whether it is either human or it is AI
+     *
+     * The algorithm will remove the last message: {messages.slice(0, -1)}
      */
-    const chat_history = messages.slice(0, -1).map((text: Message) => {
-      text.role === "user" ? new HumanMessage(text.content): new AIMessage(text.content)
+    const chathistory = messages.slice(0, -1).map((text: Message) => {
+      return text.role === "user"
+        ? new HumanMessage(text.content)
+        : new AIMessage(text.content);
+    });
+
+    // console.log(chathistory);
+    
+
+    const rephrasePrompt = ChatPromptTemplate.fromMessages([
+      new MessagesPlaceholder("chat_history"),
+      ["user", "{input}"],
+      [
+        "user",
+        "Given the above conversation, generate a search query to look up in order to get information relevant to the current question. " +
+          "Don't leave out any relevant keywords. Only return the query and no other text.",
+      ],
+    ]);
+
+    const historyAwareRetrieverChain = await createHistoryAwareRetriever({
+      llm: rephrasingModel,
+      retriever,
+      rephrasePrompt,
     });
 
     /**
@@ -86,7 +119,7 @@ export const POST = async (req: Request) => {
           "Format your messages in markdown format.\n\n" +
           "Context:\n{context}",
       ],
-      // new MessagesPlaceholder("chat_history"),
+      new MessagesPlaceholder("chat_history"),
       ["user", "{input}"],
     ]);
 
@@ -104,17 +137,17 @@ export const POST = async (req: Request) => {
     });
 
     /**
-     * This will retrieve the documents for the astradb vectorstore
+     * The **retrieval_chain** will take the *user input*, and then turn it into a vector;
+     * To do a **similarity search** in the vector database,
      */
-    const retriever = (await getOpenaiAstraVectorStore()).asRetriever();
-
     const retrieval_chain = await createRetrievalChain({
       combineDocsChain,
-      retriever,
+      retriever: historyAwareRetrieverChain,
     });
 
     retrieval_chain.invoke({
       input: currentMessage,
+      chat_history: chathistory
     });
 
     return new StreamingTextResponse(stream);
