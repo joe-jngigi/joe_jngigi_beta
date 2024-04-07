@@ -34,6 +34,7 @@ export const ChatBox = () => {
     }
   }, [messages]);
 
+ 
   /**
    * This will return a boolean, and what it does is check if the last role is user
    */
@@ -103,7 +104,8 @@ export const ChatBox = () => {
 
           {/* Text */}
           <Textarea
-            // ref={inputRef}
+            ref={inputRef}
+            name="input"
             onChange={handleInputChange}
             value={input}
             placeholder="Hello There, I am excited, lets talk!"
@@ -113,7 +115,12 @@ export const ChatBox = () => {
           {/* Buttons */}
 
           <button
-            disabled={isLoading || input.length === 0}
+            // disabled={
+            //   isLoading ||
+            //   inputRef.current === undefined ||
+            //   inputRef.current === null ||
+            //   inputRef.current.value.length === 0
+            // }
             type="submit"
             className=" p-1 sm:p-3 dark:text-emerald-500 disabled:opacity-50 rounded-lg "
           >

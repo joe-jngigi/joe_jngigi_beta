@@ -14,6 +14,8 @@ import {
 
 async function generateEmbeddings() {
 
+  await Redis.fromEnv().flushdb()
+
   // initialize the vectorddatabase
   const vectorStore = await getOpenaiAstraVectorStore();
 

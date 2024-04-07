@@ -10,8 +10,11 @@ import {
   MessagesPlaceholder,
   PromptTemplate,
 } from "@langchain/core/prompts";
+
+import { UpstashRedisCache } from "langchain/cache/upstash_redis";
 import { getOpenaiAstraVectorStore } from "@/lib/astradb";
 import { AIMessage, HumanMessage } from "@langchain/core/messages";
+import { Redis } from "@upstash/redis";
 
 const time = new Date(new Date().getTime());
 console.log(time);
@@ -28,6 +31,10 @@ export const POST = async (req: Request) => {
     const { messages } = await req.json();
     const { handlers, stream } = LangChainStream();
 
+    const cache = new UpstashRedisCache({
+      client: Redis.fromEnv(),
+    });
+
     /**
      * Accessing the model using langchain.
      *
@@ -41,7 +48,7 @@ export const POST = async (req: Request) => {
       openAIApiKey: process.env.OPEN_AI_GPT_KEY,
       streaming: true,
       callbacks: [handlers],
-      cache: true,
+      cache: cache,
 
       /**
        * Whether to print out response text.
@@ -51,8 +58,7 @@ export const POST = async (req: Request) => {
     const rephrasingModel = new ChatOpenAI({
       modelName: "gpt-3.5-turbo-0125",
       openAIApiKey: process.env.OPEN_AI_GPT_KEY,
-      verbose: true,
-      cache:true,
+      cache: cache,
     });
 
     /**
@@ -86,7 +92,6 @@ export const POST = async (req: Request) => {
     });
 
     // console.log(chathistory);
-    
 
     const rephrasePrompt = ChatPromptTemplate.fromMessages([
       new MessagesPlaceholder("chat_history"),
@@ -147,7 +152,7 @@ export const POST = async (req: Request) => {
 
     retrieval_chain.invoke({
       input: currentMessage,
-      chat_history: chathistory
+      chat_history: chathistory,
     });
 
     return new StreamingTextResponse(stream);
