@@ -11,7 +11,7 @@ import {
   PromptTemplate,
 } from "@langchain/core/prompts";
 
-import { UpstashRedisCache } from "langchain/cache/upstash_redis";
+import { UpstashRedisCache } from "@langchain/community/caches/upstash_redis";
 import { getOpenaiAstraVectorStore } from "@/lib/astradb";
 import { AIMessage, HumanMessage } from "@langchain/core/messages";
 import { Redis } from "@upstash/redis";

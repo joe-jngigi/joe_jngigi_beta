@@ -1,16 +1,9 @@
-import React from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { FC } from "react";
+import { DropdownMenu,DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger,} from "@/components/ui/dropdown-menu";
 import { TLayoutProp } from "@/data_manipulation/types/types";
 import ThemeToggle from "../_components/theme_toggle";
 
-export const MenuDropdown: React.FC<TLayoutProp> = ({ children, asChild }) => {
+export const MenuDropdown = ({ children, asChild }:TLayoutProp ) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild={asChild}>{children}</DropdownMenuTrigger>

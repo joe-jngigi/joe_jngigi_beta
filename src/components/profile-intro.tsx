@@ -4,10 +4,10 @@ import { SiGoogleassistant } from "react-icons/si";
 
 const ProfileIntro = () => {
   return (
-    <section className="pt-20 max-w-[1300px] mx-auto transition-all duration-300 ">
-      <div className="flex flex-col p-2 xl:p-5 items-center justify-between md:min-h-[60vh] min-h-[57vh] transition-all duration-300">
-        <div className="h-[300px] sm:h-auto flex-c-center flex-col gap-10 ">
-          <h2 className="head_text text-center sm:pt-10 transition-all duration-300">
+    <section className="pt-20 max-w-[1300px] mx-auto transition-all duration-300">
+      <div className="flex flex-col p-2 xl:p-5 items-center justify-between transition-all duration-300">
+        <div className="h-[80vh] flex-c-center flex-col gap-10 ">
+          <h2 className="head_text text-center transition-all duration-300">
             <span className="dark:bg-gradient-radial-text bg-clip-text dark:text-transparent transition-all duration-300">
               Hello, Welcomè to my TechSpace
             </span>
@@ -22,8 +22,8 @@ const ProfileIntro = () => {
           </p>
         </div>
 
-        <div className=" w-full h-full grid md:grid-cols-2 gap-16 md:gap-5 mt-12">
-          <div className="dark:bg-primary-dark-bg bg-white rounded-lg dark:text-white p-5 dark:shadow-emerald-950 dark:shadow-lg drop-shadow-lg border dark:border-none">
+        <div className=" w-full h-full flex items-center justify-center flex-col gap-5 mt-12">
+          <div className="dark:bg-primary-dark-bg md:w-[600px] w-full bg-white rounded-lg dark:text-white p-5 dark:shadow-emerald-950 dark:shadow-lg drop-shadow-lg border dark:border-none">
             <AestheticRog />
             <div className="tracking-wider mt-5 font-about ">
               <p className="pb-2 text-sm font-bold italic">

@@ -12,9 +12,9 @@ export default function Home() {
       <>
         <ProfileIntro />
       </>
-      <div className="relative p-3 max-w-[1300px] mx-auto  transition-all duration-300 h-[10vh] md:h-[24vh]">
+      <div className="p-3 max-w-[1300px] mx-auto  transition-all duration-300">
         {/* <TechStack /> */}
-        <div className="w-full flex-c-center absolute bottom-0 left-1/2 -translate-x-1/2 gap-3 text-base tracking-wider text-center ">
+        <div className="w-full flex-c-center gap-3 text-base tracking-wider text-center ">
           {/* <NewLoader /> */}
           <span>
             <Link

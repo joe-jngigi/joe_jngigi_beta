@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import { FaGithub, FaXTwitter } from "react-icons/fa6";
 import { Linkedin } from "lucide-react";
 
-import { FiCopy } from "react-icons/fi";
-import { LuCopyCheck } from "react-icons/lu";
 
 import { toast } from "sonner";
 import { AestheticRog } from "@/components/_components/aesthetic-rog";
@@ -12,19 +10,19 @@ import { EmailDialog } from "../ui_children/email_dialog";
 import { SiMinutemailer } from "react-icons/si";
 
 export const SocialsTexts = () => {
-  const [onCopy, setOnCopy] = useState(false);
+  // const [onCopy, setOnCopy] = useState(false);
   const email = "josephngigi775@gmail.com";
 
-  const onClick = (email: string) => {
-    setOnCopy(true);
-    navigator.clipboard.writeText(email);
-    toast.success("Email Copied Successfuly!");
-    setTimeout(() => {
-      setOnCopy(false);
-    }, 2000);
-  };
+  // const onClick = (email: string) => {
+  //   setOnCopy(true);
+  //   navigator.clipboard.writeText(email);
+  //   toast.success("Email Copied Successfuly!");
+  //   setTimeout(() => {
+  //     setOnCopy(false);
+  //   }, 2000);
+  // };
   return (
-    <div className="flex-col flex gap-5">
+    <div className="flex-col flex gap-5 md:w-[600px] w-full">
       <div className="dark:bg-primary-dark-bg bg-white rounded-lg dark:text-white p-5 dark:shadow-emerald-950 dark:shadow-lg drop-shadow-lg border dark:border-none h-full">
         <div className="flex items-center">
           <AestheticRog />

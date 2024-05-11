@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const path = usePathname()
-  console.log(path);
   
   return (
     <nav
