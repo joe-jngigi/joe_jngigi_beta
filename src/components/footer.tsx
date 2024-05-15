@@ -56,7 +56,7 @@ const Footer = () => {
           </a>
         </div>
         <a
-          className="flex flex-row justify-end w-full items-center gap-1 pr-2 font-bold text-emerald-500"
+          className="flex flex-row justify-end w-full sm:w-auto items-center gap-1 pr-2 font-bold text-emerald-500"
           href="https://github.com/joe-jngigi/next_learn_dev"
           target="_blank"
         >

@@ -8,19 +8,18 @@ import { DirectoryLoader } from "langchain/document_loaders/fs/directory";
 import { TextLoader } from "langchain/document_loaders/fs/text";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import {
-  getEmbeddingsCollection,
+  deleteEmbeddingsCollectionDocuments,
   getOpenaiAstraVectorStore,
 } from "../src/lib/astradb";
 
 async function generateEmbeddings() {
-
-  await Redis.fromEnv().flushdb()
+  await Redis.fromEnv().flushdb();
 
   // initialize the vectorddatabase
   const vectorStore = await getOpenaiAstraVectorStore();
 
   // We need to delete the documents so we can always have the updated information
-  (await getEmbeddingsCollection()).deleteMany({});
+  await deleteEmbeddingsCollectionDocuments();
 
   const html_loader = new DirectoryLoader(
     "src/",

@@ -23,7 +23,7 @@ export const ChatDialogue: React.FC<TLayoutProp> = ({ children, asChild }) => {
       <DrawerContent className="border-none outline-none h-[630px] p-1 flex-c-center bg-white/20 dark:bg-transparent">
         <div className="md:w-[600px] w-full h-full rounded-lg dark:bg-primary-dark-bg text-black bg-white dark:text-white  mt-3 select-text">
           {/* Header */}
-          <DrawerHeader>
+          <DrawerHeader className="">
             <DrawerTitle>Assitant</DrawerTitle>
             <DrawerDescription>This action cannot be undone.</DrawerDescription>
           </DrawerHeader>
