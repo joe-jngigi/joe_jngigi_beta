@@ -110,7 +110,6 @@ async function generateEmbeddings() {
   const split_ts = await ts_splitter.splitDocuments(final_typescript);
 
   const newdocs = [...split_rootmd, ...split_html, ...split_ts];
-  console.log(newdocs);
 
   await vectorStore.addDocuments(newdocs);
 }

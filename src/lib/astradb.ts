@@ -86,7 +86,7 @@ export const getOpenaiAstraVectorStore = async () => {
 export const deleteEmbeddingsCollectionDocuments = async () => {
   // return new AstraDB(token, endpoint).collection(collection);
   const list = await client.listCollections();
-  console.log("ASTRADB_FILE", list);
+
 
   try {
     // Get the specific collection
