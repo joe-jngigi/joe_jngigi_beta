@@ -22,7 +22,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning className="!scroll-smooth" lang="en">
+    <html
+      suppressHydrationWarning
+      className="!scroll-smooth duration-700 transition-all"
+      lang="en"
+    >
       <AuthSessionProvider>
         <body className="sm:max-w-[2000px] font-poppins mx-auto md:p-0 h-screen duration-300 transition-all dark:bg-black bg-white">
           <ThemeProvider attribute="class">

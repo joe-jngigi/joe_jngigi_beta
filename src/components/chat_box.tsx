@@ -34,7 +34,12 @@ export const ChatBox = () => {
     }
   }, [messages]);
 
- 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      handleSubmit(event as unknown as React.FormEvent<HTMLFormElement>);
+    }
+  };
   /**
    * This will return a boolean, and what it does is check if the last role is user
    */
@@ -64,7 +69,7 @@ export const ChatBox = () => {
           {!error && messages.length === 0 && (
             <div className="flex-c-center flex-col h-full text-center gap-5">
               <SiGoogleassistant size={32} className="text-emerald-500" />
-              <p className="flex flex-col items-center">
+              <p className="flex flex-col items-center sm:max-w-[400px]">
                 <span className="font-medium">Welcome! Start Chat</span>
                 <span className="text-xs text-slate-400 pt-2">
                   This is my assistant. It will answer any question about me and
@@ -87,24 +92,25 @@ export const ChatBox = () => {
         </div>
       </div>
       <form
-        className="my-5 p-2 rounded-lg bg-slate-100 dark:bg-[rgb(22,22,22)]"
+        className="my-5 p-1.5  rounded-lg bg-slate-100 dark:bg-[rgb(22,22,22)] w-full"
         onSubmit={handleSubmit}
       >
-        <div className="flex items-center justify-between gap-1 h-[70px]">
+        <div className="flex items-center justify-between gap-1 h-[70px] ">
           <button
             type="button"
             onClick={() => {
               setMessages([]);
               messages.length === 0;
             }}
-            className=" p-1 sm:p-3 bg-emerald-500/20 dark:text-emerald-500 rounded-lg"
+            className=" p-1 sm:p-3 bg-red-500/20 dark:text-red-500 rounded-lg"
           >
-            <MdOutlineDeleteSweep size={24} className="flex-none" />
+            <MdOutlineDeleteSweep size={24} className="flex-none shrink-0" />
           </button>
 
           {/* Text */}
           <Textarea
             ref={inputRef}
+            onKeyDown={handleKeyDown}
             name="input"
             onChange={handleInputChange}
             value={input}
@@ -142,8 +148,6 @@ const MessageBox: React.FC<messageProps> = ({
   message_obj: { role, content, ui, id },
 }) => {
   const isAImessage = role === "assistant";
-
-  console.log(role, content);
   return (
     <div
       className={cn(
