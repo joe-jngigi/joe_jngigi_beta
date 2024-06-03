@@ -1,37 +1,39 @@
+"use client";
+
 import Link from "next/link";
+
+import { FaTachometerAlt } from "react-icons/fa";
+import { FcDocument } from "react-icons/fc";
+import { MdOutlineDashboardCustomize } from "react-icons/md";
 
 const PagesLinks = () => {
   return (
-    <>
-      <div className="hidden md:flex flex-row gap-2 items-center justify-center text-sm font-medium">
-        <Link
-          title="Main Page / Home / Joe_J"
-          className=" p-2 rounded-2xl sm:flex flex-col items-center justify-center transition-all duration-500 hover:text-emerald-500"
-          href="/"
-        >
-          {/*  */}
-          <span className=" tracking-wide">Home</span>
-        </Link>
+    <div className="hidden md:flex flex-col py-10 text-sm font-medium text-black dark:text-white">
+      <Link
+        className=" p-2 rounded-2xl transition-all duration-500 hover:text-emerald-500 flex flex-row items-center gap-5"
+        href="/"
+      >
+        {/*  */}
+        <FaTachometerAlt className="flex-none shrink-0" />
+        <span className=" tracking-wide">Home</span>
+      </Link>
 
-        <Link
-          title="Typescript"
-          className=" p-2 rounded-2xl flex flex-col items-center justify-center transition-all duration-700 hover:text-emerald-500"
-          href="/api/auth/sign-in"
-        >
-          {/* <TbBrandTypescript size={20}  /> */}
-          <span className=" tracking-wide">Documentation</span>
-        </Link>
+      <Link
+        className=" p-2 rounded-2xl transition-all duration-700 hover:text-emerald-500 flex flex-row items-center gap-5"
+        href="/api/auth/sign-in"
+      >
+        <FcDocument className="flex-none shrink-0" />
+        <span className=" tracking-wide">Documentations</span>
+      </Link>
 
-        <Link
-          title="Well, now this one you need to login"
-          className=" p-2 rounded-2xl flex flex-col items-center justify-center transition-all duration-700 hover:text-emerald-500"
-          href="/projects"
-        >
-          {/* <GoShieldLock size = {20}/> */}
-          <span className=" tracking-wide">Projects</span>
-        </Link>
-      </div>
-    </>
+      <Link
+        className=" p-2 rounded-2xl transition-all duration-700 hover:text-emerald-500 flex flex-row items-center gap-5"
+        href="/projects"
+      >
+        <MdOutlineDashboardCustomize className="flex-none shrink-0" />
+        <span className=" tracking-wide">Projects</span>
+      </Link>
+    </div>
   );
 };
 

@@ -1,4 +1,5 @@
 export { default as Navbar } from "@/components/navbar";
+export { SideMenu } from "@/components/sidemenu";
 export { default as Footer } from "@/components/footer";
 
 export { default as ProfileIntro } from "@/components/profile-intro";

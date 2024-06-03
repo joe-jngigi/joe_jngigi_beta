@@ -1,7 +1,7 @@
-import { Footer, Navbar } from "@/components";
 import "@/styles/globals.css";
 import AuthSessionProvider from "@/components/auth/auth-session-provider";
 import { ThemeProvider } from "@/components/_components/themeprovider";
+import { Footer, Navbar, SideMenu } from "@/components";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "sonner";
@@ -38,9 +38,14 @@ export default function RootLayout({
               richColors
               position="top-right"
             />
-            <Navbar />
-            {children}
-            <Footer />
+            <main className="md:grid grid-cols-[320px_1fr]">
+              <SideMenu />
+              <section>
+                <Navbar />
+                <div className="h-[92dvh] overflow-auto">{children}</div>
+              </section>
+              {/* <Footer /> */}
+            </main>
           </ThemeProvider>
         </body>
       </AuthSessionProvider>

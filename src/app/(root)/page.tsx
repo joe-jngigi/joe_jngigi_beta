@@ -5,7 +5,7 @@ import { RiContrastDrop2Line } from "react-icons/ri";
 
 export default function Home() {
   return (
-    <section className="font-poppins bg-white dark:bg-black text-black dark:text-white mb-10 pb-20 md:p-0 min-h-[96vh] px-1 duration-300 transition-all">
+    <section className="font-poppins bg-[rgb(209,236,240)] dark:bg-black overflow-y-auto text-black dark:text-white mb-10 pb-20 md:p-0 px-1 duration-300 transition-all">
       <ProfileIntro />
 
       <div className=" w-full h-full flex items-center justify-center flex-col gap-5 mt-12 py-6">
