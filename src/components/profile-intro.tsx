@@ -22,28 +22,7 @@ const ProfileIntro = () => {
             the Assistant, ask more about me!
           </p>
 
-          <div className="w-full flex-c-center gap-3 text-base tracking-wider text-center ">
-            {/* <NewLoader /> */}
-            <span>
-              <Link
-                className="flex flex-row items-center justify-center rounded-full bg-emerald-500/20 dark:text-emerald-500 py-4 px-8 font-[500] text-sm"
-                href={
-                  "https://docs.google.com/document/d/1j4ZvGG4xQ9ZRiobTiFqXHLZV7b73tt-i/edit?usp=sharing&ouid=118297919948625736584&rtpof=true&sd=true"
-                }
-                target="_blank"
-              >
-                View CV <Link2 size={15} className="ml-3 hidde md:block" />
-              </Link>
-            </span>
-            <span>
-              <Link
-                className="flex flex-row items-center justify-center rounded-full bg-emerald-500/20 dark:text-emerald-500 py-4 px-8 font-[500] text-sm"
-                href="/projects"
-              >
-                My Work <Link2 size={15} className="ml-3 hidde md:block" />
-              </Link>
-            </span>
-          </div>
+          
         </div>
       </div>
     </section>
