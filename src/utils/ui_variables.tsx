@@ -8,7 +8,7 @@ import sqlbd from "@/public/sql-database-sql.png";
 import tailwind from "@/public/tailwind-css-icon-2048.png";
 import typescript from "@/public/typescript-2.svg";
 
-import dashboard from "@/public/screens/dashboard.png";
+import dashboard from "@/public/nextjs-13.png";
 
 export const username = "Joe_J";
 
@@ -17,7 +17,6 @@ export const about_me_text =
 
 export const tech_stack_icons = [
   { id: 1, link: typescript, title: "Typescript", className: "top-52 right-8" },
-  { id: 5, link: python, title: "Python", className: "top-52 right-[200px]" },
 
   { id: 3, link: reactjs, title: "React.JS", className: "top-[284px] right-5" },
   {
@@ -68,78 +67,6 @@ export const app_modules = [
 ];
 
 export const project_details = [
-  {
-    badge: "Desktop Only",
-    name: "Next V5 - Authentication",
-    project_link: "https://next-auth-ts-v5.vercel.app",
-    source_code: "https://github.com/joe-jngigi/next_auth_V5",
-    description:
-      "On this project, I have implemented nextAuth V5. It has features of multiple users, confrimation blocks for authentication, and user previleges",
-    image: dashboard,
-  },
-  {
-    badge: "Desktop Only",
-    name: "Next V5 - Authentication",
-    project_link: "https://next-auth-ts-v5.vercel.app",
-    source_code: "https://github.com/joe-jngigi/next_auth_V5",
-    description:
-      "On this project, I have implemented nextAuth V5. It has features of multiple users, confrimation blocks for authentication, and user previleges",
-    image: dashboard,
-  },
-  {
-    badge: "Desktop Only",
-    name: "Next V5 - Authentication",
-    project_link: "https://next-auth-ts-v5.vercel.app",
-    source_code: "https://github.com/joe-jngigi/next_auth_V5",
-    description:
-      "On this project, I have implemented nextAuth V5. It has features of multiple users, confrimation blocks for authentication, and user previleges",
-    image: dashboard,
-  },
-  {
-    badge: "Desktop Only",
-    name: "Next V5 - Authentication",
-    project_link: "https://next-auth-ts-v5.vercel.app",
-    source_code: "https://github.com/joe-jngigi/next_auth_V5",
-    description:
-      "On this project, I have implemented nextAuth V5. It has features of multiple users, confrimation blocks for authentication, and user previleges",
-    image: dashboard,
-  },
-  {
-    badge: "Desktop Only",
-    name: "Next V5 - Authentication",
-    project_link: "https://next-auth-ts-v5.vercel.app",
-    source_code: "https://github.com/joe-jngigi/next_auth_V5",
-    description:
-      "On this project, I have implemented nextAuth V5. It has features of multiple users, confrimation blocks for authentication, and user previleges",
-    image: dashboard,
-  },
-  {
-    badge: "Desktop Only",
-    name: "Next V5 - Authentication",
-    project_link: "https://next-auth-ts-v5.vercel.app",
-    source_code: "https://github.com/joe-jngigi/next_auth_V5",
-    description:
-      "On this project, I have implemented nextAuth V5. It has features of multiple users, confrimation blocks for authentication, and user previleges",
-    image: dashboard,
-  },
-  {
-    badge: "Desktop Only",
-    name: "Next V5 - Authentication",
-    project_link: "https://next-auth-ts-v5.vercel.app",
-    source_code: "https://github.com/joe-jngigi/next_auth_V5",
-    description:
-      "On this project, I have implemented nextAuth V5. It has features of multiple users, confrimation blocks for authentication, and user previleges",
-    image: dashboard,
-  },
-  {
-    badge: "Desktop Only",
-    name: "Next V5 - Authentication",
-    project_link: "https://next-auth-ts-v5.vercel.app",
-    source_code: "https://github.com/joe-jngigi/next_auth_V5",
-    description:
-      "On this project, I have implemented nextAuth V5. It has features of multiple users, confrimation blocks for authentication, and user previleges",
-    image: dashboard,
-  },
   {
     badge: "Desktop Only",
     name: "Next V5 - Authentication",

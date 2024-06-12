@@ -4,14 +4,11 @@ import { BackBtn, Panel } from ".";
 
 const ShieldedLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <main className="lg:pt-24 bg-white sm:max-w-[2000px] mx-auto dark:bg-black text-black dark:text-white pt-16 h-screen grid sm:grid-cols-[200px_1fr] md:grid-cols-[250px_1fr] lg:grid-cols-[350px_1fr] pb-10">
-      <Panel className="hidden sm:block" />
-
-      <div className="px-1">{children}</div>
-
-      <>
-        <BackBtn className_btn_back="hidden" />
-      </>
+    <main className=" bg-white mx-auto dark:bg-black text-black dark:text-white overflow-y-auto h-[93dvh]">
+      about me
+      <p className="mt-10">
+        My namè Is Joseph Ngigi
+      </p>
     </main>
   );
 };

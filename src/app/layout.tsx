@@ -42,7 +42,7 @@ export default function RootLayout({
               <SideMenu />
               <section>
                 <Navbar />
-                <div className="h-[92dvh] overflow-auto">{children}</div>
+                <div className="h-[94dvh] overflow-auto">{children}</div>
               </section>
               {/* <Footer /> */}
             </main>

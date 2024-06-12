@@ -1,7 +1,10 @@
+import React from "react";
+import Link from "next/link";
+
 import { cn } from "@/lib/utils";
 import { Link2 } from "lucide-react";
-import Link from "next/link";
-import React from "react";
+
+import { TechStack } from "./_components/tech-stack";
 
 interface aside_menu {
   className: string;
@@ -10,7 +13,7 @@ interface aside_menu {
 export const HomeAside: React.FC<aside_menu> = ({ className }) => {
   return (
     <aside className={cn("p-2", className)}>
-      <div className="border-l border-gray-400 px-4 pb-5" >
+      <div className="border-l border-gray-300 dark:border-gray-800 px-4 pb-5">
         <h2 className="font-semibold text-base flex flex-row items-center gap-3 dark:text-gray-300 text-gray-700">
           <span>Related Links</span>{" "}
           <span className="cursor-pointer transition-all duration-500 hover:text-emerald-500">
@@ -35,6 +38,10 @@ export const HomeAside: React.FC<aside_menu> = ({ className }) => {
             Link to Offin Finance
           </Link>
         </div>
+      </div>
+
+      <div className="mt-10 py-5 border-l border-gray-300 dark:border-gray-800">
+        <TechStack />
       </div>
     </aside>
   );

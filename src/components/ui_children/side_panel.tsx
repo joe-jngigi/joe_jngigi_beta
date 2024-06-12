@@ -12,6 +12,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import ThemeToggle from "../_components/theme_toggle";
+import { MeProfile } from "../_components/me_profile";
+import PagesLinks from "../_components/pages-links";
+import { SocialsTexts } from "../_components/my_links";
 
 export const SidePanel: React.FC<TLayoutProp> = ({ children, asChild }) => {
   return (
@@ -28,6 +31,15 @@ export const SidePanel: React.FC<TLayoutProp> = ({ children, asChild }) => {
 
         <div>
           <ThemeToggle />
+          {/* Profile Info */}
+          <MeProfile />
+
+          {/* Pages Links */}
+          <PagesLinks />
+
+          {/* Socials */}
+
+          <SocialsTexts />
         </div>
       </SheetContent>
     </Sheet>

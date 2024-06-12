@@ -10,7 +10,7 @@ export const SocialsTexts = () => {
   return (
     <div className="absolute bottom-0 left-0 px-4 w-[320px]  h-[80px]  flex flex-row items-center gap-3">
       <a
-        className="flex-c-center items-center gap-1 flex-col bg-primary-dark-bg p-2 rounded-full border  "
+        className="flex-c-center items-center gap-1 flex-col bg-gray-200 dark:bg-primary-dark-bg p-2 rounded-full border  "
         href="https://github.com/joe-jngigi"
         target="_blank"
       >
@@ -18,7 +18,7 @@ export const SocialsTexts = () => {
         <span className="sr-only ">GitHub Link</span>
       </a>
       <a
-        className="flex-c-center items-center gap-1 flex-col bg-primary-dark-bg p-2 rounded-full border"
+        className="flex-c-center items-center gap-1 flex-col bg-gray-200 dark:bg-primary-dark-bg p-2 rounded-full border"
         href="mailto:josephngigi775@gmail.com"
         target="_blank"
       >
@@ -27,7 +27,7 @@ export const SocialsTexts = () => {
       </a>
 
       <a
-        className="flex-c-center gap-1 flex-col bg-primary-dark-bg p-2 rounded-full border"
+        className="flex-c-center gap-1 flex-col bg-gray-200 dark:bg-primary-dark-bg p-2 rounded-full border"
         href="https://twitter.com/joe_jngigi"
         target="_blank"
       >
@@ -36,7 +36,7 @@ export const SocialsTexts = () => {
       </a>
 
       <a
-        className=" flex-c-center gap-1 flex-col bg-primary-dark-bg p-2 rounded-full border"
+        className=" flex-c-center gap-1 flex-col bg-gray-200 dark:bg-primary-dark-bg p-2 rounded-full border"
         href="https://www.linkedin.com/in/joejngigi/"
         target="_blank"
       >
@@ -45,7 +45,7 @@ export const SocialsTexts = () => {
       </a>
 
       <a
-        className=" flex-c-center gap-1 flex-col bg-primary-dark-bg p-2 rounded-full border"
+        className=" flex-c-center gap-1 flex-col bg-gray-200 dark:bg-primary-dark-bg p-2 rounded-full border"
         href="https://dev.to/joe_jngigi"
         target="_blank"
       >
@@ -61,7 +61,7 @@ export const SocialsTexts = () => {
         {/* Buttons */
 }
 {
-  /* <div className="rounded-md p-2 flex-c-center flex-row gap-3 sm:gap-5 ">
+  /* <div cladark:ssName="rounded-md p-2 flex-c-center flex-row gap-3 sm:gap-5 ">
           
         </div> 
       </div> */

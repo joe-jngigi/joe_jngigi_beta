@@ -7,12 +7,13 @@ import { FaLink } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 
 export const MyProjects = () => {
+  
   return (
     <>
       {project_details.map((project) => (
         <div
           key={Math.random()}
-          className="flex flex-col md:p-0 pb-5 hover:scale-[1.02] duration-300 transition-all transform md:bg-white dark:md:bg-primary-dark-bg md:rounded-lg dark:shadow-md shadow-lg drop-shadow-lg dark:md:shadow-emerald-900 md:border border-b-1 dark:border-slate-800"
+          className="flex flex-col lg:grid lg:grid-cols-[300px_1fr] md:p-0 pb-5 mb-5 hover:scale-[1.01] duration-300 transition-all transform md:bg-white dark:md:bg-main-dark-bg md:rounded-lg dark:shadow-md shadow-md drop-shadow-sm  md:border border-b-1"
         >
           <div className="grid grid-cols-[132px_1fr] sm:flex items-center">
             {/* Image */}
@@ -21,7 +22,7 @@ export const MyProjects = () => {
                 src={project.image}
                 alt={project.name}
                 layout="fill"
-                className="object-cover w-full hover:scale-[1.03] duration-300 transition-all transform"
+                className="object-cover w-full "
               />
             </div>
 
@@ -47,7 +48,7 @@ export const MyProjects = () => {
             />
 
             {/* Description */}
-            <p className="text-xs lg:text-sm text-gray-400 mt-3 ">
+            <p className="text-xs lg:text-sm text-gray-700 dark:text-gray-400 mt-3 ">
               {project.description}
             </p>
             {/* ... (Other project details) */}

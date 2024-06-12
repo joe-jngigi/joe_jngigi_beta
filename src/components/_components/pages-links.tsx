@@ -8,7 +8,7 @@ import { MdOutlineDashboardCustomize } from "react-icons/md";
 
 const PagesLinks = () => {
   return (
-    <div className="hidden md:flex flex-col py-10 text-sm font-medium text-black dark:text-white">
+    <div className=" flex-col py-10 text-sm font-medium text-black dark:text-white">
       <Link
         className=" p-2 rounded-2xl transition-all duration-500 hover:text-emerald-500 flex flex-row items-center gap-5"
         href="/"
