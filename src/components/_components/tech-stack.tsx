@@ -10,7 +10,7 @@ export const TechStack = () => {
       {tech_stack_icons.slice(0, 10).map((icon) => (
         <div
           key={icon.id}
-          className="bg-white dark:bg-main-dark-bg p-1 cursor-pointer drop-shadow-lg rounded-full text-xs tracking-wider flex items-center border border-gray-300 dark:border-gray-900"
+          className="bg-white dark:bg-black  p-1 cursor-pointer drop-shadow-lg rounded-full text-xs tracking-wider flex items-center border "
         >
           <p className="px-2">{icon.title}</p>
         </div>

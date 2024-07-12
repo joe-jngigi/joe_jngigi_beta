@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import { project_details } from "@/utils/ui_variables";
@@ -7,11 +8,10 @@ import { FaLink } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 
 export const MyProjects = () => {
-  
   return (
     <>
       {project_details.map((project) => (
-        <div
+        <div 
           key={Math.random()}
           className="flex flex-col lg:grid lg:grid-cols-[300px_1fr] md:p-0 pb-5 mb-5 hover:scale-[1.01] duration-300 transition-all transform md:bg-white dark:md:bg-main-dark-bg md:rounded-lg dark:shadow-md shadow-md drop-shadow-sm  md:border border-b-1"
         >
@@ -48,7 +48,7 @@ export const MyProjects = () => {
             />
 
             {/* Description */}
-            <p className="text-xs lg:text-sm text-gray-700 dark:text-gray-400 mt-3 ">
+            <p className="text-xs lg:text-sm text-gray-700 dark:text-gray-400 mt-3 line-clamp-4 ">
               {project.description}
             </p>
             {/* ... (Other project details) */}
@@ -77,19 +77,22 @@ const Links: React.FC<linksProps> = ({
   badge,
 }) => {
   return (
-    <div
-      className={cn(
-        "flex-col sm:flex-row sm:items-center justify-between pl-1",
-        className
-      )}
-    >
-      <div>
-        <h3 className="text-lg font-medium">{name}</h3>
-        {badge ? <span className="text-[10px] bg-emerald-500 rounded-md p-0.5">{badge}</span>: undefined }
+    <div className={cn("flex-col flex justify-between", className)}>
+      <div className="flex sm:flex-row flex-col gap-1 justify-between">
+        <h2 className="sm:text-lg font-medium truncate w-[200px] sm:w-[300px]">
+          {name}
+        </h2>
+        <p >
+          {badge ? (
+            <span className="text-[10px] bg-emerald-500 rounded-md p-0.5">
+              {badge}
+            </span>
+          ) : undefined}
+        </p>
       </div>
-      <div className="flex flex-row md:flex-col lg:flex-row sm:justify-between justify-end gap-5 text-xs text-emerald-500">
+      <div className="flex flex-row gap-5 text-xs text-emerald-500">
         <a
-          className="flex flex-row items-center gap-1  rounded-lg p-1 bg-emerald-500/20"
+          className="flex flex-row items-center gap-1  rounded-lg p-1"
           target="_blank"
           href={code}
         >
@@ -98,7 +101,7 @@ const Links: React.FC<linksProps> = ({
         </a>
 
         <a
-          className="flex flex-row items-center gap-1 rounded-lg p-1 bg-emerald-500/20"
+          className="flex flex-row items-center gap-1 rounded-lg p-1 "
           target="_blank"
           href={preview}
         >

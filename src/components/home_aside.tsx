@@ -23,7 +23,7 @@ export const HomeAside: React.FC<aside_menu> = ({ className }) => {
 
         {/* <NewLoader /> */}
 
-        <div className="flex flex-col gap-2 text-sm dark:text-gray-400 text-gray-600 mt-4">
+        <div className="flex flex-col gap-2 text-xs dark:text-gray-400 text-gray-600 mt-4">
           <Link
             className="hover:text-emerald-500 hover:underline transition-all duration-500"
             href="https://docs.google.com/document/d/1j4ZvGG4xQ9ZRiobTiFqXHLZV7b73tt-i/edit?usp=sharing&ouid=118297919948625736584&rtpof=true&sd=true"

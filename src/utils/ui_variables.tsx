@@ -69,11 +69,11 @@ export const app_modules = [
 export const project_details = [
   {
     badge: "Desktop Only",
-    name: "Next V5 - Authentication",
+    name: "Next V5 - Authentication lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, quaerat?",
     project_link: "https://next-auth-ts-v5.vercel.app",
     source_code: "https://github.com/joe-jngigi/next_auth_V5",
     description:
-      "On this project, I have implemented nextAuth V5. It has features of multiple users, confrimation blocks for authentication, and user previleges",
+      "On this project, I have implemented nextAuth V5. It has features of multiple users,  confrimation blocks for authentication, and user previleges. lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, quaerat? lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, quaerat? lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, quaerat?lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, quaerat?",
     image: dashboard,
   },
   {
