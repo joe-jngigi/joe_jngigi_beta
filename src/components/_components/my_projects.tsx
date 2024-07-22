@@ -48,7 +48,7 @@ export const MyProjects = () => {
             />
 
             {/* Description */}
-            <p className="text-xs lg:text-sm text-gray-700 dark:text-gray-400 mt-3 line-clamp-4 ">
+            <p className="text-xs text-gray-700 dark:text-gray-400 mt-3 line-clamp-4 ">
               {project.description}
             </p>
             {/* ... (Other project details) */}
