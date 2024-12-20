@@ -21,13 +21,7 @@ export const SidePanel: React.FC<TLayoutProp> = ({ children, asChild }) => {
     <Sheet>
       <SheetTrigger asChild={asChild}>{children}</SheetTrigger>
       <SheetContent className="md:hidden block dark:bg-black bg-white dark:text-white text-black">
-        <SheetHeader>
-          <SheetTitle>Are you absolutely sure?</SheetTitle>
-          <SheetDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </SheetDescription>
-        </SheetHeader>
+        <SheetHeader></SheetHeader>
 
         <div>
           <ThemeToggle />
